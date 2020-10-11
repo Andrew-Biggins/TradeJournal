@@ -27,17 +27,7 @@ namespace TradeJournalWPF.Converters
 
         public new object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (targetType is null)
-            {
-                return null;
-            }
-
-            if (double.TryParse((string) value, out double d))
-            {
-                return Option.Some(d);
-            }
-
-            return Option.None<DateTime>();
+            return targetType is null ? null : Option.None<DateTime>();
         }
     }
 }
