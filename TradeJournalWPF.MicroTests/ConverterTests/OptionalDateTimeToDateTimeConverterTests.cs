@@ -42,7 +42,7 @@ namespace TradeJournalWPF.MicroTests.ConverterTests
 
         [Gwt("Given an option some date time",
             "when converted",
-            "the date time is returned")]
+            "the same date time is returned")]
         public void T2()
         {
             // Arrange

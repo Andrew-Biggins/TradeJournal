@@ -30,12 +30,7 @@ namespace TradeJournalWPF.Converters
                 return null;
             }
 
-            if (double.TryParse((string)value, out double d))
-            {
-                return Option.Some(d);
-            }
-
-            return Option.None<double>();
+            return double.TryParse((string)value, out var d) ? Option.Some(d) : Option.None<double>();
         }
     }
 }
