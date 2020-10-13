@@ -81,7 +81,7 @@ namespace TradeJournalWPF.MicroTests.ConverterTests
             var testConverter = new OptionalDateTimeToDateTimeConverter();
 
             // Act 
-            var actual = testConverter.ConvertBack(null, null, null!, InvariantCulture);
+            var actual = testConverter.ConvertBack(DateTime.MaxValue, null, null!, InvariantCulture);
 
             // Assert
             Assert.Equal(null!, actual);
