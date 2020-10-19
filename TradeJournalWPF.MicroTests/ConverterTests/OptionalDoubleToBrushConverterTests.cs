@@ -4,7 +4,7 @@ using TradeJournalCore.MicroTests;
 using TradeJournalCore.Optional;
 using TradeJournalWPF.Converters;
 using Xunit;
-using static TradeJournalWPF.MicroTests.ConverterTests.Shared;
+using static TradeJournalWPF.MicroTests.Shared;
 
 namespace TradeJournalWPF.MicroTests.ConverterTests
 {

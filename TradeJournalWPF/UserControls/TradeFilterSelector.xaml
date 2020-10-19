@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TradeJournalWPF.UserControls"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:converters="clr-namespace:TradeJournalWPF.Converters"
+             xmlns:validationRules="clr-namespace:TradeJournalWPF.ValidationRules"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="1350">
     <UserControl.Resources>
@@ -154,7 +156,7 @@
                     <TextBlock Text="Min" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center"/>
                     <TextBlock Text="Max" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"/>
 
-                    <!--<TextBox Grid.Column="0" Grid.Row="2"  x:Name="MinRiskRewardRatioTextBox"
+                    <TextBox Grid.Column="0" Grid.Row="2"  x:Name="MinRiskRewardRatioTextBox"
                              VerticalContentAlignment="Center" Margin="8,1,8,5" 
                              Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}">
                         <TextBox.Text>
@@ -163,7 +165,7 @@
                                      UpdateSourceTrigger="LostFocus"
                                      Converter="{converters:EmptyDoubleToStringConverter}">
                                 <Binding.ValidationRules>
-                                    <validationRules:MinimumGapSizeValidationRule/>
+                                    <validationRules:PositiveNumberValidationRule/>
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
@@ -177,11 +179,11 @@
                                      UpdateSourceTrigger="LostFocus"
                                      Converter="{converters:EmptyDoubleToStringConverter}">
                                 <Binding.ValidationRules>
-                                    <validationRules:MinimumGapSizeValidationRule/>
+                                    <validationRules:PositiveNumberValidationRule/>
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
-                    </TextBox>-->
+                    </TextBox>
                 </Grid>
             </Border>
 

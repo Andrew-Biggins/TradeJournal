@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace TradeJournalWPF.MicroTests.ConverterTests
+namespace TradeJournalWPF.MicroTests
 {
     internal static class Shared
     {
