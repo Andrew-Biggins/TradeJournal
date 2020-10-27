@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Common.MicroTests;
+using Common.Optional;
+using System;
 using System.Windows.Media;
-using TradeJournalCore.MicroTests;
-using TradeJournalCore.Optional;
 using TradeJournalWPF.Converters;
 using Xunit;
 using static TradeJournalWPF.MicroTests.Shared;

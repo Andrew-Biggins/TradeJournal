@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
-using TradeJournalCore.Optional;
+using Common.Optional;
 
 namespace TradeJournalWPF.Converters
 {

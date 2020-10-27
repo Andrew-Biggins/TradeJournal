@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Common.MicroTests\Common.MicroTests.csproj" />
     <ProjectReference Include="..\TradeJournalCore.MicroTests\TradeJournalCore.MicroTests.csproj" />
     <ProjectReference Include="..\TradeJournalWPF\TradeJournalWPF.csproj" />
   </ItemGroup>

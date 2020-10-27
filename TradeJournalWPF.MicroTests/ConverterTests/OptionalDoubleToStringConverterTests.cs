@@ -1,6 +1,5 @@
-﻿using System;
-using TradeJournalCore.MicroTests;
-using TradeJournalCore.Optional;
+﻿using Common.MicroTests;
+using Common.Optional;
 using TradeJournalWPF.Converters;
 using Xunit;
 using static TradeJournalWPF.MicroTests.Shared;

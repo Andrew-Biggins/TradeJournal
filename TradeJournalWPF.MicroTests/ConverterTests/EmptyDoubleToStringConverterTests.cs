@@ -1,4 +1,4 @@
-﻿using TradeJournalCore.MicroTests;
+﻿using Common.MicroTests;
 using TradeJournalWPF.Converters;
 using Xunit;
 using static TradeJournalWPF.MicroTests.Shared;

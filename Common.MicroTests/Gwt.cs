@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace TradeJournalCore.MicroTests
+namespace Common.MicroTests
 {
     public sealed class Gwt : FactAttribute
     {

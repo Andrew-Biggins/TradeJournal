@@ -1,5 +1,5 @@
-﻿using System.Windows.Controls;
-using TradeJournalCore.MicroTests;
+﻿using Common.MicroTests;
+using System.Windows.Controls;
 using TradeJournalWPF.ValidationRules;
 using Xunit;
 using static TradeJournalWPF.MicroTests.Shared;

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
+﻿using System.Globalization;
 using System.Windows.Controls;
 
 namespace TradeJournalWPF.ValidationRules
@@ -17,12 +14,9 @@ namespace TradeJournalWPF.ValidationRules
 
             if (double.TryParse((string)value, out var number))
             {
-                if (number < 0)
-                {
-                    return new ValidationResult(false, "Value must be positive");
-                }
-
-                return ValidationResult.ValidResult;
+                return number < 0 
+                    ? new ValidationResult(false, "Value must be positive") 
+                    : ValidationResult.ValidResult;
             }
 
             return new ValidationResult(false, "Value must be a number");

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using TradeJournalCore.Optional;
+using Common.Optional;
 
 namespace TradeJournalWPF.Converters
 {

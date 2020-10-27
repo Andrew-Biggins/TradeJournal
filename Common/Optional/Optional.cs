@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace TradeJournalCore.Optional
+namespace Common.Optional
 {
     public abstract class Optional<T>
     {

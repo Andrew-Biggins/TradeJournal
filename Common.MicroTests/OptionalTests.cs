@@ -1,8 +1,8 @@
 using System;
-using TradeJournalCore.Optional;
+using Common.Optional;
 using Xunit;
 
-namespace TradeJournalCore.MicroTests
+namespace Common.MicroTests
 {
     public class OptionalTests
     {

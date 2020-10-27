@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TradeJournalCore.Optional
+namespace Common.Optional
 {
     public static partial class Option
     {
