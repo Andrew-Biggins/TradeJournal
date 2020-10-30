@@ -7,6 +7,7 @@
         xmlns:userControls="clr-namespace:TradeJournalWPF.UserControls"
         xmlns:converters="clr-namespace:TradeJournalWPF.Converters"
         xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:validationRules="clr-namespace:TradeJournalWPF.ValidationRules"
         mc:Ignorable="d"
         Title="Trade Journal" Height="750" Width="1360"
         MinWidth="1360" MinHeight="750"
@@ -118,16 +119,16 @@
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                             <TextBlock Text="Account Start Size:" FontWeight="Bold" HorizontalAlignment="Right" Background="BurlyWood" Foreground="Black" FontSize="11.5" Margin="0,0,2,2"/>
                             <TextBox Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}" Width="70" Height="18" Margin="0,0,0,0.5" >
-                                <!--<TextBox.Text>
+                                <TextBox.Text>
                                     <Binding Path="AccountStartSize"
                                          Mode="TwoWay"
                                          UpdateSourceTrigger="LostFocus"
                                          Converter="{converters:EmptyDoubleToStringConverter}">
                                         <Binding.ValidationRules>
-                                            <validationRules:MinimumGapSizeValidationRule/>
+                                            <validationRules:PositiveNumberValidationRule/>
                                         </Binding.ValidationRules>
                                     </Binding>
-                                </TextBox.Text>-->
+                                </TextBox.Text>
                             </TextBox>
                         </StackPanel>
                     </Border>
