@@ -7,7 +7,6 @@ namespace Common
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-
         protected void SetProperty<T>(ref T member, T value, string propertyName = "")
         {
             if (!Equals(member, value))

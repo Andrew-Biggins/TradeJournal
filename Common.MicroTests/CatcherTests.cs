@@ -1,8 +1,6 @@
-﻿using System;
-using NSubstitute;
+﻿using NSubstitute;
+using System;
 using System.ComponentModel;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute.Exceptions;
 
 namespace Common.MicroTests
 {

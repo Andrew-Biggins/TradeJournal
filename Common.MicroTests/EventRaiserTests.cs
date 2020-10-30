@@ -1,5 +1,4 @@
 ﻿using System;
-using NSubstitute;
 using System.ComponentModel;
 
 namespace Common.MicroTests
