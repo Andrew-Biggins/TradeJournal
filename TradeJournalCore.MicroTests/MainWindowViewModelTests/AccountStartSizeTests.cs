@@ -1,6 +1,7 @@
 ﻿using Common.MicroTests;
 using TradeJournalCore.ViewModels;
 using Xunit;
+using static TradeJournalCore.MicroTests.Shared;
 
 namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
 {
@@ -12,7 +13,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         public void T0()
         {
             // Arrange
-            var viewModel = new MainWindowViewModel();
+            var viewModel = new MainWindowViewModel(SubRunner);
 
             // Act 
             var actual = viewModel.AccountStartSize;
@@ -27,7 +28,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         public void T1()
         {
             // Arrange
-            var viewModel = new MainWindowViewModel();
+            var viewModel = new MainWindowViewModel(SubRunner);
 
             // Act 
             viewModel.AccountStartSize = 500;

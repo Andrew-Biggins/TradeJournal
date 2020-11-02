@@ -1,5 +1,7 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using Common;
+using TradeJournalCore.Interfaces;
 
 namespace TradeJournalCore.ViewModels
 {
@@ -16,16 +18,17 @@ namespace TradeJournalCore.ViewModels
             }
         }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(IRunner runner)
         {
-            
+            _runner = runner ?? throw new ArgumentNullException(nameof(runner));
         }
 
         private void AddNewTrade()
-        {
-            throw new System.NotImplementedException();
+        { 
+            _runner.GetTradeDetails(new AddTradeViewModel());
         }
 
+        private readonly IRunner _runner;
         private double _accountStartSize = 10000;
     }
 }

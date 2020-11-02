@@ -20,10 +20,9 @@ namespace Common.MicroTests
         {
             // Arrange
             var command = new BasicCommand(() => { });
-            var parameter = SuppressedNullable.Null<object>();
 
             // Act
-            var canExecute = command.CanExecute(parameter);
+            var canExecute = command.CanExecute(null!);
 
             // Assert
             Assert.True(canExecute);

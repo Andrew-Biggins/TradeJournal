@@ -24,7 +24,7 @@ namespace Common.MicroTests
 
         public static void DidNotCatch<T>(this ICatcher<T> subCatcher)
         {
-            subCatcher.DidNotReceiveWithAnyArgs().Catch(null, SuppressedNullable.Default<T>());
+            subCatcher.DidNotReceiveWithAnyArgs().Catch(null, default!);
         }
 
         public static void DidNotCatch<T>(this ICatcher<T> subCatcher, object sender, T args)
