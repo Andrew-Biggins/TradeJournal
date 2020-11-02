@@ -8,7 +8,9 @@
         xmlns:converters="clr-namespace:TradeJournalWPF.Converters"
         xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:validationRules="clr-namespace:TradeJournalWPF.ValidationRules"
+        xmlns:viewModels="clr-namespace:TradeJournalCore.ViewModels;assembly=TradeJournalCore"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance {x:Type viewModels:MainWindowViewModel}}"
         Title="Trade Journal" Height="750" Width="1360"
         MinWidth="1360" MinHeight="750"
         Background="Black">
