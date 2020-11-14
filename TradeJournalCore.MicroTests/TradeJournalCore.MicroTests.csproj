@@ -24,4 +24,8 @@
     <ProjectReference Include="..\TradeJournalCore\TradeJournalCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="AddTradeViewModelTests\" />
+  </ItemGroup>
+
 </Project>

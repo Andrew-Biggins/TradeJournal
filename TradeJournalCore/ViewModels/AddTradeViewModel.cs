@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Common;
+﻿using System.Collections.ObjectModel;
+using TradeJournalCore.Interfaces;
 
 namespace TradeJournalCore.ViewModels
 {
-    public sealed class AddTradeViewModel : ViewModelBase
+    public sealed class AddTradeViewModel : TradeDetailsViewModel
     {
+        public AddTradeViewModel(IRunner runner) : base(runner)
+        {
+            
+        }
+
     }
 }

@@ -5,6 +5,7 @@ using Common.Optional;
 
 namespace TradeJournalWPF.Converters
 {
+    // todo possible deletion candidate
     public sealed class OptionalDateTimeToDateTimeConverter : MarkupConverter, IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

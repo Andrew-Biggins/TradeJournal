@@ -2,11 +2,11 @@
 {
     public class Levels
     {
-        public double Entry { get; }
+        public double Entry { get; set; }
 
-        public double Stop { get; }
+        public double Stop { get; set; }
 
-        public double Target { get; }
+        public double Target { get; set; }
 
         public Levels(double entry, double stop, double target)
         {

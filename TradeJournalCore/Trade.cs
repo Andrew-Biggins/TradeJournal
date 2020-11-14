@@ -20,7 +20,8 @@ namespace TradeJournalCore
 
         public Optional<Execution> Close { get; }
 
-        public Trade(ISelectable market, ISelectable strategy, Levels levels, Execution open, Optional<Execution> close, (Optional<Excursion>, Optional<Excursion>) excursions)
+        public Trade(ISelectable market, ISelectable strategy, Levels levels, Execution open, Optional<Execution> close,
+            (Optional<Excursion>, Optional<Excursion>) excursions)
         {
             Market = market ?? throw new ArgumentNullException(nameof(market));
             Strategy = strategy ?? throw new ArgumentNullException(nameof(strategy));

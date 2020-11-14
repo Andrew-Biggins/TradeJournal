@@ -2,6 +2,7 @@
 using System.Windows;
 using Common;
 using Common.Interfaces;
+using TradeJournalCore;
 using TradeJournalCore.ViewModels;
 using TradeJournalWPF.Windows;
 
@@ -15,7 +16,9 @@ namespace TradeJournalWPF
             var runner = new Runner(context);
             Window window = new MainWindow();
             window.Show();
-            var mainViewModel = new MainWindowViewModel(runner);
+            var tradeManager = new TradeManager();
+            var tradeDetailsViewModel = new AddTradeViewModel(runner);
+            var mainViewModel = new MainWindowViewModel(runner, tradeManager, tradeDetailsViewModel);
             window.DataContext = mainViewModel;
         }
 

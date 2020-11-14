@@ -4,11 +4,11 @@ namespace TradeJournalCore
 {
     public sealed class Execution
     {
-        public double Level { get; }
+        public double Level { get; set; }
 
-        public DateTime DateTime { get; }
+        public DateTime DateTime { get; set; }
 
-        public double Size { get; }
+        public double Size { get; set; }
 
         public Execution(double level, DateTime dateTime, double size)
         {
