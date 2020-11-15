@@ -1,6 +1,8 @@
 ﻿using Common.Interfaces;
 using System;
+using OxyPlot;
 using TradeJournalCore.Interfaces;
+using TradeJournalCore.ViewModels;
 using TradeJournalWPF.Windows;
 
 namespace TradeJournalWPF
@@ -20,6 +22,15 @@ namespace TradeJournalWPF
                 window.ShowDialog();
             });
 
+        }
+
+        public void GetNewName(object viewModel, string title)
+        {
+            _context.Send(_ =>
+            {
+                var window = new GetNameWindow { DataContext = viewModel, Title = title};
+                window.ShowDialog();
+            });
         }
 
         private readonly IContext _context;

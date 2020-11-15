@@ -15,7 +15,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         {
             // Arrange
             var runner = SubRunner;
-            var addTradeViewModel = new AddTradeViewModel(runner);
+            var addTradeViewModel = new TradeDetailsViewModel(runner, new GetNameViewModel());
             var viewModel = new MainWindowViewModel(runner, SubTradeManager, addTradeViewModel);
 
             // Act 
@@ -32,7 +32,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         public void T1()
         {
             // Arrange
-            var addTradeViewModel = new AddTradeViewModel(SubRunner);
+            var addTradeViewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
             var viewModel = new MainWindowViewModel(SubRunner, SubTradeManager, addTradeViewModel);
 
             // Act 

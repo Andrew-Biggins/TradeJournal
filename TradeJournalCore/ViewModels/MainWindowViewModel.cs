@@ -25,7 +25,7 @@ namespace TradeJournalCore.ViewModels
             }
         }
 
-        public MainWindowViewModel(IRunner runner, ITradeManager tradeManager, AddTradeViewModel tradeDetailsViewModel)
+        public MainWindowViewModel(IRunner runner, ITradeManager tradeManager, TradeDetailsViewModel tradeDetailsViewModel)
         {
             _runner = runner ?? throw new ArgumentNullException(nameof(runner));
             TradeManager = tradeManager ?? throw new ArgumentNullException(nameof(tradeManager));
@@ -46,7 +46,7 @@ namespace TradeJournalCore.ViewModels
 
 
         private readonly IRunner _runner;
-        private AddTradeViewModel _tradeDetailsViewModel;
+        private readonly TradeDetailsViewModel _tradeDetailsViewModel;
         private double _accountStartSize = 10000;
     }
 }

@@ -7,6 +7,6 @@ namespace TradeJournalCore.Interfaces
     {
         ObservableCollection<ITrade> Trades { get; }
 
-        void AddNewTrade(AddTradeViewModel tradeDetails);
+        void AddNewTrade(TradeDetailsViewModel tradeDetails);
     }
 }

@@ -88,7 +88,7 @@
 
                     <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="15,0,0,0">
                         <ComboBox Width="315" Height="22"
-                          SelectedItem="{Binding SelectedStrategy}" ItemsSource="{Binding Strategies}" DisplayMemberPath="ShortName" ToolTip="{Binding SelectedStrategy.Name}"/>
+                          SelectedItem="{Binding SelectedStrategy}" ItemsSource="{Binding Strategies}" DisplayMemberPath="Name" ToolTip="{Binding SelectedStrategy.Name}"/>
                         <Button Width="20" Height="20" Margin="5" Command="{Binding AddNewStrategyCommand}">
                             <Image Source="/Icons/Plus.png" ToolTip="Add New Strategy"/>
                         </Button>

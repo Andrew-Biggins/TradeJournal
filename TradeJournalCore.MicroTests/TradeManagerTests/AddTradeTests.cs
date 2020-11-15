@@ -18,7 +18,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var tradeManager = new TradeManager();
 
             // Act 
-            tradeManager.AddNewTrade(new AddTradeViewModel(SubRunner));
+            tradeManager.AddNewTrade(new TradeDetailsViewModel(SubRunner, new GetNameViewModel()));
 
             // Assert
             Assert.NotEmpty(tradeManager.Trades);
@@ -30,7 +30,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
         public void T1()
         {
             // Arrange
-            var tradeDetails = new AddTradeViewModel(SubRunner);
+            var tradeDetails = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
             var testMarket = new Market("test market");
             tradeDetails.SelectedMarket = testMarket;
             var tradeManager = new TradeManager();
@@ -48,7 +48,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
         public void T2()
         {
             // Arrange
-            var tradeDetails = new AddTradeViewModel(SubRunner);
+            var tradeDetails = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
             var testStrategy = new Strategy("test strategy");
             tradeDetails.SelectedStrategy = testStrategy;
             var tradeManager = new TradeManager();
@@ -66,7 +66,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
         public void T3()
         {
             // Arrange
-            var tradeDetails = new AddTradeViewModel(SubRunner);
+            var tradeDetails = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
             const double testLevelEntry = 123.00;
             tradeDetails.Levels.Entry = testLevelEntry;
             var tradeManager = new TradeManager();
@@ -84,7 +84,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
         public void T4()
         {
             // Arrange
-            var tradeDetails = new AddTradeViewModel(SubRunner);
+            var tradeDetails = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
             const double testOpenSize = 19.6;
             tradeDetails.Open.Size = testOpenSize;
             var tradeManager = new TradeManager();
@@ -102,7 +102,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
         public void T5()
         {
             // Arrange
-            var tradeDetails = new AddTradeViewModel(SubRunner);
+            var tradeDetails = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
             tradeDetails.CloseLevel = Option.None<double>();
             var tradeManager = new TradeManager();
 
@@ -119,7 +119,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
         public void T6()
         {
             // Arrange
-            var tradeDetails = new AddTradeViewModel(SubRunner);
+            var tradeDetails = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
             const double testCloseLevel = 456.78;
             tradeDetails.CloseLevel = Option.Some(testCloseLevel);
             var tradeManager = new TradeManager();
@@ -139,7 +139,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
         public void T7()
         {
             // Arrange
-            var tradeDetails = new AddTradeViewModel(SubRunner);
+            var tradeDetails = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
             const double testMaxAdverseExcursion = 69.8;
             tradeDetails.MaxAdverse = Option.Some(new Excursion(testMaxAdverseExcursion, 50));
             var tradeManager = new TradeManager();
@@ -163,7 +163,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
         public void T8()
         {
             // Arrange
-            var tradeDetails = new AddTradeViewModel(SubRunner);
+            var tradeDetails = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
             const double testMaxFavourableExcursion = 93.8;
             tradeDetails.MaxFavourable = Option.Some(new Excursion(testMaxFavourableExcursion, 50));
             var tradeManager = new TradeManager();

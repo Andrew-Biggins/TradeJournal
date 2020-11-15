@@ -7,19 +7,23 @@ using TradeJournalCore.Interfaces;
 
 namespace TradeJournalCore.ViewModels
 {
-    public abstract class TradeDetailsViewModel : ViewModelBase
+    public class TradeDetailsViewModel : ViewModelBase
     {
         public EventHandler TradeAdded;
 
         public ICommand ConfirmNewTradeCommand => new BasicCommand(() => TradeAdded.Raise(this));
 
+        public ICommand AddNewMarketCommand => new BasicCommand(GetNewMarketName);
+
+        public ICommand AddNewStrategyCommand => new BasicCommand(GetNewStrategyName);
+
         public ISelectable SelectedMarket { get; set; } = new Market("USDJPY");
 
         public ISelectable SelectedStrategy { get; set; } = new Strategy("Triangle");
 
-        public ObservableCollection<ISelectable> Strategies { get; }
+        public ObservableCollection<ISelectable> Strategies { get; } = new ObservableCollection<ISelectable>();
 
-        public ObservableCollection<ISelectable> Markets { get; }
+        public ObservableCollection<ISelectable> Markets { get; } = new ObservableCollection<ISelectable>();
 
         public Levels Levels { get; } = new Levels(6000, 5900, 6500);
 
@@ -35,11 +39,45 @@ namespace TradeJournalCore.ViewModels
 
         public Optional<Excursion> MaxFavourable { get; set; } = Option.None<Excursion>();
 
-        protected TradeDetailsViewModel(IRunner runner)
+        public TradeDetailsViewModel(IRunner runner, GetNameViewModel getNameViewModel)
         {
-            Runner = runner;
+            _runner = runner;
+            _getNameViewModel = getNameViewModel;
         }
 
-        protected IRunner Runner;
+        private void GetNewMarketName()
+        {
+            _getNameViewModel.Name = string.Empty;
+            _getNameViewModel.NameConfirmed += AddMarket;
+            _runner.GetNewName(_getNameViewModel, "Enter Market Name");
+        }
+
+        private void GetNewStrategyName()
+        {
+            _getNameViewModel.Name = string.Empty;
+            _getNameViewModel.NameConfirmed += AddStrategy;
+            _runner.GetNewName(_getNameViewModel, "Enter Strategy Name");
+        }
+
+        private void AddMarket(object sender, EventArgs e)
+        {
+            var market = new Market(_getNameViewModel.Name);
+            Markets.Add(market);
+            SelectedMarket = market;
+            RaisePropertyChanged(nameof(SelectedMarket));
+            _getNameViewModel.NameConfirmed -= AddMarket;
+        }
+
+        private void AddStrategy(object sender, EventArgs e)
+        {
+            var strategy = new Strategy(_getNameViewModel.Name);
+            Strategies.Add(strategy);
+            SelectedStrategy = strategy;
+            RaisePropertyChanged(nameof(SelectedStrategy));
+            _getNameViewModel.NameConfirmed -= AddStrategy;
+        }
+
+        private readonly IRunner _runner;
+        private readonly GetNameViewModel _getNameViewModel;
     }
 }

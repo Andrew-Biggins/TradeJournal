@@ -9,7 +9,7 @@ namespace TradeJournalCore
     {
         public ObservableCollection<ITrade> Trades { get; } = new ObservableCollection<ITrade>();
 
-        public void AddNewTrade(AddTradeViewModel tradeDetails)
+        public void AddNewTrade(TradeDetailsViewModel tradeDetails)
         {
             var close = GetCloseExecution(tradeDetails);
 
@@ -29,6 +29,5 @@ namespace TradeJournalCore
 
             return fieldIsEmpty ? Option.None<Execution>() : Option.Some(close);
         }
-
     }
 }
