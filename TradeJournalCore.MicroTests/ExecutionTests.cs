@@ -53,5 +53,105 @@ namespace TradeJournalCore.MicroTests
             // Assert
             Assert.Equal(testSize, actual);
         }
+
+        [Gwt("Given an execution",
+            "when the date time is set",
+            "the property changed changed event is raised for date time")]
+        public void T3()
+        {
+            // Arrange
+            var execution = new Execution(789, DateTime.MaxValue, 123);
+            var catcher = Catcher.Simple;
+            execution.PropertyChanged += catcher.Catch;
+
+            // Act 
+            execution.DateTime = DateTime.MinValue;
+
+            // Assert
+            catcher.CaughtPropertyChanged(execution, nameof(execution.DateTime));
+        }
+
+        [Gwt("Given an execution",
+            "when the level is set",
+            "the property changed changed event is raised for level")]
+        public void T4()
+        {
+            // Arrange
+            var execution = new Execution(789, DateTime.MaxValue, 123);
+            var catcher = Catcher.Simple;
+            execution.PropertyChanged += catcher.Catch;
+
+            // Act 
+            execution.Level = 555;
+
+            // Assert
+            catcher.CaughtPropertyChanged(execution, nameof(execution.Level));
+        }
+
+        [Gwt("Given an execution has a new level set",
+            "when the level is read",
+            "the level is the new level")]
+        public void T5()
+        {
+            // Arrange
+            var execution = new Execution(789, DateTime.MaxValue, 1);
+            const int testLevel = 321;
+
+            // Act 
+            execution.Level = testLevel;
+
+            // Assert
+            Assert.Equal(testLevel, execution.Level);
+        }
+
+        [Gwt("Given an execution has a new date time set",
+            "when the date time is read",
+            "the date time is the new level")]
+        public void T6()
+        {
+            // Arrange
+            var execution = new Execution(789, DateTime.MaxValue, 1);
+            var testDate = DateTime.Today;
+
+            // Act 
+            execution.DateTime = testDate;
+
+            // Assert
+            Assert.Equal(testDate, execution.DateTime);
+        }
+
+        [Gwt("Given an execution",
+            "when the date time is set with the same date time",
+            "the property changed changed event is not raised")]
+        public void T7()
+        {
+            // Arrange
+            var execution = new Execution(789, DateTime.MaxValue, 123);
+            var catcher = Catcher.Simple;
+            execution.PropertyChanged += catcher.Catch;
+
+            // Act 
+            execution.DateTime = DateTime.MaxValue;
+
+            // Assert
+            catcher.DidNotCatchPropertyChanged(execution, nameof(execution.DateTime));
+        }
+
+        [Gwt("Given an execution",
+            "when the level is set with the same level",
+            "the property changed changed event is not raised")]
+        public void T8()
+        {
+            // Arrange
+            var execution = new Execution(789, DateTime.MaxValue, 123);
+            var catcher = Catcher.Simple;
+            execution.PropertyChanged += catcher.Catch;
+
+            // Act 
+            execution.Level = 789;
+
+            // Assert
+            catcher.DidNotCatchPropertyChanged(execution, nameof(execution.Level));
+        }
     }
 }

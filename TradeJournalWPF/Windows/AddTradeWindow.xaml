@@ -88,21 +88,21 @@
 
                     <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="15,0,0,0">
                         <ComboBox Width="315" Height="22"
-                          SelectedItem="{Binding SelectedStrategy}" ItemsSource="{Binding Strategies}" DisplayMemberPath="Name" ToolTip="{Binding SelectedStrategy.Name}"/>
+                                  SelectedItem="{Binding SelectedStrategy}" ItemsSource="{Binding Strategies}" DisplayMemberPath="Name" ToolTip="{Binding SelectedStrategy.Name}"/>
                         <Button Width="20" Height="20" Margin="5" Command="{Binding AddNewStrategyCommand}">
                             <Image Source="/Icons/Plus.png" ToolTip="Add New Strategy"/>
                         </Button>
                     </StackPanel>
 
                     <TextBox Grid.Column="1" Grid.Row="2" Margin="3,3,0,3"
-                     Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
-                     helpers:HasErrorUtility.MvvmHasError="{Binding Path=EntryHasError}">
+                             Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
+                             helpers:HasErrorUtility.MvvmHasError="{Binding Path=TradeDetailsValidator.EntryHasError}">
                         <TextBox.Text>
                             <Binding Path="Levels.Entry"
-                         Mode="TwoWay"
-                         UpdateSourceTrigger="LostFocus"
-                         TargetNullValue="{x:Static system:String.Empty}"
-                         Converter="{converters:EmptyDoubleToStringConverter}">
+                                     Mode="TwoWay"
+                                     UpdateSourceTrigger="LostFocus"
+                                     TargetNullValue="{x:Static system:String.Empty}"
+                                     Converter="{converters:EmptyDoubleToStringConverter}">
                                 <Binding.ValidationRules>
                                     <validationRules:PositiveNumberValidationRule/>
                                 </Binding.ValidationRules>
@@ -110,30 +110,30 @@
                         </TextBox.Text>
                     </TextBox>
                     <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
-                        <TextBox  Margin="3,3,0,3" 
-                     Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
-                     helpers:HasErrorUtility.MvvmHasError="{Binding Path=TargetHasError}">
+                        <TextBox Margin="3,3,0,3" 
+                                 Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
+                                 helpers:HasErrorUtility.MvvmHasError="{Binding Path=TradeDetailsValidator.TargetHasError}">
                             <TextBox.Text>
                                 <Binding Path="Levels.Target"
-                             Mode="TwoWay"
-                             UpdateSourceTrigger="LostFocus"
-                             TargetNullValue="{x:Static system:String.Empty}"
-                             Converter="{converters:EmptyDoubleToStringConverter}">
+                                         Mode="TwoWay"
+                                         UpdateSourceTrigger="LostFocus"
+                                         TargetNullValue="{x:Static system:String.Empty}"
+                                         Converter="{converters:EmptyDoubleToStringConverter}">
                                     <Binding.ValidationRules>
                                         <validationRules:PositiveNumberValidationRule/>
                                     </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <DockPanel Visibility="{Binding TargetHasError, Converter={converters:BoolToHiddenVisibilityConverter}}">
+                        <DockPanel Visibility="{Binding Levels.IsValidLevels, Converter={converters:InverseBoolToHiddenVisibilityConverter}}">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="2">
                                 <Grid Width="12" Height="12">
                                     <Ellipse Width="12" Height="12" Fill="Red" HorizontalAlignment="Center" 
-                                         VerticalAlignment="Center" />
+                                             VerticalAlignment="Center" />
                                     <TextBlock Foreground="White" FontWeight="Heavy" Margin="-1,0,0,0"
-                                           FontSize="8" HorizontalAlignment="Center" 
-                                           VerticalAlignment="Center" TextAlignment="Center"
-                                           ToolTip="Stop and Target Must Be On Opposing sides of Entry.">X</TextBlock>
+                                               FontSize="8" HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center" TextAlignment="Center"
+                                               ToolTip="Stop and Target Must Be On Opposing sides of Entry.">X</TextBlock>
                                 </Grid>
                             </StackPanel>
                         </DockPanel>
@@ -141,29 +141,29 @@
 
                     <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal">
                         <TextBox  Margin="3,3,0,3"
-                     Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
-                     helpers:HasErrorUtility.MvvmHasError="{Binding Path=StopHasError}">
+                                  Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
+                                  helpers:HasErrorUtility.MvvmHasError="{Binding Path=TradeDetailsValidator.StopHasError}">
                             <TextBox.Text>
                                 <Binding Path="Levels.Stop"
-                             Mode="TwoWay"
-                             UpdateSourceTrigger="LostFocus"
-                             TargetNullValue="{x:Static system:String.Empty}"
-                             Converter="{converters:EmptyDoubleToStringConverter}">
+                                         Mode="TwoWay"
+                                         UpdateSourceTrigger="LostFocus"
+                                         TargetNullValue="{x:Static system:String.Empty}"
+                                         Converter="{converters:EmptyDoubleToStringConverter}">
                                     <Binding.ValidationRules>
                                         <validationRules:PositiveNumberValidationRule/>
                                     </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <DockPanel Visibility="{Binding StopHasError, Converter={converters:BoolToHiddenVisibilityConverter}}">
+                        <DockPanel Visibility="{Binding Levels.IsValidLevels, Converter={converters:InverseBoolToHiddenVisibilityConverter}}">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="2">
                                 <Grid Width="12" Height="12">
                                     <Ellipse Width="12" Height="12" Fill="Red" HorizontalAlignment="Center" 
-                                         VerticalAlignment="Center" />
+                                             VerticalAlignment="Center" />
                                     <TextBlock Foreground="White" FontWeight="Heavy" Margin="-1,0,0,0"
-                                           FontSize="8" HorizontalAlignment="Center" 
-                                           VerticalAlignment="Center" TextAlignment="Center"
-                                           ToolTip="Stop and Target Must Be On Opposing sides of Entry.">X</TextBlock>
+                                               FontSize="8" HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center" TextAlignment="Center"
+                                               ToolTip="Stop and Target Must Be On Opposing sides of Entry.">X</TextBlock>
                                 </Grid>
                             </StackPanel>
                         </DockPanel>
@@ -190,14 +190,14 @@
                     <TextBlock Grid.Column="0" Grid.Row="3" Text="Open Date/Time"/>
 
                     <TextBox Grid.Column="1" Grid.Row="1" Margin="3,3,0,3"
-                     Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
-                     helpers:HasErrorUtility.MvvmHasError="{Binding Path=OpenLevelHasError}">
+                             Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
+                             helpers:HasErrorUtility.MvvmHasError="{Binding Path=TradeDetailsValidator.OpenLevelHasError}">
                         <TextBox.Text>
                             <Binding Path="Open.Level"
-                             Mode="TwoWay"
-                             UpdateSourceTrigger="LostFocus"
-                             TargetNullValue="{x:Static system:String.Empty}"
-                             Converter="{converters:EmptyDoubleToStringConverter}">
+                                     Mode="TwoWay"
+                                     UpdateSourceTrigger="LostFocus"
+                                     TargetNullValue="{x:Static system:String.Empty}"
+                                     Converter="{converters:EmptyDoubleToStringConverter}">
                                 <Binding.ValidationRules>
                                     <validationRules:PositiveNumberValidationRule/>
                                 </Binding.ValidationRules>
@@ -208,7 +208,7 @@
 
                     <TextBox Grid.Column="1" Grid.Row="2" Margin="3,3,0,3"
                              Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
-                             helpers:HasErrorUtility.MvvmHasError="{Binding Path=SizeHasError}">
+                             helpers:HasErrorUtility.MvvmHasError="{Binding Path=TradeDetailsValidator.SizeHasError}">
                         <TextBox.Text>
                             <Binding Path="Open.Size"
                                      Mode="TwoWay"
@@ -227,7 +227,7 @@
                         <DatePicker SelectedDate="{Binding Open.DateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <xctk:TimePicker Width="75" Height="20" Margin="5,2,5,2" Value="{Binding Open.DateTime}"/>
-                        <DockPanel Visibility="{Binding DatesHaveError, Converter={converters:BoolToHiddenVisibilityConverter}}">
+                        <DockPanel Visibility="{Binding TradeDetailsValidator.DatesHaveError, Converter={converters:BoolToHiddenVisibilityConverter}}">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="2">
                                 <Grid Width="12" Height="12">
                                     <Ellipse Width="12" Height="12" Fill="Red" HorizontalAlignment="Center" 
@@ -260,14 +260,14 @@
                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Close Date/Time"/>
 
                     <TextBox Grid.Column="1" Grid.Row="1" Margin="3,3,0,3"
-                     Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
-                     helpers:HasErrorUtility.MvvmHasError="{Binding Path=CloseLevelHasError}">
+                             Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
+                             helpers:HasErrorUtility.MvvmHasError="{Binding Path=TradeDetailsValidator.CloseLevelHasError}">
                         <TextBox.Text>
                             <Binding Path="CloseLevel"
-                             Mode="TwoWay"
-                             UpdateSourceTrigger="LostFocus"
-                             TargetNullValue="{x:Static system:String.Empty}"
-                             Converter="{converters:OptionalDoubleToStringConverter}">
+                                     Mode="TwoWay"
+                                     UpdateSourceTrigger="LostFocus"
+                                     TargetNullValue="{x:Static system:String.Empty}"
+                                     Converter="{converters:OptionalDoubleToStringConverter}">
                                 <Binding.ValidationRules>
                                     <validationRules:CanBeEmptyPositiveNumberValidationRule/>
                                 </Binding.ValidationRules>
@@ -277,18 +277,18 @@
 
                     <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
                         <DatePicker SelectedDate="{Binding CloseDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <xctk:TimePicker Width="75" Height="20" Margin="5,2,5,2" Value="{Binding CloseDateTime}"/>
 
-                        <DockPanel Visibility="{Binding DatesHaveError, Converter={converters:BoolToHiddenVisibilityConverter}}">
+                        <DockPanel Visibility="{Binding TradeDetailsValidator.DatesHaveError, Converter={converters:BoolToHiddenVisibilityConverter}}">
                             <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Center" Margin="2">
                                 <Grid Width="12" Height="12">
                                     <Ellipse Width="12" Height="12" Fill="Red" HorizontalAlignment="Center" 
-                                 VerticalAlignment="Center" />
+                                             VerticalAlignment="Center" />
                                     <TextBlock Foreground="White" FontWeight="Heavy" Margin="-1,0,0,0"
-                                   FontSize="8" HorizontalAlignment="Center" 
-                                   VerticalAlignment="Center" TextAlignment="Center"
-                                   ToolTip="Open Date/Time Must Be Earlier Than Close Date/Time">X</TextBlock>
+                                               FontSize="8" HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center" TextAlignment="Center"
+                                               ToolTip="Open Date/Time Must Be Earlier Than Close Date/Time">X</TextBlock>
                                 </Grid>
                             </StackPanel>
                         </DockPanel>
@@ -312,33 +312,34 @@
                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Maximum Favourable"/>
 
                     <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
-                        <TextBox  Margin="3,3,0,3"
-                             Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
-                             helpers:HasErrorUtility.MvvmHasError="{Binding Path=MaeHasError}">
+                        <TextBox Margin="3,3,0,3"
+                                 IsEnabled="{Binding IsMaeFixed, Converter={converters:InverseBoolConverter}}"
+                                 Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
+                                 helpers:HasErrorUtility.MvvmHasError="{Binding Path=TradeDetailsValidator.MaeHasError}">
                             <TextBox.Text>
                                 <Binding Path="MaxAdverse"
-                                     Mode="TwoWay"
-                                     UpdateSourceTrigger="LostFocus"
-                                     TargetNullValue="{x:Static system:String.Empty}"
-                                     Converter="{converters:OptionalExcursionPointsToStringConverter}">
+                                         Mode="TwoWay"
+                                         UpdateSourceTrigger="LostFocus"
+                                         TargetNullValue="{x:Static system:String.Empty}"
+                                         Converter="{converters:OptionalExcursionPointsToStringConverter}">
                                     <Binding.ValidationRules>
                                         <validationRules:CanBeEmptyPositiveNumberValidationRule/>
                                     </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <DockPanel Visibility="{Binding MaeHasError, Converter={converters:BoolToHiddenVisibilityConverter}}">
+                        <DockPanel Visibility="{Binding TradeDetailsValidator.MaeHasError, Converter={converters:BoolToHiddenVisibilityConverter}}">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="2">
                                 <Grid Width="12" Height="12">
                                     <Ellipse Width="12" Height="12" Fill="Red" HorizontalAlignment="Center" 
-                                         VerticalAlignment="Center" />
+                                            VerticalAlignment="Center" />
                                     <TextBlock Foreground="White" FontWeight="Heavy" Margin="-1,0,0,0"
-                                           FontSize="8" HorizontalAlignment="Center" 
-                                           VerticalAlignment="Center" TextAlignment="Center">
+                                               FontSize="8" HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center" TextAlignment="Center">
                                         <TextBlock.ToolTip>
                                             <TextBlock Foreground="Black">
-                                                <Run Text="Maximum Adverse Excursion must be less than the stop size. Max" />
-                                                <Run Text="{Binding MaximumMae, Mode=OneWay}" />
+                                                <Run Text="Maximum Adverse Excursion must be less than " />
+                                                <Run Text="{Binding TradeDetailsValidator.MaximumMae, Mode=OneWay}" />
                                                 <Run Text="points." />
                                             </TextBlock>
                                         </TextBlock.ToolTip>
@@ -351,33 +352,33 @@
 
                     <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
 
-                        <TextBox  Margin="3,3,0,3"
-                             Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
-                             helpers:HasErrorUtility.MvvmHasError="{Binding Path=MfeHasError}">
+                        <TextBox Margin="3,3,0,3"
+                                 Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
+                                 helpers:HasErrorUtility.MvvmHasError="{Binding Path=TradeDetailsValidator.MfeHasError}">
                             <TextBox.Text>
                                 <Binding Path="MaxFavourable"
-                                     Mode="TwoWay"
-                                     UpdateSourceTrigger="LostFocus"
-                                     TargetNullValue="{x:Static system:String.Empty}"
-                                     Converter="{converters:OptionalExcursionPointsToStringConverter}">
+                                         Mode="TwoWay"
+                                         UpdateSourceTrigger="LostFocus"
+                                         TargetNullValue="{x:Static system:String.Empty}"
+                                         Converter="{converters:OptionalExcursionPointsToStringConverter}">
                                     <Binding.ValidationRules>
                                         <validationRules:CanBeEmptyPositiveNumberValidationRule/>
                                     </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <DockPanel Visibility="{Binding MfeHasError, Converter={converters:BoolToHiddenVisibilityConverter}}">
+                        <DockPanel Visibility="{Binding TradeDetailsValidator.MfeHasError, Converter={converters:BoolToHiddenVisibilityConverter}}">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="2">
                                 <Grid Width="12" Height="12">
                                     <Ellipse Width="12" Height="12" Fill="Red" HorizontalAlignment="Center" 
-                                         VerticalAlignment="Center" />
+                                             VerticalAlignment="Center" />
                                     <TextBlock Foreground="White" FontWeight="Heavy" Margin="-1,0,0,0"
-                                           FontSize="8" HorizontalAlignment="Center" 
-                                           VerticalAlignment="Center" TextAlignment="Center">
+                                               FontSize="8" HorizontalAlignment="Center" 
+                                               VerticalAlignment="Center" TextAlignment="Center">
                                         <TextBlock.ToolTip>
                                             <TextBlock Foreground="Black">
                                                 <Run Text="Maximum Favourable Excursion cannot be less than profit taken. Min" />
-                                                <Run Text="{Binding MinimumMfe, Mode=OneWay}" />
+                                                <Run Text="{Binding TradeDetailsValidator.MinimumMfe, Mode=OneWay}" />
                                                 <Run Text="points." />
                                             </TextBlock>
                                         </TextBlock.ToolTip>
@@ -392,7 +393,7 @@
 
             <Button Width="170" Height="30" Margin="5" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5"
                     HorizontalAlignment="Center" VerticalContentAlignment="Center"
-                    Command="{Binding ConfirmNewTradeCommand}" Click="OnTradeAdded" IsEnabled="{Binding IsAddEnabled}">
+                    Command="{Binding ConfirmNewTradeCommand}" Click="OnTradeAdded" IsEnabled="{Binding TradeDetailsValidator.IsTradeValid}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Style.Triggers>

@@ -1,8 +1,6 @@
 ﻿using Common.Interfaces;
 using System;
-using OxyPlot;
 using TradeJournalCore.Interfaces;
-using TradeJournalCore.ViewModels;
 using TradeJournalWPF.Windows;
 
 namespace TradeJournalWPF
