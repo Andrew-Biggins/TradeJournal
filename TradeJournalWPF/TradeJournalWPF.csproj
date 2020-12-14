@@ -7,12 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icons\Delete.png" />
+    <None Remove="Icons\Edit.png" />
+    <None Remove="Icons\Plus.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MiqM.Xceed.Wpf.Toolkit.NETCore" Version="3.5.1.3" />
     <PackageReference Include="OxyPlot.Wpf" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TradeJournalCore\TradeJournalCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\Delete.png" />
+    <Resource Include="Icons\Edit.png" />
+    <Resource Include="Icons\Plus.png" />
   </ItemGroup>
 
 </Project>

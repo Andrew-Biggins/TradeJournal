@@ -14,7 +14,11 @@ namespace TradeJournalCore.ViewModels
 
         public ObservableCollection<ISelectable> Strategies { get; } = new ObservableCollection<ISelectable>();
 
-        public ICommand AddNewTradeCommand => new BasicCommand(AddNewTrade);
+        public ICommand AddNewTradeCommand => new BasicCommand(AddTrade);
+
+        public ICommand RemoveTradeCommand => new BasicCommand(RemoveTrade);
+
+        public ICommand EditTradeCommand => new BasicCommand(EditTrade);
 
         public double AccountStartSize
         {
@@ -31,19 +35,38 @@ namespace TradeJournalCore.ViewModels
             TradeManager = tradeManager ?? throw new ArgumentNullException(nameof(tradeManager));
             _tradeDetailsViewModel = tradeDetailsViewModel ?? throw new ArgumentNullException(nameof(tradeDetailsViewModel));
 
-            _tradeDetailsViewModel.TradeAdded += AddTrade;
+            _tradeDetailsViewModel.TradeAdded += ConfirmTrade;
         }
 
-        private void AddNewTrade()
+        private void AddTrade()
         {
+            _tradeDetailsViewModel.IsEditing = false;
             _runner.GetTradeDetails(_tradeDetailsViewModel);
         }
 
-        private void AddTrade(object sender, EventArgs e)
+        private void ConfirmTrade(object sender, EventArgs e)
         {
+            if (_tradeDetailsViewModel.IsEditing)
+            {
+                TradeManager.RemoveTrade();
+            }
+
             TradeManager.AddNewTrade(_tradeDetailsViewModel);
         }
 
+        private void RemoveTrade()
+        {
+            if (_runner.RunForResult(this, Messages.ConfirmRemoveTrade))
+            {
+                TradeManager.RemoveTrade();
+            }
+        }
+
+        private void EditTrade()
+        {
+            _tradeDetailsViewModel.EditTrade(TradeManager.SelectedTrade);
+            _runner.GetTradeDetails(_tradeDetailsViewModel);
+        }
 
         private readonly IRunner _runner;
         private readonly TradeDetailsViewModel _tradeDetailsViewModel;

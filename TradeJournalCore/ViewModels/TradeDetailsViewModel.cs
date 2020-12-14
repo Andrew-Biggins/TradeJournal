@@ -26,9 +26,9 @@ namespace TradeJournalCore.ViewModels
 
         public ObservableCollection<ISelectable> Markets { get; } = new ObservableCollection<ISelectable>();
 
-        public Levels Levels { get; } = new Levels(6000, 5900, 6500);
+        public Levels Levels { get; private set; } = new Levels(6000, 5900, 6500);
 
-        public Execution Open { get; } = new Execution(6000, DateTime.Today, 1);
+        public Execution Open { get; private set; } = new Execution(6000, DateTime.Today, 1);
 
         public Optional<double> CloseLevel
         {
@@ -78,6 +78,8 @@ namespace TradeJournalCore.ViewModels
             private set => SetProperty(ref _isMaeFixed, value, nameof(IsMaeFixed));
         }
 
+        public bool IsEditing { get; set; }
+
         public TradeDetailsValidator TradeDetailsValidator { get; } = new TradeDetailsValidator();
 
         public TradeDetailsViewModel(IRunner runner, GetNameViewModel getNameViewModel)
@@ -87,6 +89,24 @@ namespace TradeJournalCore.ViewModels
 
             Open.PropertyChanged += OnOpenChanged;
             Levels.PropertyChanged += OnLevelsChanged;
+
+            TradeDetailsValidator.VerifyDates(Open.DateTime, CloseDateTime);
+        }
+
+        public void EditTrade(ITrade trade)
+        {
+            IsEditing = true;
+
+            SelectedMarket = trade.Market;
+            SelectedStrategy = trade.Strategy;
+            Levels = trade.Levels;
+            Open = trade.Open;
+
+            trade.Close.IfExistsThen(x =>
+            {
+                CloseLevel = Option.Some(x.Level);
+                CloseDateTime = x.DateTime;
+            }).IfEmpty(() => CloseLevel = Option.None<double>());
         }
 
         private void OnLevelsChanged(object sender, PropertyChangedEventArgs e)
@@ -133,7 +153,6 @@ namespace TradeJournalCore.ViewModels
                 else
                 {
                     SetFixedShortMae(closeLevel);
-
                 }
             }
         }
@@ -199,7 +218,7 @@ namespace TradeJournalCore.ViewModels
         private readonly IRunner _runner;
         private readonly GetNameViewModel _getNameViewModel;
 
-        private DateTime _closeDateTime = DateTime.Today;
+        private DateTime _closeDateTime = DateTime.Today.AddMinutes(1);
         private Optional<Excursion> _maxAdverse = Option.None<Excursion>();
         private Optional<Excursion> _maxFavourable = Option.None<Excursion>();
         private Optional<double> _closeLevel = Option.None<double>();

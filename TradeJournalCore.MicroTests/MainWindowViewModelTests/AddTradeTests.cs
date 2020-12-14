@@ -41,5 +41,23 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
             // Assert
             viewModel.TradeManager.Received(1).AddNewTrade(addTradeViewModel);
         }
+
+        [Gwt("Given a main window view model's trade details view model has been editing",
+            "when the add trade command is executed",
+            "the trade details view model editing flag is false")]
+        public void T2()
+        {
+            // Arrange
+            var runner = SubRunner;
+            var addTradeViewModel = new TradeDetailsViewModel(runner, new GetNameViewModel());
+            addTradeViewModel.IsEditing = true;
+            var viewModel = new MainWindowViewModel(runner, SubTradeManager, addTradeViewModel);
+
+            // Act 
+            viewModel.AddNewTradeCommand.Execute(null!);
+
+            // Assert
+            Assert.False(addTradeViewModel.IsEditing);
+        }
     }
 }

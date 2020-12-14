@@ -9,15 +9,23 @@ namespace TradeJournalCore
     {
         public ObservableCollection<ITrade> Trades { get; } = new ObservableCollection<ITrade>();
 
+        public ITrade SelectedTrade { get; set; }
+
         public void AddNewTrade(TradeDetailsViewModel tradeDetails)
         {
             var close = GetCloseExecution(tradeDetails);
 
             var trade = new Trade(tradeDetails.SelectedMarket, tradeDetails.SelectedStrategy,
-                tradeDetails.Levels, tradeDetails.Open, close,
+                new Levels(tradeDetails.Levels.Entry, tradeDetails.Levels.Stop, tradeDetails.Levels.Target),
+                new Execution(tradeDetails.Open.Level, tradeDetails.Open.DateTime, tradeDetails.Open.Size), close,
                 (tradeDetails.MaxAdverse, tradeDetails.MaxFavourable));
 
             Trades.Add(trade);
+        }
+
+        public void RemoveTrade()
+        {
+            Trades.Remove(SelectedTrade);
         }
 
         private static Optional<Execution> GetCloseExecution(TradeDetailsViewModel tradeDetails)

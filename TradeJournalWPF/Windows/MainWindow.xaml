@@ -153,7 +153,7 @@
 
                 <DataGrid Grid.Row="2"  ItemsSource="{Binding TradeManager.Trades, Mode=OneWay}" IsReadOnly="True" x:Name="JDataGrid"
                       AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False" Background="Black"
-                      SelectedItem="{Binding SelectedTrade}" RowHeaderWidth="0">
+                      SelectedItem="{Binding TradeManager.SelectedTrade}" RowHeaderWidth="0">
                     <DataGrid.Resources>
                         <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="ContentTemplate">
@@ -406,7 +406,7 @@
                                 <Style TargetType="DataGridCell" BasedOn="{StaticResource JournalGridCellStyle}">
                                     <Setter Property="BorderThickness" Value="2,0,0,0"/>
                                     <Setter Property="BorderBrush" Value="Black"/>
-                                    <EventSetter Event="MouseDoubleClick"
+                                    <EventSetter Event="MouseLeftButtonUp"
                                                  Handler="OnEditTradeClicked"/>
                                     <Style.Triggers>
                                         <Trigger Property="IsSelected" Value="True">
@@ -431,7 +431,7 @@
                         <DataGridTemplateColumn Header="Delete" MinWidth="45" MaxWidth="45" x:Name="DeleteColumn">
                             <DataGridTemplateColumn.CellStyle>
                                 <Style TargetType="DataGridCell" BasedOn="{StaticResource JournalGridCellStyle}">
-                                    <EventSetter Event="MouseDoubleClick"
+                                    <EventSetter Event="MouseLeftButtonUp"
                                                  Handler="OnRemoveTradeClicked"/>
                                     <Style.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">

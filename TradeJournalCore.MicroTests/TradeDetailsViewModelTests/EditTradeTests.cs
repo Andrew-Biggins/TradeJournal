@@ -1,0 +1,141 @@
+﻿using System;
+using Common.MicroTests;
+using Common.Optional;
+using TradeJournalCore.ViewModels;
+using Xunit;
+using static TradeJournalCore.MicroTests.Shared;
+
+namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
+{
+    public sealed class EditTradeTests
+    {
+        [Gwt("Given a trade details view model",
+            "when a trade is edited",
+            "the is editing flag is true")]
+        public void T0()
+        {
+            // Arrange
+            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
+
+            // Act
+            viewModel.EditTrade(TestOpenTrade);
+
+            // Assert
+            Assert.True(viewModel.IsEditing);
+        }
+
+        [Gwt("Given a trade details view model",
+            "when a trade is edited",
+            "the selected market name is the name of the editing trade")]
+        public void T1()
+        {
+            // Arrange
+            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
+
+            // Act
+            viewModel.EditTrade(TestOpenTrade);
+
+            // Assert
+            Assert.Equal(TestMarket.Name, viewModel.SelectedMarket.Name);
+        }
+
+        [Gwt("Given a trade details view model",
+            "when a trade is edited",
+            "the selected strategy name is the name of the editing trade")]
+        public void T2()
+        {
+            // Arrange
+            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
+
+            // Act
+            viewModel.EditTrade(TestOpenTrade);
+
+            // Assert
+            Assert.Equal(TestStrategy.Name, viewModel.SelectedStrategy.Name);
+        }
+
+        [Gwt("Given a trade details view model",
+            "when a trade is edited",
+            "the levels is the same as the editing trade")]
+        public void T3()
+        {
+            // Arrange
+            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
+            const double testEntry = 1234.56;
+            var testTrade = TestOpenTrade;
+            testTrade.Levels.Entry = testEntry;
+
+            // Act
+            viewModel.EditTrade(testTrade);
+
+            // Assert
+            Assert.Equal(testEntry, viewModel.Levels.Entry);
+        }
+
+        [Gwt("Given a trade details view model",
+            "when a trade is edited",
+            "the open is the same as the editing trade")]
+        public void T4()
+        {
+            // Arrange
+            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
+            const double testOpen = 1234.56;
+            var testTrade = TestOpenTrade;
+            testTrade.Open.Level = testOpen;
+
+            // Act
+            viewModel.EditTrade(testTrade);
+
+            // Assert
+            Assert.Equal(testOpen, viewModel.Open.Level);
+        }
+
+        [Gwt("Given a trade details view model",
+            "when a trade is edited",
+            "the close level is the same as the editing trade")]
+        public void T5()
+        {
+            // Arrange
+            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
+            var actual = 0.00;
+
+            // Act
+            viewModel.EditTrade(TestClosedTrade);
+
+            // Assert
+            viewModel.CloseLevel.IfExistsThen(x => { actual = x; });
+            Assert.Equal(TestClose.Level, actual);
+        }
+
+        [Gwt("Given a trade details view model",
+            "when a trade is edited",
+            "the close date time is the same as the editing trade")]
+        public void T6()
+        {
+            // Arrange
+            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
+
+            // Act
+            viewModel.EditTrade(TestClosedTrade);
+
+            // Assert
+            Assert.Equal(TestClose.DateTime, viewModel.CloseDateTime);
+        }
+
+        [Gwt("Given a trade details view model with a close level",
+            "when an open trade is edited",
+            "the close level is option none")]
+        public void T7()
+        {
+            // Arrange
+            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
+            viewModel.CloseLevel = Option.Some(666.66);
+
+            // Act
+            viewModel.EditTrade(TestOpenTrade);
+
+            // Assert
+            Assert.IsType<Option.OptionNone<double>>(viewModel.CloseLevel);
+        }
+    }
+}

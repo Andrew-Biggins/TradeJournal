@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TradeJournalCore.ViewModels;
 
 namespace TradeJournalWPF.Windows
 {
@@ -102,14 +103,15 @@ namespace TradeJournalWPF.Windows
 
         private void OnEditTradeClicked(object sender, MouseButtonEventArgs e)
         {
-            //var vm = (TradeJournalViewModel) DataContext;
-            //vm.EditTradeCommand.Execute(null);
+            var vm = (MainWindowViewModel)DataContext;
+            vm.EditTradeCommand.Execute(null);
         }
 
         private void OnRemoveTradeClicked(object sender, MouseButtonEventArgs e)
         {
-            //var vm = (TradeJournalViewModel) DataContext;
-            //vm.RemoveTradeCommand.Execute(null);
+         //   JDataGrid.SelectedItem = e.Source; 
+            var vm = (MainWindowViewModel)DataContext;
+            vm.RemoveTradeCommand.Execute(null);
         }
 
         private void OnGraphDoubleClick(object sender, MouseButtonEventArgs e)
