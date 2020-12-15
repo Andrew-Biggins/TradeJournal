@@ -15,7 +15,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
         public void T0()
         {
             // Arrange
-            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
+            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel());
 
             // Act
             viewModel.EditTrade(TestOpenTrade);
@@ -30,7 +30,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
         public void T1()
         {
             // Arrange
-            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
+            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel());
 
             // Act
             viewModel.EditTrade(TestOpenTrade);
@@ -45,7 +45,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
         public void T2()
         {
             // Arrange
-            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
+            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel());
 
             // Act
             viewModel.EditTrade(TestOpenTrade);
@@ -60,7 +60,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
         public void T3()
         {
             // Arrange
-            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
+            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel());
             const double testEntry = 1234.56;
             var testTrade = TestOpenTrade;
             testTrade.Levels.Entry = testEntry;
@@ -78,7 +78,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
         public void T4()
         {
             // Arrange
-            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
+            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel());
             const double testOpen = 1234.56;
             var testTrade = TestOpenTrade;
             testTrade.Open.Level = testOpen;
@@ -96,7 +96,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
         public void T5()
         {
             // Arrange
-            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
+            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel());
             var actual = 0.00;
 
             // Act
@@ -113,7 +113,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
         public void T6()
         {
             // Arrange
-            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
+            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel());
 
             // Act
             viewModel.EditTrade(TestClosedTrade);
@@ -128,7 +128,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
         public void T7()
         {
             // Arrange
-            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
+            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel());
             viewModel.CloseLevel = Option.Some(666.66);
 
             // Act

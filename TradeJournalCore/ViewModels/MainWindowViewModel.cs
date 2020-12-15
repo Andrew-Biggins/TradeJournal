@@ -29,6 +29,8 @@ namespace TradeJournalCore.ViewModels
             }
         }
 
+        public TradeFiltererViewModel TradeFilterer { get; } = new TradeFiltererViewModel();
+
         public MainWindowViewModel(IRunner runner, ITradeManager tradeManager, TradeDetailsViewModel tradeDetailsViewModel)
         {
             _runner = runner ?? throw new ArgumentNullException(nameof(runner));

@@ -11,9 +11,9 @@ namespace TradeJournalCore.MicroTests
 
         internal static ITradeManager SubTradeManager => Substitute.For<ITradeManager>();
 
-        internal static ISelectable TestMarket => new Market("Test Market");
+        internal static ISelectable TestMarket => new Market("Test Market", AssetClass.Commodities);
 
-        internal static ISelectable TestStrategy => new Market("Test Market");
+        internal static ISelectable TestStrategy => new Market("Test Market", AssetClass.Commodities);
 
         internal static Execution TestClose => new Execution(12345.67, DateTime.MaxValue, 1);
 

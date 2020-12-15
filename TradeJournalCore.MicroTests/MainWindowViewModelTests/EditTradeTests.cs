@@ -1,4 +1,5 @@
-﻿using Common.MicroTests;
+﻿using Common;
+using Common.MicroTests;
 using NSubstitute;
 using TradeJournalCore.ViewModels;
 using Xunit;
@@ -15,7 +16,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         {
             // Arrange
             var runner = SubRunner;
-            var addTradeViewModel = new TradeDetailsViewModel(runner, new GetNameViewModel());
+            var addTradeViewModel = new TradeDetailsViewModel(runner, new GetNameViewModel(), new AddMarketViewModel());
             var viewModel = new MainWindowViewModel(runner, SubTradeManager, addTradeViewModel);
 
             // Act 
@@ -25,7 +26,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
             runner.Received(1).GetTradeDetails(addTradeViewModel);
         }
 
-        // Tests edit trade is called on the trade details view model and the selected trade being passed in
+        // Tests edit trade is called on the trade details view model with the selected trade being passed in
         [Gwt("Given a main window view model's trade manager has a selected trade",
             "when the edit trade command is executed",
             "the add trade view model's level entry is the same as the trade manager's selected trade's")]
@@ -33,7 +34,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         {
             // Arrange
             var runner = SubRunner;
-            var addTradeViewModel = new TradeDetailsViewModel(runner, new GetNameViewModel());
+            var addTradeViewModel = new TradeDetailsViewModel(runner, new GetNameViewModel(), new AddMarketViewModel());
             var viewModel = new MainWindowViewModel(runner, SubTradeManager, addTradeViewModel);
             const double testEntry = 666.66;
             var testTrade = TestOpenTrade;
@@ -45,6 +46,28 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
 
             // Assert
             Assert.Equal(testEntry, addTradeViewModel.Levels.Entry);
+        }
+
+        // Tests the old version of the trade is removed from the collection
+        [Gwt("Given a main window view model's trade manager has trade and the trade is edited",
+            "when the edit is confirmed",
+            "the trade manager's trades collection only contains one trade")]
+        public void T2()
+        {
+            // Arrange
+            var runner = SubRunner;
+            var addTradeViewModel = new TradeDetailsViewModel(runner, new GetNameViewModel(), new AddMarketViewModel());
+            var viewModel = new MainWindowViewModel(runner, new TradeManager(), addTradeViewModel);
+            var testTrade = TestOpenTrade;
+            viewModel.TradeManager.Trades.Add(testTrade);
+            viewModel.TradeManager.SelectedTrade = testTrade;
+            viewModel.EditTradeCommand.Execute(null!);
+
+            // Act 
+            addTradeViewModel.TradeAdded.Raise(addTradeViewModel);
+
+            // Assert
+            Assert.Single(viewModel.TradeManager.Trades);
         }
     }
 }

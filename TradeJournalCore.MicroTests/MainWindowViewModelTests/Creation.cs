@@ -14,7 +14,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         public void T0()
         {
             // Arrange
-            var viewModel = new MainWindowViewModel(SubRunner, SubTradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel()));
+            var viewModel = new MainWindowViewModel(SubRunner, SubTradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()));
 
             // Act 
             var actual = viewModel.Markets;
@@ -29,7 +29,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         public void T1()
         {
             // Arrange
-            var viewModel = new MainWindowViewModel(SubRunner, SubTradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel()));
+            var viewModel = new MainWindowViewModel(SubRunner, SubTradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()));
 
             // Act 
             var actual = viewModel.Strategies;
@@ -44,7 +44,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         public void T2()
         {
             Assert.Throws<ArgumentNullException>("runner",
-                () => new MainWindowViewModel(null!, new TradeManager(), new TradeDetailsViewModel(SubRunner, new GetNameViewModel())));
+                () => new MainWindowViewModel(null!, new TradeManager(), new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel())));
         }
 
         [Gwt("Given a null trade manager",
@@ -53,7 +53,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         public void T3()
         {
             Assert.Throws<ArgumentNullException>("tradeManager",
-                () => new MainWindowViewModel(SubRunner, null!, new TradeDetailsViewModel(SubRunner, new GetNameViewModel())));
+                () => new MainWindowViewModel(SubRunner, null!, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel())));
         }
 
         [Gwt("Given a null trade details view model",

@@ -2,7 +2,7 @@
 
 namespace TradeJournalCore
 {
-    public sealed class Strategy : ISelectable
+    public class AssetType : ISelectable
     {
         public string Name { get; }
 
@@ -16,9 +16,9 @@ namespace TradeJournalCore
             }
         }
 
-        public Strategy(string name)
+        public AssetType(AssetClass assetClass)
         {
-            Name = name;
+            Name = assetClass.ToString();
         }
 
         private bool _isSelected;

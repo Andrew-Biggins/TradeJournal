@@ -2,6 +2,7 @@
 using Common.MicroTests;
 using Common.Optional;
 using Xunit;
+using static TradeJournalCore.MicroTests.Shared;
 
 namespace TradeJournalCore.MicroTests.TradeTests
 {
@@ -13,7 +14,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
         public void T0()
         {
             // Arrange
-            var trade = new Trade(new Market(string.Empty), new Strategy(string.Empty), new Levels(0, 0, 0),
+            var trade = new Trade(TestMarket, new Strategy(string.Empty), new Levels(0, 0, 0),
                 new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
                 (Option.None<Excursion>(), Option.None<Excursion>()));
 
@@ -30,7 +31,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
         public void T1()
         {
             // Arrange
-            var trade = new Trade(new Market(string.Empty), new Strategy(string.Empty), new Levels(0, 0, 0),
+            var trade = new Trade(TestMarket, new Strategy(string.Empty), new Levels(0, 0, 0),
                 new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
                 (Option.None<Excursion>(), Option.None<Excursion>()));
 
@@ -48,7 +49,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
         {
             // Arrange
             var testExcursion = new Excursion(123, 456);
-            var trade = new Trade(new Market(string.Empty), new Strategy(string.Empty), new Levels(0, 0, 0),
+            var trade = new Trade(TestMarket, new Strategy(string.Empty), new Levels(0, 0, 0),
                 new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
                 (Option.Some(testExcursion), Option.None<Excursion>()));
             var outExcursion = new Excursion();
@@ -67,7 +68,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
         {
             // Arrange
             var testExcursion = new Excursion(456, 789);
-            var trade = new Trade(new Market(string.Empty), new Strategy(string.Empty), new Levels(0, 0, 0),
+            var trade = new Trade(TestMarket, new Strategy(string.Empty), new Levels(0, 0, 0),
                 new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
                 (Option.None<Excursion>(), Option.Some(testExcursion)));
             var outExcursion = new Excursion();

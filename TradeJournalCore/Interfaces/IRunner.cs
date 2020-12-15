@@ -8,6 +8,8 @@ namespace TradeJournalCore.Interfaces
 
         void GetNewName(object viewModel, string title);
 
+        void GetNewMarket(object viewModel, string title);
+
         bool RunForResult(object sender, Message message);
     }
 }

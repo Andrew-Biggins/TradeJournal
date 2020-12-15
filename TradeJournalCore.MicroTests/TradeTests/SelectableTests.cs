@@ -2,6 +2,7 @@
 using Common.Optional;
 using System;
 using Xunit;
+using static TradeJournalCore.MicroTests.Shared;
 
 namespace TradeJournalCore.MicroTests.TradeTests
 {
@@ -13,7 +14,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
         public void T0()
         {
             // Arrange
-            var testMarket = new Market("test market");
+            var testMarket = TestMarket;
             var trade = new Trade(testMarket, new Strategy(string.Empty), new Levels(0, 0, 0),
                 new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
                 (Option.None<Excursion>(), Option.None<Excursion>()));
@@ -31,8 +32,8 @@ namespace TradeJournalCore.MicroTests.TradeTests
         public void T1()
         {
             // Arrange
-            var testStrategy = new Market("test strategy");
-            var trade = new Trade(new Market(string.Empty), testStrategy, new Levels(0, 0, 0),
+            var testStrategy = new Strategy("test strategy");
+            var trade = new Trade(TestMarket, testStrategy, new Levels(0, 0, 0),
                 new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
                 (Option.None<Excursion>(), Option.None<Excursion>()));
 

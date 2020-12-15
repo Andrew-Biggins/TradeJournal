@@ -33,6 +33,15 @@ namespace TradeJournalWPF
             });
         }
 
+        public void GetNewMarket(object viewModel, string title)
+        {
+            _context.Send(_ =>
+            {
+                var window = new AddMarketWindow { DataContext = viewModel, Title = title };
+                window.ShowDialog();
+            });
+        }
+
         public bool RunForResult(object sender, Message message)
         {
             var result = false;

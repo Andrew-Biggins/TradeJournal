@@ -14,11 +14,11 @@ namespace TradeJournalCore.ViewModels
 
         public ICommand ConfirmNewTradeCommand => new BasicCommand(() => TradeAdded.Raise(this));
 
-        public ICommand AddNewMarketCommand => new BasicCommand(GetNewMarketName);
+        public ICommand AddNewMarketCommand => new BasicCommand(GetNewMarketDetails);
 
         public ICommand AddNewStrategyCommand => new BasicCommand(GetNewStrategyName);
 
-        public ISelectable SelectedMarket { get; set; } = new Market("USDJPY");
+        public ISelectable SelectedMarket { get; set; } = new Market("USDJPY", AssetClass.Currencies);
 
         public ISelectable SelectedStrategy { get; set; } = new Strategy("Triangle");
 
@@ -82,10 +82,11 @@ namespace TradeJournalCore.ViewModels
 
         public TradeDetailsValidator TradeDetailsValidator { get; } = new TradeDetailsValidator();
 
-        public TradeDetailsViewModel(IRunner runner, GetNameViewModel getNameViewModel)
+        public TradeDetailsViewModel(IRunner runner, GetNameViewModel getNameViewModel, AddMarketViewModel addMarketViewModel)
         {
             _runner = runner ?? throw new ArgumentNullException(nameof(runner));
             _getNameViewModel = getNameViewModel ?? throw new ArgumentNullException(nameof(getNameViewModel));
+            _addMarketViewModel = addMarketViewModel ?? throw new ArgumentNullException(nameof(addMarketViewModel));
 
             Open.PropertyChanged += OnOpenChanged;
             Levels.PropertyChanged += OnLevelsChanged;
@@ -183,11 +184,11 @@ namespace TradeJournalCore.ViewModels
             }
         }
 
-        private void GetNewMarketName()
+        private void GetNewMarketDetails()
         {
-            _getNameViewModel.Name = string.Empty;
-            _getNameViewModel.NameConfirmed += AddMarket;
-            _runner.GetNewName(_getNameViewModel, "Enter Market Name");
+            _addMarketViewModel.Name = string.Empty;
+            _addMarketViewModel.MarketConfirmed += AddMarket;
+            _runner.GetNewMarket(_addMarketViewModel, "Enter Market Details");
         }
 
         private void GetNewStrategyName()
@@ -199,11 +200,11 @@ namespace TradeJournalCore.ViewModels
 
         private void AddMarket(object sender, EventArgs e)
         {
-            var market = new Market(_getNameViewModel.Name);
+            var market = new Market(_addMarketViewModel.Name, _addMarketViewModel.SelectedAssetClass);
             Markets.Add(market);
             SelectedMarket = market;
             RaisePropertyChanged(nameof(SelectedMarket));
-            _getNameViewModel.NameConfirmed -= AddMarket;
+            _addMarketViewModel.MarketConfirmed -= AddMarket;
         }
 
         private void AddStrategy(object sender, EventArgs e)
@@ -217,6 +218,7 @@ namespace TradeJournalCore.ViewModels
 
         private readonly IRunner _runner;
         private readonly GetNameViewModel _getNameViewModel;
+        private readonly AddMarketViewModel _addMarketViewModel;
 
         private DateTime _closeDateTime = DateTime.Today.AddMinutes(1);
         private Optional<Excursion> _maxAdverse = Option.None<Excursion>();

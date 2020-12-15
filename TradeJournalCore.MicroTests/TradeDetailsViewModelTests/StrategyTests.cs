@@ -14,7 +14,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
         public void T0()
         {
             // Arrange
-            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel());
+            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel());
 
             // Act 
             var actual = viewModel.Strategies;
@@ -31,7 +31,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
             // Arrange
             var runner = SubRunner;
             var getNameVm = new GetNameViewModel();
-            var viewModel = new TradeDetailsViewModel(runner, getNameVm);
+            var viewModel = new TradeDetailsViewModel(runner, getNameVm, new AddMarketViewModel());
 
             // Act 
             viewModel.AddNewStrategyCommand.Execute(null!);
@@ -48,7 +48,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
             // Arrange
             var getNameVm = new GetNameViewModel();
             getNameVm.Name = "test name";
-            var viewModel = new TradeDetailsViewModel(SubRunner, getNameVm);
+            var viewModel = new TradeDetailsViewModel(SubRunner, getNameVm, new AddMarketViewModel());
 
             // Act 
             viewModel.AddNewStrategyCommand.Execute(null!);
@@ -66,7 +66,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
             // Arrange
             var getNameVm = new GetNameViewModel();
             const string testName = "test name";
-            var viewModel = new TradeDetailsViewModel(SubRunner, getNameVm);
+            var viewModel = new TradeDetailsViewModel(SubRunner, getNameVm, new AddMarketViewModel());
             viewModel.AddNewStrategyCommand.Execute(null!);
             getNameVm.Name = testName;
 
@@ -78,19 +78,19 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
         }
 
         [Gwt("Given a trade details view model has the add new market command executed",
-            "when the get name view model confirms the new market name",
+            "when the add market view model confirms the new market name",
             "the selected market is the new market")]
         public void T4()
         {
             // Arrange
-            var getNameVm = new GetNameViewModel();
+            var addMarketViewModel = new AddMarketViewModel();
             const string testName = "test name";
-            var viewModel = new TradeDetailsViewModel(SubRunner, getNameVm);
+            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), addMarketViewModel);
             viewModel.AddNewMarketCommand.Execute(null!);
-            getNameVm.Name = testName;
+            addMarketViewModel.Name = testName;
 
             // Act 
-            getNameVm.ConfirmNewNameCommand.Execute(null!);
+            addMarketViewModel.ConfirmMarketCommand.Execute(null!);
 
             // Assert
             Assert.Equal(testName, viewModel.SelectedMarket.Name);
@@ -103,7 +103,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
         {
             // Arrange
             var getNameVm = new GetNameViewModel();
-            var viewModel = new TradeDetailsViewModel(SubRunner, getNameVm);
+            var viewModel = new TradeDetailsViewModel(SubRunner, getNameVm, new AddMarketViewModel());
             var catcher = Catcher.For(viewModel);
             viewModel.AddNewStrategyCommand.Execute(null!);
 
@@ -122,7 +122,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
         {
             // Arrange
             var getNameVm = new GetNameViewModel();
-            var viewModel = new TradeDetailsViewModel(SubRunner, getNameVm);
+            var viewModel = new TradeDetailsViewModel(SubRunner, getNameVm, new AddMarketViewModel());
             viewModel.AddNewStrategyCommand.Execute(null!);
             getNameVm.ConfirmNewNameCommand.Execute(null!);
 

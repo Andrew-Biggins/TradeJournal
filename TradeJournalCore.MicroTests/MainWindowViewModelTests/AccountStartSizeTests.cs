@@ -13,7 +13,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         public void T0()
         {
             // Arrange
-            var viewModel = new MainWindowViewModel(SubRunner, SubTradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel()));
+            var viewModel = new MainWindowViewModel(SubRunner, SubTradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()));
 
             // Act 
             var actual = viewModel.AccountStartSize;
@@ -28,7 +28,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         public void T1()
         {
             // Arrange
-            var viewModel = new MainWindowViewModel(SubRunner, SubTradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel()));
+            var viewModel = new MainWindowViewModel(SubRunner, SubTradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()));
 
             // Act 
             viewModel.AccountStartSize = 500;

@@ -18,7 +18,8 @@ namespace TradeJournalWPF
             window.Show();
             var tradeManager = new TradeManager();
             var getNameViewModel = new GetNameViewModel();
-            var tradeDetailsViewModel = new TradeDetailsViewModel(runner, getNameViewModel);
+            var addMarketViewModel = new AddMarketViewModel();
+            var tradeDetailsViewModel = new TradeDetailsViewModel(runner, getNameViewModel, addMarketViewModel);
             var mainViewModel = new MainWindowViewModel(runner, tradeManager, tradeDetailsViewModel);
             window.DataContext = mainViewModel;
         }
