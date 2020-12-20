@@ -1,6 +1,5 @@
 ﻿using Common;
 using System;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 using TradeJournalCore.Interfaces;
 
@@ -9,10 +8,6 @@ namespace TradeJournalCore.ViewModels
     public sealed class MainWindowViewModel
     {
         public ITradeManager TradeManager { get; }
-
-        public ObservableCollection<ISelectable> Markets { get; } = new ObservableCollection<ISelectable>();
-
-        public ObservableCollection<ISelectable> Strategies { get; } = new ObservableCollection<ISelectable>();
 
         public ICommand AddNewTradeCommand => new BasicCommand(AddTrade);
 
@@ -38,6 +33,8 @@ namespace TradeJournalCore.ViewModels
             _tradeDetailsViewModel = tradeDetailsViewModel ?? throw new ArgumentNullException(nameof(tradeDetailsViewModel));
 
             _tradeDetailsViewModel.TradeAdded += ConfirmTrade;
+
+            _tradeDetailsViewModel.AddSelectables(TradeFilterer.Markets, TradeFilterer.Strategies);
         }
 
         private void AddTrade()

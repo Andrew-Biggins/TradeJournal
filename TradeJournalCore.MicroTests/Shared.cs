@@ -19,10 +19,10 @@ namespace TradeJournalCore.MicroTests
 
         internal static ITrade TestOpenTrade => new Trade(TestMarket, TestStrategy,
             new Levels(100, 50, 200), new Execution(100, DateTime.Today, 1), Option.None<Execution>(),
-            (Option.None<Excursion>(), new Option.OptionNone<Excursion>()));
+            (Option.None<double>(), Option.None<double>()));
 
         internal static ITrade TestClosedTrade => new Trade(TestMarket, TestStrategy,
             new Levels(100, 50, 200), new Execution(100, DateTime.Today, 1), Option.Some(TestClose),
-            (Option.None<Excursion>(), new Option.OptionNone<Excursion>()));
+            (Option.None<double>(), Option.None<double>()));
     }
 }

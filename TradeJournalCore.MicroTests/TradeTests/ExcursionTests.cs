@@ -16,13 +16,13 @@ namespace TradeJournalCore.MicroTests.TradeTests
             // Arrange
             var trade = new Trade(TestMarket, new Strategy(string.Empty), new Levels(0, 0, 0),
                 new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
-                (Option.None<Excursion>(), Option.None<Excursion>()));
+                (Option.None<double>(), Option.None<double>()));
 
             // Act 
             var actual = trade.MaxAdverseExcursion;
 
             // Assert
-            Assert.IsType<Option.OptionNone<Excursion>>(actual);
+            Assert.IsType<Option.OptionNone<double>>(actual);
         }
 
         [Gwt("Given a trade with no maximum favourable excursion",
@@ -33,13 +33,13 @@ namespace TradeJournalCore.MicroTests.TradeTests
             // Arrange
             var trade = new Trade(TestMarket, new Strategy(string.Empty), new Levels(0, 0, 0),
                 new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
-                (Option.None<Excursion>(), Option.None<Excursion>()));
+                (Option.None<double>(), Option.None<double>()));
 
             // Act 
             var actual = trade.MaxFavourableExcursion;
 
             // Assert
-            Assert.IsType<Option.OptionNone<Excursion>>(actual);
+            Assert.IsType<Option.OptionNone<double>>(actual);
         }
 
         [Gwt("Given a trade with a maximum adverse excursion",
@@ -48,11 +48,11 @@ namespace TradeJournalCore.MicroTests.TradeTests
         public void T2()
         {
             // Arrange
-            var testExcursion = new Excursion(123, 456);
+            const double testExcursion = 123.56;
             var trade = new Trade(TestMarket, new Strategy(string.Empty), new Levels(0, 0, 0),
                 new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
-                (Option.Some(testExcursion), Option.None<Excursion>()));
-            var outExcursion = new Excursion();
+                (Option.Some(testExcursion), Option.None<double>()));
+            var outExcursion = 0.00;
 
             // Act 
             trade.MaxAdverseExcursion.IfExistsThen(x => { outExcursion = x; });
@@ -67,11 +67,11 @@ namespace TradeJournalCore.MicroTests.TradeTests
         public void T3()
         {
             // Arrange
-            var testExcursion = new Excursion(456, 789);
+            const double testExcursion = 789.23;
             var trade = new Trade(TestMarket, new Strategy(string.Empty), new Levels(0, 0, 0),
                 new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
-                (Option.None<Excursion>(), Option.Some(testExcursion)));
-            var outExcursion = new Excursion();
+                (Option.None<double>(), Option.Some(testExcursion)));
+            var outExcursion = 0.00;
 
             // Act 
             trade.MaxFavourableExcursion.IfExistsThen(x => { outExcursion = x; });

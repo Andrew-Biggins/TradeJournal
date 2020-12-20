@@ -42,7 +42,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
             viewModel.CloseLevel = Option.Some(testClose);
 
             // Assert
-            viewModel.MaxAdverse.IfExistsThen(x => { x.Points.IfExistsThen(y => { actual = y;}); });
+            viewModel.MaxAdverse.IfExistsThen(x => { actual = x; });
             Assert.Equal(testOpen - testClose, actual);
         }
 
@@ -101,7 +101,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
             viewModel.CloseLevel = Option.Some(testClose);
 
             // Assert
-            viewModel.MaxAdverse.IfExistsThen(x => { x.Points.IfExistsThen(y => { actual = y; }); });
+            viewModel.MaxAdverse.IfExistsThen(x => {actual = x; });
             Assert.Equal(testClose - testOpen, actual);
         }
 
@@ -177,7 +177,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
             viewModel.CloseLevel = Option.None<double>();
 
             // Assert
-            Assert.IsType<Option.OptionNone<Excursion>>(viewModel.MaxAdverse);
+            Assert.IsType<Option.OptionNone<double>>(viewModel.MaxAdverse);
         }
 
         // Also tests subscription to open changed event
@@ -266,7 +266,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
             viewModel.CloseLevel = Option.Some(100.0);
 
             // Act 
-            viewModel.MaxAdverse = Option.Some(new Excursion(100, 0));
+            viewModel.MaxAdverse = Option.Some(100.0);
 
             // Assert
             Assert.True(viewModel.TradeDetailsValidator.MaeHasError);
@@ -283,7 +283,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
             viewModel.CloseLevel = Option.Some(200.0);
 
             // Act 
-            viewModel.MaxFavourable = Option.Some(new Excursion(5, 0));
+            viewModel.MaxFavourable = Option.Some(5.0);
 
             // Assert
             Assert.True(viewModel.TradeDetailsValidator.MfeHasError);

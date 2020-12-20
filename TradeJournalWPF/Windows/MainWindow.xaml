@@ -275,7 +275,7 @@
                                         Binding="{Binding Close, Converter={converters:OptionalExecutionLevelToStringConverter}}" Width="1*" />
 
                         <DataGridTextColumn Header="Points" x:Name="TotalPointsColumn"
-                                        Binding="{Binding PointsProfit, Converter={converters:OptionalDoubleToStringConverter}, StringFormat=N1}" Width="0.9*" >
+                                        Binding="{Binding PointsResult, Converter={converters:OptionalDoubleToStringConverter}, StringFormat=N1}" Width="0.9*" >
                             <DataGridTextColumn.HeaderStyle>
                                 <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                     <Setter  Property="BorderThickness" Value="2,0,1,0"/>
@@ -298,10 +298,10 @@
                         </DataGridTextColumn>
 
                         <DataGridTextColumn Header="£" x:Name="ProfitColumn"
-                                            Binding="{Binding CashProfit, Converter={converters:OptionalDoubleToStringConverter}, StringFormat=N2}" Width=".9*" >
+                                            Binding="{Binding CashResult, Converter={converters:OptionalDoubleToStringConverter}, StringFormat=N2}" Width=".9*" >
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="{x:Type TextBlock}">
-                                    <Setter Property="Foreground" Value="{Binding CashProfit, Converter={converters:OptionalDoubleToBrushConverter}}"/>
+                                    <Setter Property="Foreground" Value="{Binding CashResult, Converter={converters:OptionalDoubleToBrushConverter}}"/>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
@@ -330,7 +330,7 @@
                         </DataGridTextColumn>
 
                         <DataGridTextColumn Header="MAE" x:Name="MaeColumn"
-                                            Binding="{Binding MaxAdverseExcursion, Converter={converters:OptionalExcursionPointsToStringConverter}, StringFormat=N1}" Width="0.7*" >
+                                            Binding="{Binding MaxAdverseExcursion, Converter={converters:OptionalDoubleToStringConverter}, StringFormat=N1}" Width="0.7*" >
                             <DataGridTextColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                     <Setter Property="ToolTip" Value="Maximum Adverse Excursion"/>
@@ -339,7 +339,7 @@
                         </DataGridTextColumn>
 
                         <DataGridTextColumn Header="MFA" x:Name="MfaColumn"
-                                            Binding="{Binding MaxFavourableExcursion, Converter={converters:OptionalExcursionPointsToStringConverter}, StringFormat=N1}" Width="0.7*">
+                                            Binding="{Binding MaxFavourableExcursion, Converter={converters:OptionalDoubleToStringConverter}, StringFormat=N1}" Width="0.7*">
                             <DataGridTextColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                     <Setter Property="ToolTip" Value="Maximum Favourable Excursion"/>
@@ -348,7 +348,7 @@
                         </DataGridTextColumn>
 
                         <DataGridTextColumn Header="Drawdown" x:Name="DrawdownColumn"
-                                            Binding="{Binding MaximumAdverseExcursionPercentageOfStop, Converter={converters:OptionalDoubleToStringConverter}, StringFormat=P}" Width="1*" >
+                                            Binding="{Binding DrawdownPercentage, Converter={converters:OptionalDoubleToStringConverter}, StringFormat=P}" Width="1*" >
                             <DataGridTextColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                     <Setter Property="ToolTip" Value="Drawdown or 'Heat'. &#x0a;&#x0a;Measured as percentage of stop/risk."/>
@@ -357,7 +357,7 @@
                         </DataGridTextColumn>
 
                         <DataGridTextColumn Header="Realised Profit %" x:Name="RealisedProfitColumn"
-                                            Binding="{Binding PointsProfitPercentageOfMaximumFavourableExcursion, Converter={converters:OptionalDoubleToStringConverter}, StringFormat=P}" Width="0.82*">
+                                            Binding="{Binding RealisedProfitPercentage, Converter={converters:OptionalDoubleToStringConverter}, StringFormat=P}" Width="0.82*">
                             <DataGridTextColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                     <Setter Property="ToolTip" Value="Realised Profit Percentage. &#x0a;&#x0a;Measure of trade efficiency in relation &#x0a;to its Maximum Favourable Excursion."/>
@@ -366,7 +366,7 @@
                         </DataGridTextColumn>
 
                         <DataGridTextColumn Header="Points" x:Name="UnrealisedProfitPointsColumn"
-                                            Binding="{Binding UnrealisedProfitPoints, Converter={converters:OptionalDoubleToStringConverter}, StringFormat=N1}" Width="0.8*">
+                                            Binding="{Binding UnrealisedPointsProfit, Converter={converters:OptionalDoubleToStringConverter}, StringFormat=N1}" Width="0.8*">
                             <DataGridTextColumn.HeaderStyle>
                                 <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                     <Setter Property="BorderThickness" Value="2,0,1,0"/>
@@ -388,7 +388,7 @@
                         </DataGridTextColumn>
 
                         <DataGridTextColumn Header="£" x:Name="UnrealisedProfitCashColumn"
-                                            Binding="{Binding UnrealisedProfitCash, Converter={converters:OptionalDoubleToStringConverter}, StringFormat=N2}" Width="0.8*">
+                                            Binding="{Binding UnrealisedCashProfit, Converter={converters:OptionalDoubleToStringConverter}, StringFormat=N2}" Width="0.8*">
                             <DataGridTextColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                     <Setter Property="ToolTip" Value="Unrealised Profit (£)"/>

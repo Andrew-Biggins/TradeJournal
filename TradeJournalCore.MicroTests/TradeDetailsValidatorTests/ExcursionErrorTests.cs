@@ -140,7 +140,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             validator.MaeHasError = true;
 
             // Act 
-            validator.ValidateMae(Option.None<Excursion>());
+            validator.ValidateMae(Option.None<double>());
 
             // Assert
             Assert.False(validator.MaeHasError);
@@ -156,7 +156,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             validator.MfeHasError = true;
 
             // Act 
-            validator.ValidateMfe(Option.None<Excursion>());
+            validator.ValidateMfe(Option.None<double>());
 
             // Assert
             Assert.False(validator.MfeHasError);
@@ -172,7 +172,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(100), 200);
 
             // Act 
-            validator.ValidateMae(new Option.OptionSome<Excursion>(new Excursion(101, 0)));
+            validator.ValidateMae(Option.Some(101.00));
 
             // Assert
             Assert.True(validator.MaeHasError);
@@ -189,7 +189,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             validator.MaeHasError = true;
 
             // Act 
-            validator.ValidateMae(new Option.OptionSome<Excursion>(new Excursion(99, 0)));
+            validator.ValidateMae(Option.Some(99.00));
 
             // Assert
             Assert.False(validator.MaeHasError);
@@ -205,7 +205,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(200), 100);
 
             // Act 
-            validator.ValidateMfe(new Option.OptionSome<Excursion>(new Excursion(99, 0)));
+            validator.ValidateMfe(Option.Some(99.99));
 
             // Assert
             Assert.True(validator.MfeHasError);
@@ -222,7 +222,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             validator.MfeHasError = true;
 
             // Act 
-            validator.ValidateMfe(new Option.OptionSome<Excursion>(new Excursion(101, 0)));
+            validator.ValidateMfe(Option.Some(101.1));
 
             // Assert
             Assert.False(validator.MaeHasError);
@@ -431,7 +431,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
         {
             // Arrange
             var validator = new TradeDetailsValidator();
-            validator.ValidateMae(Option.Some(new Excursion(100, 0)));
+            validator.ValidateMae(Option.Some(100.00));
 
             // Act 
             validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(50), 100);
@@ -447,7 +447,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
         {
             // Arrange
             var validator = new TradeDetailsValidator();
-            validator.ValidateMfe(Option.Some(new Excursion(100, 0)));
+            validator.ValidateMfe(Option.Some(100.00));
 
             // Act 
             validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(250), 100);

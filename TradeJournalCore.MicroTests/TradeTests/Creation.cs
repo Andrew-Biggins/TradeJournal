@@ -16,7 +16,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
             Assert.Throws<ArgumentNullException>("market",
                 () => new Trade(null!, new Strategy(string.Empty), new Levels(0, 0, 0),
                     new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
-                    (Option.None<Excursion>(), Option.None<Excursion>())));
+                    (Option.None<double>(), Option.None<double>())));
         }
 
         [Gwt("Given a null levels",
@@ -27,7 +27,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
             Assert.Throws<ArgumentNullException>("strategy",
                 () => new Trade(TestMarket, null!, new Levels(0, 0, 0),
                     new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
-                    (Option.None<Excursion>(), Option.None<Excursion>())));
+                    (Option.None<double>(), Option.None<double>())));
         }
 
         [Gwt("Given a null levels",
@@ -38,7 +38,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
             Assert.Throws<ArgumentNullException>("levels",
                 () => new Trade(TestMarket, new Strategy(string.Empty), null!,
                     new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
-                    (Option.None<Excursion>(), Option.None<Excursion>())));
+                    (Option.None<double>(), Option.None<double>())));
         }
 
         [Gwt("Given a null open",
@@ -48,7 +48,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
         {
             Assert.Throws<ArgumentNullException>("open",
                 () => new Trade(TestMarket, new Strategy(string.Empty), new Levels(0, 0, 0), null!,
-                    Option.None<Execution>(), (Option.None<Excursion>(), Option.None<Excursion>())));
+                    Option.None<Execution>(), (Option.None<double>(), Option.None<double>())));
         }
 
         [Gwt("Given a null maximum adverse excursion",
@@ -59,7 +59,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
             Assert.Throws<ArgumentNullException>("adverse",
                 () => new Trade(TestMarket, new Strategy(string.Empty), new Levels(0, 0, 0),
                     new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
-                    (null!, Option.None<Excursion>())));
+                    (null!, Option.None<double>())));
         }
 
         [Gwt("Given a null maximum favourable excursion",
@@ -70,7 +70,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
             Assert.Throws<ArgumentNullException>("favourable",
                 () => new Trade(TestMarket, new Strategy(string.Empty), new Levels(0, 0, 0),
                     new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
-                    (Option.None<Excursion>(), null!)));
+                    (Option.None<double>(), null!)));
         }
     }
 }

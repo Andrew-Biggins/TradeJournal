@@ -134,7 +134,7 @@ namespace TradeJournalCore
         {
             close.IfExistsThen(x =>
             {
-                if (x > open)
+                if (x >= open)
                 {
                     MaximumMae = open;
                 }
@@ -150,7 +150,7 @@ namespace TradeJournalCore
         {
             close.IfExistsThen(x =>
             {
-                if (x > open)
+                if (x >= open)
                 {
                     MinimumMfe = x - open;
                 }
@@ -165,7 +165,7 @@ namespace TradeJournalCore
         {
             close.IfExistsThen(x =>
             {
-                if (x < open)
+                if (x <= open)
                 {
                     MaximumMae = double.PositiveInfinity;
                 }
@@ -181,7 +181,7 @@ namespace TradeJournalCore
         {
             close.IfExistsThen(x =>
             {
-                if (x < open)
+                if (x <= open)
                 {
                     MinimumMfe = open - x;
                 }
@@ -192,17 +192,17 @@ namespace TradeJournalCore
             }).IfEmpty(() => { MinimumMfe = 0; });
         }
 
-        public void ValidateMae(Optional<Excursion> mae)
+        public void ValidateMae(Optional<double> mae)
         {
             _mae = mae;
-            _mae.IfExistsThen(x => { x.Points.IfExistsThen(y => { MaeHasError = y > MaximumMae; }); })
+            _mae.IfExistsThen(x => { MaeHasError = x > MaximumMae; }) 
                 .IfEmpty(() => MaeHasError = false); 
         }
 
-        public void ValidateMfe(Optional<Excursion> mfe)
+        public void ValidateMfe(Optional<double> mfe)
         {
             _mfe = mfe;
-            _mfe.IfExistsThen(x => { x.Points.IfExistsThen(y => { MfeHasError = y < MinimumMfe; }); })
+            _mfe.IfExistsThen(x => { MfeHasError = x < MinimumMfe; })
                 .IfEmpty(() => MfeHasError = false);
         }
 
@@ -231,7 +231,7 @@ namespace TradeJournalCore
         private bool _isTradeValid;
         private bool _datesHaveError;
 
-        private Optional<Excursion> _mae = Option.None<Excursion>();
-        private Optional<Excursion> _mfe = Option.None<Excursion>();
+        private Optional<double> _mae = Option.None<double>();
+        private Optional<double> _mfe = Option.None<double>();
     }
 }

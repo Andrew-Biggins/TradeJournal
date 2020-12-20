@@ -17,7 +17,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
             var testLevels = new Levels(1, 2, 3);
             var trade = new Trade(TestMarket, new Strategy(string.Empty), testLevels,
                 new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
-                (Option.None<Excursion>(), Option.None<Excursion>()));
+                (Option.None<double>(), Option.None<double>()));
 
             // Act 
             var actual = trade.Levels;

@@ -255,7 +255,7 @@
                         <ColumnDefinition Width="240"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="Actual Close Details" FontSize="11" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="Actual Close Details (optional)" FontSize="11" HorizontalAlignment="Center"/>
                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Close Level"/>
                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Close Date/Time"/>
 
@@ -307,7 +307,7 @@
                         <ColumnDefinition Width="140"/>
                         <ColumnDefinition Width="240"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="Trade Metrics - Excursions" FontSize="11" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="Trade Metrics - Excursions (optional)" FontSize="11" HorizontalAlignment="Center"/>
                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Maximum Adverse"/>
                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Maximum Favourable"/>
 
@@ -321,7 +321,7 @@
                                          Mode="TwoWay"
                                          UpdateSourceTrigger="LostFocus"
                                          TargetNullValue="{x:Static system:String.Empty}"
-                                         Converter="{converters:OptionalExcursionPointsToStringConverter}">
+                                         Converter="{converters:OptionalDoubleToStringConverter}">
                                     <Binding.ValidationRules>
                                         <validationRules:CanBeEmptyPositiveNumberValidationRule/>
                                     </Binding.ValidationRules>
@@ -338,7 +338,7 @@
                                                VerticalAlignment="Center" TextAlignment="Center">
                                         <TextBlock.ToolTip>
                                             <TextBlock Foreground="Black">
-                                                <Run Text="Maximum Adverse Excursion must be less than " />
+                                                <Run Text="Maximum Adverse Excursion must be less than" />
                                                 <Run Text="{Binding TradeDetailsValidator.MaximumMae, Mode=OneWay}" />
                                                 <Run Text="points." />
                                             </TextBlock>
@@ -360,7 +360,7 @@
                                          Mode="TwoWay"
                                          UpdateSourceTrigger="LostFocus"
                                          TargetNullValue="{x:Static system:String.Empty}"
-                                         Converter="{converters:OptionalExcursionPointsToStringConverter}">
+                                         Converter="{converters:OptionalDoubleToStringConverter}">
                                     <Binding.ValidationRules>
                                         <validationRules:CanBeEmptyPositiveNumberValidationRule/>
                                     </Binding.ValidationRules>

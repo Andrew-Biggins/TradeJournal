@@ -1,32 +1,22 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using TradeJournalCore.Interfaces;
+using static TradeJournalCore.SelectableFactory;
 
 namespace TradeJournalCore.ViewModels
 {
     public class TradeFiltererViewModel
     {
-        public ObservableCollection<ISelectable> Markets { get; } = new ObservableCollection<ISelectable>();
+        public ObservableCollection<ISelectable> Markets { get; } = GetDefaultMarkets();
 
-        public ObservableCollection<ISelectable> Strategies { get; } = new ObservableCollection<ISelectable>();
+        public ObservableCollection<ISelectable> Strategies { get; } = GetDefaultStrategies();
 
-        public ObservableCollection<ISelectable> AssetTypes { get; } = new ObservableCollection<ISelectable>();
+        public ObservableCollection<ISelectable> AssetTypes { get; } = GetAssetTypes();
 
-        public ObservableCollection<ISelectable> DaysOfWeek { get; } = new ObservableCollection<ISelectable>();
+        public ObservableCollection<ISelectable> DaysOfWeek { get; } = GetDays();
 
         public TradeFiltererViewModel()
         {
-            GetAssetTypes();
-        }
-
-        private void GetAssetTypes()
-        {
-            var assetClasses = (AssetClass[])Enum.GetValues(typeof(AssetClass));
-
-            foreach (var assetClass in assetClasses)
-            {
-                AssetTypes.Add(new AssetType(assetClass));
-            }
         }
     }
 }

@@ -18,13 +18,13 @@ namespace TradeJournalCore.ViewModels
 
         public ICommand AddNewStrategyCommand => new BasicCommand(GetNewStrategyName);
 
-        public ISelectable SelectedMarket { get; set; } = new Market("USDJPY", AssetClass.Currencies);
+        public ISelectable SelectedMarket { get; set; } 
 
-        public ISelectable SelectedStrategy { get; set; } = new Strategy("Triangle");
+        public ISelectable SelectedStrategy { get; set; }
 
-        public ObservableCollection<ISelectable> Strategies { get; } = new ObservableCollection<ISelectable>();
+        public ObservableCollection<ISelectable> Strategies { get; private set; } = new ObservableCollection<ISelectable>();
 
-        public ObservableCollection<ISelectable> Markets { get; } = new ObservableCollection<ISelectable>();
+        public ObservableCollection<ISelectable> Markets { get; private set; } = new ObservableCollection<ISelectable>();
 
         public Levels Levels { get; private set; } = new Levels(6000, 5900, 6500);
 
@@ -52,7 +52,7 @@ namespace TradeJournalCore.ViewModels
 
         public Optional<double> CloseSize { get; set; } = Option.None<double>();
 
-        public Optional<Excursion> MaxAdverse
+        public Optional<double> MaxAdverse
         {
             get => _maxAdverse;
             set
@@ -62,7 +62,7 @@ namespace TradeJournalCore.ViewModels
             }
         }
 
-        public Optional<Excursion> MaxFavourable
+        public Optional<double> MaxFavourable
         {
             get => _maxFavourable;
             set
@@ -110,6 +110,15 @@ namespace TradeJournalCore.ViewModels
             }).IfEmpty(() => CloseLevel = Option.None<double>());
         }
 
+        public void AddSelectables(ObservableCollection<ISelectable> markets, ObservableCollection<ISelectable> strategies)
+        {
+            Markets = markets;
+            Strategies = strategies;
+
+            SelectedStrategy = Strategies[0];
+            SelectedMarket = Markets[0];
+        }
+
         private void OnLevelsChanged(object sender, PropertyChangedEventArgs e)
         {
             UpdateExcursions();
@@ -141,7 +150,7 @@ namespace TradeJournalCore.ViewModels
                     isCloseLevelSet = true; 
                 }).IfEmpty(() =>
                 {
-                    MaxAdverse = Option.None<Excursion>();
+                    MaxAdverse = Option.None<double>();
                     IsMaeFixed = false;
                 });
 
@@ -162,7 +171,7 @@ namespace TradeJournalCore.ViewModels
         {
             if (Open.Level > closeLevel)
             {
-                MaxAdverse = Option.Some(new Excursion(Open.Level - closeLevel, 0));
+                MaxAdverse = Option.Some(Open.Level - closeLevel);
                 IsMaeFixed = true;
             }
             else
@@ -175,7 +184,7 @@ namespace TradeJournalCore.ViewModels
         {
             if (Open.Level < closeLevel)
             {
-                MaxAdverse = Option.Some(new Excursion(closeLevel - Open.Level, 0));
+                MaxAdverse = Option.Some(closeLevel - Open.Level);
                 IsMaeFixed = true;
             }
             else
@@ -221,8 +230,8 @@ namespace TradeJournalCore.ViewModels
         private readonly AddMarketViewModel _addMarketViewModel;
 
         private DateTime _closeDateTime = DateTime.Today.AddMinutes(1);
-        private Optional<Excursion> _maxAdverse = Option.None<Excursion>();
-        private Optional<Excursion> _maxFavourable = Option.None<Excursion>();
+        private Optional<double> _maxAdverse = Option.None<double>();
+        private Optional<double> _maxFavourable = Option.None<double>();
         private Optional<double> _closeLevel = Option.None<double>();
         private bool _isMaeFixed;
     }

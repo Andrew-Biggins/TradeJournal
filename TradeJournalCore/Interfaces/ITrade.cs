@@ -14,8 +14,26 @@ namespace TradeJournalCore.Interfaces
 
         Optional<Execution> Close { get; }
 
-        Optional<Excursion> MaxAdverseExcursion { get; }
+        Optional<double> MaxAdverseExcursion { get; }
 
-        Optional<Excursion> MaxFavourableExcursion { get; }
+        Optional<double> MaxFavourableExcursion { get; }
+
+        TradeDirection Direction { get; }
+
+        double RiskRewardRatio { get; }
+
+        Optional<double> ResultInR { get; }
+
+        Optional<double> PointsResult { get; }
+
+        Optional<double> CashResult { get; }
+
+        Optional<double> DrawdownPercentage { get; }
+
+        Optional<double> RealisedProfitPercentage { get; }
+
+        Optional<double> UnrealisedPointsProfit { get; }
+
+        Optional<double> UnrealisedCashProfit { get; }
     }
 }
