@@ -12,5 +12,7 @@ namespace TradeJournalCore.Interfaces
         void AddNewTrade(TradeDetailsViewModel tradeDetails);
 
         void RemoveTrade();
+
+        void FilterTrades(TradeFiltererViewModel filters);
     }
 }

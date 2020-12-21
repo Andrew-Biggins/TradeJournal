@@ -49,7 +49,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
             var actual = addTradeViewModel.Markets;
 
             // Assert
-            Assert.Equal(viewModel.TradeFilterer.Markets, actual);
+            Assert.Equal(viewModel.TradeFiltererViewModel.Markets, actual);
         }
 
         [Gwt("Given a main window view model",
@@ -65,7 +65,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
             var actual = addTradeViewModel.Strategies;
 
             // Assert
-            Assert.Equal(viewModel.TradeFilterer.Strategies, actual);
+            Assert.Equal(viewModel.TradeFiltererViewModel.Strategies, actual);
         }
     }
 }

@@ -28,6 +28,11 @@ namespace TradeJournalCore
             Trades.Remove(SelectedTrade);
         }
 
+        public void FilterTrades(TradeFiltererViewModel filters)
+        {
+
+        }
+
         private static Optional<Execution> GetCloseExecution(TradeDetailsViewModel tradeDetails)
         {
             var close = new Execution(0, tradeDetails.CloseDateTime, 0);

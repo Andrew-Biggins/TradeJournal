@@ -24,7 +24,7 @@ namespace TradeJournalCore.ViewModels
             }
         }
 
-        public TradeFiltererViewModel TradeFilterer { get; } = new TradeFiltererViewModel();
+        public TradeFiltererViewModel TradeFiltererViewModel { get; } = new TradeFiltererViewModel();
 
         public MainWindowViewModel(IRunner runner, ITradeManager tradeManager, TradeDetailsViewModel tradeDetailsViewModel)
         {
@@ -32,9 +32,11 @@ namespace TradeJournalCore.ViewModels
             TradeManager = tradeManager ?? throw new ArgumentNullException(nameof(tradeManager));
             _tradeDetailsViewModel = tradeDetailsViewModel ?? throw new ArgumentNullException(nameof(tradeDetailsViewModel));
 
-            _tradeDetailsViewModel.TradeAdded += ConfirmTrade;
 
-            _tradeDetailsViewModel.AddSelectables(TradeFilterer.Markets, TradeFilterer.Strategies);
+            _tradeDetailsViewModel.AddSelectables(TradeFiltererViewModel.Markets, TradeFiltererViewModel.Strategies);
+
+            _tradeDetailsViewModel.TradeAdded += ConfirmTrade;
+            TradeFiltererViewModel.FiltersChanged += (o, args) => TradeManager.FilterTrades(TradeFiltererViewModel);
         }
 
         private void AddTrade()
