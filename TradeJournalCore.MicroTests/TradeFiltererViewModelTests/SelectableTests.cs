@@ -21,7 +21,7 @@ namespace TradeJournalCore.MicroTests.TradeFiltererViewModelTests
             var actual = viewModel.Markets;
 
             // Assert
-            Assert.True(AreCollectionsEqual(defaultMarkets, actual));
+            Assert.True(AreSelectableCollectionsEqual(defaultMarkets, actual));
         }
 
         [Gwt("Given a trade filterer view model",
@@ -37,7 +37,7 @@ namespace TradeJournalCore.MicroTests.TradeFiltererViewModelTests
             var actual = viewModel.Strategies;
 
             // Assert
-            Assert.True(AreCollectionsEqual(defaultStrategies, actual));
+            Assert.True(AreSelectableCollectionsEqual(defaultStrategies, actual));
         }
 
         [Gwt("Given a trade filterer view model",
@@ -53,7 +53,7 @@ namespace TradeJournalCore.MicroTests.TradeFiltererViewModelTests
             var actual = viewModel.AssetTypes;
 
             // Assert
-            Assert.True(AreCollectionsEqual(assetTypes, actual));
+            Assert.True(AreSelectableCollectionsEqual(assetTypes, actual));
         }
 
         [Gwt("Given a trade filterer view model",
@@ -69,16 +69,63 @@ namespace TradeJournalCore.MicroTests.TradeFiltererViewModelTests
             var actual = viewModel.DaysOfWeek;
 
             // Assert
-            Assert.True(AreCollectionsEqual(days, actual));
+            Assert.True(AreSelectableCollectionsEqual(days, actual));
         }
 
-        private static bool AreCollectionsEqual(IReadOnlyList<ISelectable> x, IReadOnlyList<ISelectable> y)
+        [Gwt("Given a trade filterer view model",
+            "when the trade statuses are read",
+            "the trade statuses are correct")]
+        public void T4()
+        {
+            // Arrange
+            var statuses = SelectableFactory.GetTradeStatuses();
+            var viewModel = new TradeFiltererViewModel();
+
+            // Act
+            var actual = viewModel.TradeStatuses;
+
+            // Assert
+            Assert.True(AreEnumCollectionsEqual(statuses, actual));
+        }
+
+        [Gwt("Given a trade filterer view model",
+            "when the trade directions are read",
+            "the trade directions are correct")]
+        public void T5()
+        {
+            // Arrange
+            var directions = SelectableFactory.GetTradeDirections();
+            var viewModel = new TradeFiltererViewModel();
+
+            // Act
+            var actual = viewModel.TradeDirections;
+
+            // Assert
+            Assert.True(AreEnumCollectionsEqual(directions, actual));
+        }
+
+        private static bool AreSelectableCollectionsEqual(IReadOnlyList<ISelectable> x, IReadOnlyList<ISelectable> y)
         {
             var areEqual = true;
 
             for (var i = 0; i < y.Count; i++)
             {
                 if (x[i].Name != y[i].Name)
+                {
+                    areEqual = false;
+                }
+            }
+
+            return areEqual;
+        }
+
+        private static bool AreEnumCollectionsEqual<T>(IReadOnlyList<T> x, IReadOnlyList<T> y)
+        {
+            var areEqual = true;
+
+            for (var i = 0; i < y.Count; i++)
+            {
+                if (x[i].ToString() != y[i].ToString())
                 {
                     areEqual = false;
                 }

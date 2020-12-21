@@ -7,7 +7,8 @@ namespace TradeJournalCore
     public enum TradeDirection
     {
         Long,
-        Short
+        Short,
+        Both
     }
 
     public sealed class Trade : ITrade
