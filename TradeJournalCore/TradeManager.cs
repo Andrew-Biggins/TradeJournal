@@ -1,15 +1,23 @@
-﻿using System.Collections.ObjectModel;
+﻿using Common;
 using Common.Optional;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using TradeJournalCore.Interfaces;
 using TradeJournalCore.ViewModels;
+using static TradeJournalCore.TradeFilterer;
 
 namespace TradeJournalCore
 {
-    public sealed class TradeManager : ITradeManager
+    public sealed class TradeManager : ITradeManager, INotifyPropertyChanged
     {
-        public ObservableCollection<ITrade> Trades { get; } = new ObservableCollection<ITrade>();
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public ObservableCollection<ITrade> Trades { get; private set; } = new ObservableCollection<ITrade>();
 
         public ITrade SelectedTrade { get; set; }
+
+        public IFilters Filters { get; set; } 
 
         public void AddNewTrade(TradeDetailsViewModel tradeDetails)
         {
@@ -20,7 +28,8 @@ namespace TradeJournalCore
                 new Execution(tradeDetails.Open.Level, tradeDetails.Open.DateTime, tradeDetails.Open.Size), close,
                 (tradeDetails.MaxAdverse, tradeDetails.MaxFavourable));
 
-            Trades.Add(trade);
+            _unfilteredTrades.Add(trade);
+            FilterTrades(Filters);
         }
 
         public void RemoveTrade()
@@ -28,9 +37,14 @@ namespace TradeJournalCore
             Trades.Remove(SelectedTrade);
         }
 
-        public void FilterTrades(TradeFiltererViewModel filters)
+        public void FilterTrades(IFilters filters)
         {
-
+            Filters = filters;
+            var assetClassesRemoved = RemoveUnselectedAssetClasses(_unfilteredTrades, filters.AssetClasses);
+            var marketsRemoved = RemoveUnselectedMarkets(assetClassesRemoved, filters.Markets);
+            var strategiesRemoved = RemoveUnselectedStrategies(marketsRemoved, filters.Strategies);
+            Trades = strategiesRemoved;
+            PropertyChanged.Raise(this, nameof(Trades));
         }
 
         private static Optional<Execution> GetCloseExecution(TradeDetailsViewModel tradeDetails)
@@ -42,5 +56,7 @@ namespace TradeJournalCore
 
             return fieldIsEmpty ? Option.None<Execution>() : Option.Some(close);
         }
+
+        private readonly IList<ITrade> _unfilteredTrades = new List<ITrade>();
     }
 }

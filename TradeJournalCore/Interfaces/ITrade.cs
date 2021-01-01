@@ -4,7 +4,7 @@ namespace TradeJournalCore.Interfaces
 {
     public interface ITrade
     {
-        ISelectable Market { get; }
+        IMarket Market { get; }
 
         ISelectable Strategy { get; }
 

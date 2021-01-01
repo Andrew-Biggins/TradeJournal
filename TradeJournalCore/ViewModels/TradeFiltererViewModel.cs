@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Common;
 using TradeJournalCore.Interfaces;
@@ -12,9 +13,9 @@ namespace TradeJournalCore.ViewModels
     {
         public EventHandler FiltersChanged;
 
-        public ObservableCollection<ISelectable> Markets { get; } = GetDefaultMarkets();
+        public SelectableCollection<IMarket> Markets { get; } = GetDefaultMarkets();
 
-        public ObservableCollection<ISelectable> Strategies { get; } = GetDefaultStrategies();
+        public SelectableCollection<ISelectable> Strategies { get; } = GetDefaultStrategies();
 
         public IReadOnlyList<ISelectable> AssetTypes { get; } = GetAssetTypes();
 
@@ -70,13 +71,18 @@ namespace TradeJournalCore.ViewModels
 
         public ICommand ApplyTradeFiltersCommand => new BasicCommand(() => FiltersChanged.Raise(this));
 
-        public TradeFiltererViewModel()
+        public IFilters GetFilters()
         {
-         
+            return new Filters(RemoveUnselected(Markets), RemoveUnselected(Strategies), RemoveUnselected(AssetTypes),
+                RemoveUnselected(DaysOfWeek), FilterStartDate, FilterEndDate, FilterStartTime, FilterEndTime,
+                MinRiskRewardRatio, MaxRiskRewardRatio, SelectedTradeStatus, SelectedTradeDirection);
         }
 
-        
-
+        private static IReadOnlyList<ISelectable> RemoveUnselected(IEnumerable<ISelectable> selectables)
+        {
+            return selectables.Where(x => x.IsSelected).ToList();
+        }
+    
         private DateTime _tradesStartDate;
         private DateTime _tradesEndDate;
         private DateTime _filterStartDate;

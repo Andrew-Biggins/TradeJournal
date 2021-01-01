@@ -1,9 +1,13 @@
-﻿using TradeJournalCore.Interfaces;
+﻿using System;
+using Common;
+using TradeJournalCore.Interfaces;
 
 namespace TradeJournalCore
 {
     public sealed class Strategy : ISelectable
     {
+        public event EventHandler SelectedChanged;
+
         public string Name { get; }
 
         public bool IsSelected
@@ -13,6 +17,7 @@ namespace TradeJournalCore
             {
                 value = !_isSelected;
                 _isSelected = value;
+                SelectedChanged.Raise(this);
             }
         }
 

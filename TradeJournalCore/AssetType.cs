@@ -1,9 +1,12 @@
-﻿using TradeJournalCore.Interfaces;
+﻿using System;
+using TradeJournalCore.Interfaces;
 
 namespace TradeJournalCore
 {
     public class AssetType : ISelectable
     {
+        public event EventHandler SelectedChanged;
+
         public string Name { get; }
 
         public bool IsSelected

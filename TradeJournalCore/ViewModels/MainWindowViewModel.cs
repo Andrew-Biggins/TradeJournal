@@ -32,11 +32,20 @@ namespace TradeJournalCore.ViewModels
             TradeManager = tradeManager ?? throw new ArgumentNullException(nameof(tradeManager));
             _tradeDetailsViewModel = tradeDetailsViewModel ?? throw new ArgumentNullException(nameof(tradeDetailsViewModel));
 
-
+            TradeManager.Filters = TradeFiltererViewModel.GetFilters();
             _tradeDetailsViewModel.AddSelectables(TradeFiltererViewModel.Markets, TradeFiltererViewModel.Strategies);
 
             _tradeDetailsViewModel.TradeAdded += ConfirmTrade;
-            TradeFiltererViewModel.FiltersChanged += (o, args) => TradeManager.FilterTrades(TradeFiltererViewModel);
+            TradeFiltererViewModel.FiltersChanged += SelectedChanged;
+            TradeFiltererViewModel.Markets.SelectedChanged += SelectedChanged;
+            TradeFiltererViewModel.Markets.CollectionChanged += SelectedChanged;
+            TradeFiltererViewModel.Strategies.SelectedChanged += SelectedChanged;
+            TradeFiltererViewModel.Strategies.CollectionChanged += SelectedChanged;
+        }
+
+        private void SelectedChanged(object sender, EventArgs e)
+        {
+            TradeManager.FilterTrades(TradeFiltererViewModel.GetFilters());
         }
 
         private void AddTrade()

@@ -1,4 +1,6 @@
-﻿using TradeJournalCore.Interfaces;
+﻿using System;
+using Common;
+using TradeJournalCore.Interfaces;
 
 namespace TradeJournalCore
 {
@@ -20,8 +22,10 @@ namespace TradeJournalCore
         PreciousMetals
     }
 
-    public sealed class Market : ISelectable
+    public sealed class Market : IMarket
     {
+        public event EventHandler SelectedChanged;
+
         public string Name { get; }
 
         public bool IsSelected
@@ -31,6 +35,7 @@ namespace TradeJournalCore
             {
                 value = !_isSelected;
                 _isSelected = value;
+                SelectedChanged.Raise(this);
             }
         }
 

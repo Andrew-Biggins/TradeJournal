@@ -9,10 +9,12 @@ namespace TradeJournalCore.Interfaces
 
         ITrade SelectedTrade { get; set; }
 
+        IFilters Filters { get; set; }
+
         void AddNewTrade(TradeDetailsViewModel tradeDetails);
 
         void RemoveTrade();
 
-        void FilterTrades(TradeFiltererViewModel filters);
+        void FilterTrades(IFilters filters);
     }
 }

@@ -13,7 +13,7 @@ namespace TradeJournalCore
 
     public sealed class Trade : ITrade
     {
-        public ISelectable Market { get; }
+        public IMarket Market { get; }
 
         public ISelectable Strategy { get; }
 
@@ -45,7 +45,7 @@ namespace TradeJournalCore
 
         public Optional<double> UnrealisedCashProfit { get; private set; } = Option.None<double>();
 
-        public Trade(ISelectable market, ISelectable strategy, Levels levels, Execution open, Optional<Execution> close,
+        public Trade(IMarket market, ISelectable strategy, Levels levels, Execution open, Optional<Execution> close,
             (Optional<double>, Optional<double>) excursions)
         {
             Market = market ?? throw new ArgumentNullException(nameof(market));

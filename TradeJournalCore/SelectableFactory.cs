@@ -14,27 +14,29 @@ namespace TradeJournalCore
 
     internal static class SelectableFactory
     {
-        internal static ObservableCollection<ISelectable> GetDefaultMarkets()
+        internal static SelectableCollection<IMarket> GetDefaultMarkets()
         {
-            return new ObservableCollection<ISelectable>()
-            {
-                new Market("USDJPY", AssetClass.Currencies) { IsSelected = true },
-                new Market("EURUSD", AssetClass.Currencies) { IsSelected = true },
-                new Market("Nasdaq", AssetClass.Indices) { IsSelected = true },
-                new Market("BTCUSD", AssetClass.Crypto) { IsSelected = true },
-                new Market("Gold", AssetClass.Commodities) { IsSelected = true },
-                new Market("Silver", AssetClass.Commodities) { IsSelected = true },
-                new Market("TSLA", AssetClass.Shares) { IsSelected = true }
-            };
+            var collection = new SelectableCollection<IMarket>();
+
+            collection.AddSelectable(new Market("USDJPY", AssetClass.Currencies) { IsSelected = true });
+            collection.AddSelectable(new Market("EURUSD", AssetClass.Currencies) { IsSelected = true });
+            collection.AddSelectable(new Market("Nasdaq", AssetClass.Indices) { IsSelected = true });
+            collection.AddSelectable(new Market("BTCUSD", AssetClass.Crypto) { IsSelected = true });
+            collection.AddSelectable(new Market("Silver", AssetClass.Commodities) { IsSelected = true });
+            collection.AddSelectable(new Market("Gold", AssetClass.Commodities) { IsSelected = true });
+            collection.AddSelectable(new Market("TSLA", AssetClass.Shares) { IsSelected = true });
+
+            return collection;
         }
 
-        internal static ObservableCollection<ISelectable> GetDefaultStrategies()
+        internal static SelectableCollection<ISelectable> GetDefaultStrategies()
         {
-            return new ObservableCollection<ISelectable>()
-            {
-                new Strategy("Triangle") { IsSelected = true },
-                new Strategy("Gap fill") { IsSelected = true }
-            };
+            var collection = new SelectableCollection<ISelectable>();
+
+            collection.AddSelectable(new Strategy("Triangle") { IsSelected = true });
+            collection.AddSelectable(new Strategy("Gap fill") { IsSelected = true });
+
+            return collection;
         }
 
         internal static IReadOnlyList<ISelectable> GetAssetTypes()

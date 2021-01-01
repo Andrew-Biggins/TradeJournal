@@ -18,13 +18,13 @@ namespace TradeJournalCore.ViewModels
 
         public ICommand AddNewStrategyCommand => new BasicCommand(GetNewStrategyName);
 
-        public ISelectable SelectedMarket { get; set; } 
+        public IMarket SelectedMarket { get; set; } 
 
         public ISelectable SelectedStrategy { get; set; }
 
-        public ObservableCollection<ISelectable> Strategies { get; private set; } = new ObservableCollection<ISelectable>();
+        public SelectableCollection<ISelectable> Strategies { get; private set; } = new SelectableCollection<ISelectable>();
 
-        public ObservableCollection<ISelectable> Markets { get; private set; } = new ObservableCollection<ISelectable>();
+        public SelectableCollection<IMarket> Markets { get; private set; } = new SelectableCollection<IMarket>();
 
         public Levels Levels { get; private set; } = new Levels(6000, 5900, 6500);
 
@@ -110,7 +110,7 @@ namespace TradeJournalCore.ViewModels
             }).IfEmpty(() => CloseLevel = Option.None<double>());
         }
 
-        public void AddSelectables(ObservableCollection<ISelectable> markets, ObservableCollection<ISelectable> strategies)
+        public void AddSelectables(SelectableCollection<IMarket> markets, SelectableCollection<ISelectable> strategies)
         {
             Markets = markets;
             Strategies = strategies;
@@ -209,8 +209,12 @@ namespace TradeJournalCore.ViewModels
 
         private void AddMarket(object sender, EventArgs e)
         {
-            var market = new Market(_addMarketViewModel.Name, _addMarketViewModel.SelectedAssetClass);
-            Markets.Add(market);
+            var market = new Market(_addMarketViewModel.Name, _addMarketViewModel.SelectedAssetClass)
+            {
+                IsSelected = true
+            };
+
+            Markets.AddSelectable(market);
             SelectedMarket = market;
             RaisePropertyChanged(nameof(SelectedMarket));
             _addMarketViewModel.MarketConfirmed -= AddMarket;
@@ -219,7 +223,7 @@ namespace TradeJournalCore.ViewModels
         private void AddStrategy(object sender, EventArgs e)
         {
             var strategy = new Strategy(_getNameViewModel.Name);
-            Strategies.Add(strategy);
+            Strategies.AddSelectable(strategy);
             SelectedStrategy = strategy;
             RaisePropertyChanged(nameof(SelectedStrategy));
             _getNameViewModel.NameConfirmed -= AddStrategy;

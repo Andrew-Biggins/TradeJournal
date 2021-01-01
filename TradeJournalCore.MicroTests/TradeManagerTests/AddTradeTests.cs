@@ -1,8 +1,7 @@
 ﻿using Common.MicroTests;
 using Common.Optional;
-using TradeJournalCore.ViewModels;
 using Xunit;
-using static TradeJournalCore.MicroTests.Shared;
+using static TradeJournalCore.MicroTests.TradeManagerTests.Shared;
 
 namespace TradeJournalCore.MicroTests.TradeManagerTests
 {
@@ -14,7 +13,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
         public void T0()
         {
             // Arrange
-            var tradeManager = new TradeManager();
+            var tradeManager = new TradeManager {Filters = TestFilters};
 
             // Act 
             tradeManager.AddNewTrade(TestTradeDetailsViewModel);
@@ -30,9 +29,9 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
         {
             // Arrange
             var tradeDetails = TestTradeDetailsViewModel;
-            var testMarket = new Market("test market", AssetClass.Currencies);
+            var testMarket = new Market("USDJPY", AssetClass.Currencies);
             tradeDetails.SelectedMarket = testMarket;
-            var tradeManager = new TradeManager();
+            var tradeManager = new TradeManager { Filters = TestFilters };
 
             // Act 
             tradeManager.AddNewTrade(tradeDetails);
@@ -48,9 +47,9 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
         {
             // Arrange
             var tradeDetails = TestTradeDetailsViewModel;
-            var testStrategy = new Strategy("test strategy");
+            var testStrategy = new Strategy("Triangle");
             tradeDetails.SelectedStrategy = testStrategy;
-            var tradeManager = new TradeManager();
+            var tradeManager = new TradeManager{ Filters = TestFilters };
 
             // Act 
             tradeManager.AddNewTrade(tradeDetails);
@@ -68,7 +67,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var tradeDetails = TestTradeDetailsViewModel;
             const double testLevelEntry = 123.00;
             tradeDetails.Levels.Entry = testLevelEntry;
-            var tradeManager = new TradeManager();
+            var tradeManager = new TradeManager{ Filters = TestFilters };
 
             // Act 
             tradeManager.AddNewTrade(tradeDetails);
@@ -86,7 +85,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var tradeDetails = TestTradeDetailsViewModel;
             const double testOpenSize = 19.6;
             tradeDetails.Open.Size = testOpenSize;
-            var tradeManager = new TradeManager();
+            var tradeManager = new TradeManager{ Filters = TestFilters };
 
             // Act 
             tradeManager.AddNewTrade(tradeDetails);
@@ -103,7 +102,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             // Arrange
             var tradeDetails = TestTradeDetailsViewModel;
             tradeDetails.CloseLevel = Option.None<double>();
-            var tradeManager = new TradeManager();
+            var tradeManager = new TradeManager{ Filters = TestFilters };
 
             // Act 
             tradeManager.AddNewTrade(tradeDetails);
@@ -121,7 +120,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var tradeDetails = TestTradeDetailsViewModel;
             const double testCloseLevel = 456.78;
             tradeDetails.CloseLevel = Option.Some(testCloseLevel);
-            var tradeManager = new TradeManager();
+            var tradeManager = new TradeManager{ Filters = TestFilters };
             var outValue = 1.00;
 
             // Act 
@@ -141,7 +140,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var tradeDetails = TestTradeDetailsViewModel;
             const double testMaxAdverseExcursion = 69.8;
             tradeDetails.MaxAdverse = Option.Some(testMaxAdverseExcursion);
-            var tradeManager = new TradeManager();
+            var tradeManager = new TradeManager{ Filters = TestFilters };
             var outValue = 1.00;
 
             // Act 
@@ -161,7 +160,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var tradeDetails = TestTradeDetailsViewModel;
             const double testMaxFavourableExcursion = 93.8;
             tradeDetails.MaxFavourable = Option.Some(testMaxFavourableExcursion);
-            var tradeManager = new TradeManager();
+            var tradeManager = new TradeManager{ Filters = TestFilters };
             var outValue = 1.00;
 
             // Act 
@@ -171,11 +170,5 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             tradeManager.Trades[0].MaxFavourableExcursion.IfExistsThen(x => { outValue = x; });
             Assert.Equal(testMaxFavourableExcursion, outValue);
         }
-
-        private static TradeDetailsViewModel TestTradeDetailsViewModel => new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel())
-        {
-            SelectedMarket = new Market("test market", AssetClass.Commodities),
-            SelectedStrategy = new Strategy("test strategy")
-        };
     }
 }
