@@ -1,4 +1,5 @@
 ﻿using System;
+using Common;
 using TradeJournalCore.Interfaces;
 
 namespace TradeJournalCore
@@ -16,6 +17,7 @@ namespace TradeJournalCore
             {
                 value = !_isSelected;
                 _isSelected = value;
+                SelectedChanged.Raise(this);
             }
         }
 

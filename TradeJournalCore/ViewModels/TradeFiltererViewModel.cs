@@ -17,9 +17,9 @@ namespace TradeJournalCore.ViewModels
 
         public SelectableCollection<ISelectable> Strategies { get; } = GetDefaultStrategies();
 
-        public IReadOnlyList<ISelectable> AssetTypes { get; } = GetAssetTypes();
+        public SelectableCollection<ISelectable> AssetTypes { get; } = GetAssetTypes();
 
-        public IReadOnlyList<ISelectable> DaysOfWeek { get; } = GetDays();
+        public SelectableCollection<ISelectable> DaysOfWeek { get; } = GetDays();
 
         public DateTime TradesStartDate
         {
@@ -83,11 +83,11 @@ namespace TradeJournalCore.ViewModels
             return selectables.Where(x => x.IsSelected).ToList();
         }
     
-        private DateTime _tradesStartDate;
-        private DateTime _tradesEndDate;
-        private DateTime _filterStartDate;
-        private DateTime _filterEndDate;
-        private DateTime _filterStartTime = new DateTime(1, 1, 1, 0, 0, 0);
-        private DateTime _filterEndTime = new DateTime(1, 1, 1, 23, 59, 59);
+        private DateTime _tradesStartDate = DateTime.MinValue;
+        private DateTime _tradesEndDate = DateTime.MaxValue;
+        private DateTime _filterStartDate = DateTime.MinValue;
+        private DateTime _filterEndDate = DateTime.MaxValue;
+        private DateTime _filterStartTime = DateTime.MinValue;
+        private DateTime _filterEndTime = DateTime.MaxValue;
     }
 }

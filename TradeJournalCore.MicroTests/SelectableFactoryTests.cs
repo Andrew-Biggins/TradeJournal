@@ -1,5 +1,7 @@
-﻿using Common.MicroTests;
+﻿using System;
+using Common.MicroTests;
 using System.Collections.Generic;
+using NSubstitute;
 using TradeJournalCore.Interfaces;
 using Xunit;
 
@@ -129,6 +131,78 @@ namespace TradeJournalCore.MicroTests
             Assert.IsType<TradeDirection>(actual);
         }
 
+        // Tests the markets are added to the collection as selectables
+        [Gwt("Given a markets collection from the selectable factory",
+            "when is selected is toggled on all items",
+            "the collection's selected changed event is raised for all items")]
+        public void T10()
+        {
+            // Arrange
+            var markets = SelectableFactory.GetDefaultMarkets();
+            var catcher = Catcher.Simple;
+            markets.SelectedChanged += catcher.Catch;
+
+            // Act
+            ToggleAllSelectables(markets);
+
+            // Assert
+            catcher.Received(markets.Count).Catch(markets, EventArgs.Empty);
+        }
+
+        // Tests the strategies are added to the collection as selectables
+        [Gwt("Given a strategies collection from the selectable factory",
+            "when is selected is toggled on all items",
+            "the collection's selected changed event is raised for all items")]
+        public void T11()
+        {
+            // Arrange
+            var strategies = SelectableFactory.GetDefaultStrategies();
+            var catcher = Catcher.Simple;
+            strategies.SelectedChanged += catcher.Catch;
+
+            // Act
+            ToggleAllSelectables(strategies);
+
+            // Assert
+            catcher.Received(strategies.Count).Catch(strategies, EventArgs.Empty);
+        }
+
+        // Tests the asset types are added to the collection as selectables
+        [Gwt("Given a asset types collection from the selectable factory",
+            "when is selected is toggled on all items",
+            "the collection's selected changed event is raised for all items")]
+        public void T12()
+        {
+            // Arrange
+            var assetTypes = SelectableFactory.GetAssetTypes();
+            var catcher = Catcher.Simple;
+            assetTypes.SelectedChanged += catcher.Catch;
+
+            // Act
+            ToggleAllSelectables(assetTypes);
+
+            // Assert
+            catcher.Received(assetTypes.Count).Catch(assetTypes, EventArgs.Empty);
+        }
+
+        // Tests the days are added to the collection as selectables
+        [Gwt("Given a days collection from the selectable factory",
+            "when is selected is toggled on all items",
+            "the collection's selected changed event is raised for all items")]
+        public void T13()
+        {
+            // Arrange
+            var days = SelectableFactory.GetDays();
+            var catcher = Catcher.Simple;
+            days.SelectedChanged += catcher.Catch;
+
+            // Act
+            ToggleAllSelectables(days);
+
+            // Assert
+            catcher.Received(days.Count).Catch(days, EventArgs.Empty);
+        }
+
         private static bool IsAllSelected(IEnumerable<ISelectable> list)
         {
             var isAllSelected = true;
@@ -142,6 +216,14 @@ namespace TradeJournalCore.MicroTests
             }
 
             return isAllSelected;
+        }
+
+        private static void ToggleAllSelectables(IEnumerable<ISelectable> list)
+        {
+            foreach (var item in list)
+            {
+                item.IsSelected = false;
+            }
         }
     }
 }

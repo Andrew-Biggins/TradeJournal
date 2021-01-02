@@ -39,29 +39,29 @@ namespace TradeJournalCore
             return collection;
         }
 
-        internal static IReadOnlyList<ISelectable> GetAssetTypes()
+        internal static SelectableCollection<ISelectable> GetAssetTypes()
         {
-            var list = new List<ISelectable>();
+            var list = new SelectableCollection<ISelectable>();
 
             var assetClasses = (AssetClass[])Enum.GetValues(typeof(AssetClass));
 
             foreach (var assetClass in assetClasses)
             {
-                list.Add(new AssetType(assetClass) { IsSelected = true });
+                list.AddSelectable(new AssetType(assetClass) { IsSelected = true });
             }
 
             return list;
         }
 
-        internal static IReadOnlyList<ISelectable> GetDays()
+        internal static SelectableCollection<ISelectable> GetDays()
         {
-            var list = new List<ISelectable>();
+            var list = new SelectableCollection<ISelectable>();
 
             var days = (DayOfWeek[])Enum.GetValues(typeof(DayOfWeek));
 
             foreach (var day in days)
             {
-                list.Add(new Day(day) { IsSelected = true });
+                list.AddSelectable(new Day(day) { IsSelected = true });
             }
 
             return list;

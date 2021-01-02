@@ -41,6 +41,8 @@ namespace TradeJournalCore.ViewModels
             TradeFiltererViewModel.Markets.CollectionChanged += SelectedChanged;
             TradeFiltererViewModel.Strategies.SelectedChanged += SelectedChanged;
             TradeFiltererViewModel.Strategies.CollectionChanged += SelectedChanged;
+            TradeFiltererViewModel.AssetTypes.SelectedChanged += SelectedChanged;
+            TradeFiltererViewModel.DaysOfWeek.SelectedChanged += SelectedChanged;
         }
 
         private void SelectedChanged(object sender, EventArgs e)

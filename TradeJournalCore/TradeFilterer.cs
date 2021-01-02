@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using TradeJournalCore.Interfaces;
@@ -39,20 +40,120 @@ namespace TradeJournalCore
             return newList;
         }
 
-        internal static ObservableCollection<ITrade> RemoveUnselectedStrategies(IEnumerable<ITrade> trades, IEnumerable<ISelectable> strategies)
+        internal static IEnumerable<ITrade> RemoveUnselectedStrategies(IEnumerable<ITrade> trades,
+            IEnumerable<ISelectable> strategies)
         {
-            var newList = new ObservableCollection<ITrade>();
+            var newList = new List<ITrade>();
 
             var selectedStrategies = strategies.ToList();
 
             foreach (var trade in trades)
             {
-                foreach (var strategy in selectedStrategies)
+                newList.AddRange(from strategy in selectedStrategies
+                    where strategy.Name == trade.Strategy.Name
+                    select trade);
+            }
+
+            return newList;
+        }
+
+        internal static IEnumerable<ITrade> RemoveUnselectedDays(IEnumerable<ITrade> trades,
+            IEnumerable<ISelectable> days)
+        {
+            var newList = new List<ITrade>();
+
+            var selectedDays = days.ToList();
+
+            foreach (var trade in trades)
+            {
+                newList.AddRange(from day in selectedDays
+                    where day.Name == trade.Open.DateTime.DayOfWeek.ToString()
+                    select trade);
+            }
+
+            return newList;
+        }
+
+        internal static IEnumerable<ITrade> RemoveTradesOutsideDateRange(IEnumerable<ITrade> trades, DateTime startDate,
+            DateTime endDate)
+        {
+            var newList = new List<ITrade>();
+
+            foreach (var trade in trades)
+            {
+                if (trade.Open.DateTime >= startDate && trade.Open.DateTime <= endDate)
                 {
-                    if (strategy.Name == trade.Strategy.Name)
-                    {
-                        newList.Add(trade);
-                    }
+                    newList.Add(trade);
+                }
+            }
+
+            return newList;
+        }
+
+        internal static IEnumerable<ITrade> RemoveTradesOutsideTimeRange(IEnumerable<ITrade> trades, DateTime startTime,
+            DateTime endTime)
+        {
+            var newList = new List<ITrade>();
+
+            foreach (var trade in trades)
+            {
+                if (trade.Open.DateTime.TimeOfDay >= startTime.TimeOfDay &&
+                    trade.Open.DateTime.TimeOfDay <= endTime.TimeOfDay)
+                {
+                    newList.Add(trade);
+                }
+            }
+
+            return newList;
+        }
+
+        internal static IEnumerable<ITrade> RemoveTradesOutsideRiskRewardRatioRange(IEnumerable<ITrade> trades,
+            double minRiskRewardRatio, double maxRiskRewardRatio)
+        {
+            var newList = new List<ITrade>();
+
+            foreach (var trade in trades)
+            {
+                if (trade.RiskRewardRatio >= minRiskRewardRatio &&
+                    trade.RiskRewardRatio <= maxRiskRewardRatio)
+                {
+                    newList.Add(trade);
+                }
+            }
+
+            return newList;
+        }
+
+        internal static IEnumerable<ITrade> RemoveUnselectedTradeStatuses(IEnumerable<ITrade> trades, TradeStatus status)
+        {
+            var newList = new List<ITrade>();
+
+            foreach (var trade in trades)
+            {
+                if (status == TradeStatus.Both || status == TradeStatus.Closed)
+                {
+                    trade.Close.IfExistsThen(x => { newList.Add(trade); });
+                }
+
+                if (status == TradeStatus.Both || status == TradeStatus.Open)
+                {
+                    trade.Close.IfEmpty(() => { newList.Add(trade); });
+                }
+            }
+
+            return newList;
+        }
+
+        internal static ObservableCollection<ITrade> RemoveUnselectedTradeDirections(IEnumerable<ITrade> trades,
+            TradeDirection direction)
+        {
+            var newList = new ObservableCollection<ITrade>();
+
+            foreach (var trade in trades)
+            {
+                if (direction == TradeDirection.Both || direction == trade.Direction)
+                {
+                    newList.Add(trade);
                 }
             }
 

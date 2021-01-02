@@ -43,7 +43,13 @@ namespace TradeJournalCore
             var assetClassesRemoved = RemoveUnselectedAssetClasses(_unfilteredTrades, filters.AssetClasses);
             var marketsRemoved = RemoveUnselectedMarkets(assetClassesRemoved, filters.Markets);
             var strategiesRemoved = RemoveUnselectedStrategies(marketsRemoved, filters.Strategies);
-            Trades = strategiesRemoved;
+            var daysRemoved = RemoveUnselectedDays(strategiesRemoved, filters.Days);
+            var datesRemoved = RemoveTradesOutsideDateRange(daysRemoved, filters.StartDate, filters.EndDate);
+            var timesRemoved = RemoveTradesOutsideTimeRange(datesRemoved, filters.StartTime, filters.EndTime);
+            var riskRewardRatiosRemoved = RemoveTradesOutsideRiskRewardRatioRange(timesRemoved,
+                filters.MinRiskRewardRatio, filters.MaxRiskRewardRatio);
+            var statusesRemoved = RemoveUnselectedTradeStatuses(riskRewardRatiosRemoved, filters.Status); 
+            Trades = RemoveUnselectedTradeDirections(statusesRemoved, filters.Direction);
             PropertyChanged.Raise(this, nameof(Trades));
         }
 
