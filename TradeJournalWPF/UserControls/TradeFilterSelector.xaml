@@ -67,8 +67,8 @@
                      SelectionMode="Multiple">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <RadioButton Content="{Binding Name}"
-                                     IsChecked="{Binding IsSelected}"/>
+                            <CheckBox Content="{Binding Name}"
+                                     IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -82,7 +82,7 @@
                      SelectionMode="Multiple">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <RadioButton Content="{Binding Name}"
+                            <CheckBox Content="{Binding Name}"
                                      IsChecked="{Binding IsSelected}"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -98,7 +98,7 @@
                          SelectionMode="Multiple">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <RadioButton Content="{Binding Name}"
+                            <CheckBox Content="{Binding Name}"
                                          IsChecked="{Binding IsSelected}"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -114,7 +114,7 @@
                          SelectionMode="Multiple">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <RadioButton Content="{Binding Name}"
+                            <CheckBox Content="{Binding Name}"
                                          IsChecked="{Binding IsSelected}"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -234,22 +234,8 @@
                 </StackPanel>
             </Border>
 
-            <Button Grid.Column="9" Grid.Row="0" Height="60" Command="{Binding ApplyTradeFiltersCommand}" Margin="0,5,5,5">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="IsEnabled" Value="False"/>
-                        <Style.Triggers>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=MinRiskRewardRatioTextBox}" Value="False"/>
-                                    <Condition Binding="{Binding Path=(Validation.HasError), ElementName=MaxRiskRewardRatioTextBox}" Value="False"/>
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="IsEnabled" Value="True"/>
-                            </MultiDataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <TextBlock Foreground="Black">Apply<LineBreak/>Filters</TextBlock>
+            <Button Grid.Column="9" Grid.Row="0" Height="60" Command="{Binding ClearTradeFiltersCommand}" Margin="0,5,5,5">
+                <TextBlock Foreground="Black">Clear<LineBreak/>Filters</TextBlock>
             </Button>
         </Grid>
     </Border>

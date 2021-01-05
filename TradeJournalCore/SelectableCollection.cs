@@ -13,7 +13,7 @@ namespace TradeJournalCore
         {
             if (item is ISelectable selectable)
             {
-                selectable.SelectedChanged += ItemSelectedChanged;
+                selectable.PropertyChanged += ItemSelectedChanged;
                 Add(item);
             }
         }

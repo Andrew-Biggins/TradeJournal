@@ -1,11 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace TradeJournalCore.Interfaces
 {
-    public interface ISelectable
+    public interface ISelectable : INotifyPropertyChanged
     {
-        event EventHandler SelectedChanged;
-
         string Name { get; }
 
         bool IsSelected { get; set; }

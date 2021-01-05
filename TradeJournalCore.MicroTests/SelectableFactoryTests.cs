@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using NSubstitute;
 using TradeJournalCore.Interfaces;
 using Xunit;
+using static TradeJournalCore.MicroTests.SelectableHelper;
 
 namespace TradeJournalCore.MicroTests
 {
@@ -201,21 +202,6 @@ namespace TradeJournalCore.MicroTests
 
             // Assert
             catcher.Received(days.Count).Catch(days, EventArgs.Empty);
-        }
-
-        private static bool IsAllSelected(IEnumerable<ISelectable> list)
-        {
-            var isAllSelected = true;
-
-            foreach (var selectable in list)
-            {
-                if (!selectable.IsSelected)
-                {
-                    isAllSelected = false;
-                }
-            }
-
-            return isAllSelected;
         }
 
         private static void ToggleAllSelectables(IEnumerable<ISelectable> list)

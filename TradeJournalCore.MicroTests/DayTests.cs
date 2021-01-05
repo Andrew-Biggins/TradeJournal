@@ -39,34 +39,19 @@ namespace TradeJournalCore.MicroTests
         }
 
         [Gwt("Given a day with a false is selected flag",
-            "when the is selected flag is set to false again",
-            "the is selected flag is true")]
+            "when the is selected flag is updated",
+            "property changed is raised for is selected")]
         public void T2()
         {
             // Arrange
             var day = new Day(DayOfWeek.Friday);
+            var catcher = Catcher.For(day);
 
             // Act 
             day.IsSelected = false;
 
             // Assert
-            Assert.True(day.IsSelected);
-        }
-
-        [Gwt("Given an asset type with a true is selected flag",
-            "when the is selected flag is set to false ",
-            "the is selected flag is false")]
-        public void T3()
-        {
-            // Arrange
-            var day = new Day(DayOfWeek.Friday);
-            day.IsSelected = true;
-
-            // Act 
-            day.IsSelected = false;
-
-            // Assert
-            Assert.False(day.IsSelected);
+            catcher.CaughtPropertyChanged(day, nameof(day.IsSelected));
         }
     }
 }

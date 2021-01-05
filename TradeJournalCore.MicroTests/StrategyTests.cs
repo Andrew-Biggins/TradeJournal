@@ -36,35 +36,20 @@ namespace TradeJournalCore.MicroTests
             Assert.False(actual);
         }
 
-        [Gwt("Given a strategy with a false is selected flag",
-            "when the is selected flag is set to false again",
-            "the is selected flag is true")]
+        [Gwt("Given a strategy",
+            "when the is selected flag is updated",
+            "property changed is raised for is selected")]
         public void T2()
         {
             // Arrange
             var strategy = new Strategy(string.Empty);
+            var catcher = Catcher.For(strategy);
 
             // Act 
             strategy.IsSelected = false;
 
             // Assert
-            Assert.True(strategy.IsSelected);
-        }
-
-        [Gwt("Given a strategy with a true is selected flag",
-            "when the is selected flag is set to false ",
-            "the is selected flag is false")]
-        public void T3()
-        {
-            // Arrange
-            var strategy = new Strategy(string.Empty);
-            strategy.IsSelected = true;
-
-            // Act 
-            strategy.IsSelected = false;
-
-            // Assert
-            Assert.False(strategy.IsSelected);
+            catcher.CaughtPropertyChanged(strategy, nameof(strategy.IsSelected));
         }
     }
 }

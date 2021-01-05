@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using System;
+using Common;
 using Common.Optional;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,6 +7,7 @@ using System.ComponentModel;
 using TradeJournalCore.Interfaces;
 using TradeJournalCore.ViewModels;
 using static TradeJournalCore.TradeFilterer;
+using static TradeJournalCore.SelectableFactory;
 
 namespace TradeJournalCore
 {
@@ -13,11 +15,32 @@ namespace TradeJournalCore
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public event EventHandler DateRangeChanged;
+
         public ObservableCollection<ITrade> Trades { get; private set; } = new ObservableCollection<ITrade>();
 
         public ITrade SelectedTrade { get; set; }
 
-        public IFilters Filters { get; set; } 
+        public IFilters Filters { get; set; } = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(), GetDays(), DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue, DateTime.MaxValue, 0, 9999,TradeStatus.Both, TradeDirection.Both);
+
+        public void ReadInTrades()
+        {
+            //_unfilteredTrades.Add(new Trade(new Market("USDJPY", AssetClass.Currencies), new Strategy("Triangle"),
+            //    new Levels(1.045, 1.030, 1.060), new Execution(1.045, new DateTime(2021, 01, 01, 12, 23, 00), 1),
+            //    Option.None<Execution>(), (Option.None<double>(), Option.None<double>())));
+
+            //_unfilteredTrades.Add(new Trade(new Market("USDJPY", AssetClass.Currencies), new Strategy("Triangle"),
+            //    new Levels(1.045, 1.030, 1.060), new Execution(1.045, new DateTime(2021, 01, 21, 12, 23, 00), 1),
+            //    Option.None<Execution>(), (Option.None<double>(), Option.None<double>())));
+
+            //_unfilteredTrades.Add(new Trade(new Market("Gold", AssetClass.Commodities), new Strategy("Gap fill"),
+            //    new Levels(1.045, 1.030, 1.060), new Execution(1.045, new DateTime(2021, 01, 11, 12, 23, 00), 1),
+            //    Option.None<Execution>(), (Option.None<double>(), Option.None<double>())));
+          
+
+          //  UpdateDateRange();
+          //  FilterTrades(Filters);
+        }
 
         public void AddNewTrade(TradeDetailsViewModel tradeDetails)
         {
@@ -29,12 +52,15 @@ namespace TradeJournalCore
                 (tradeDetails.MaxAdverse, tradeDetails.MaxFavourable));
 
             _unfilteredTrades.Add(trade);
+            UpdateDateRange(tradeDetails.Open.DateTime);
             FilterTrades(Filters);
         }
 
         public void RemoveTrade()
         {
+            _unfilteredTrades.Remove(SelectedTrade);
             Trades.Remove(SelectedTrade);
+            UpdateDateRange();
         }
 
         public void FilterTrades(IFilters filters)
@@ -53,6 +79,54 @@ namespace TradeJournalCore
             PropertyChanged.Raise(this, nameof(Trades));
         }
 
+        public (DateTime, DateTime) GetDateRange()
+        {
+            return (_startDate, _endDate);
+        }
+
+        private void UpdateDateRange(DateTime date)
+        {
+            var dateRangeChanged = false;
+
+            if (date < _startDate)
+            {
+                _startDate = date.Date;
+                dateRangeChanged = true;
+            }
+
+            if (date > _endDate)
+            {
+                _endDate = date.Date;
+                dateRangeChanged = true;
+            }
+
+            if (dateRangeChanged)
+            {
+                DateRangeChanged.Raise(this);
+            }
+        }
+
+        private void UpdateDateRange()
+        {
+            _startDate = DateTime.MaxValue;
+            _endDate = DateTime.MinValue;
+
+            foreach (var trade in _unfilteredTrades)
+            {
+                if (trade.Open.DateTime < _startDate)
+                {
+                    _startDate = trade.Open.DateTime.Date;
+                }
+
+                if (trade.Open.DateTime > _endDate)
+                {
+                    _endDate = trade.Open.DateTime.Date;
+                }
+            }
+
+            DateRangeChanged.Raise(this);
+        }
+
         private static Optional<Execution> GetCloseExecution(TradeDetailsViewModel tradeDetails)
         {
             var close = new Execution(0, tradeDetails.CloseDateTime, 0);
@@ -64,5 +138,7 @@ namespace TradeJournalCore
         }
 
         private readonly IList<ITrade> _unfilteredTrades = new List<ITrade>();
+        private DateTime _startDate = DateTime.MaxValue;
+        private DateTime _endDate = DateTime.MinValue;
     }
 }

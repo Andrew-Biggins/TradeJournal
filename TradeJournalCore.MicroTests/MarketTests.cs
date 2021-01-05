@@ -42,7 +42,7 @@ namespace TradeJournalCore.MicroTests
         public void T2()
         {
             // Arrange
-            var market = new Market(string.Empty, AssetClass.Shares);
+            var market = new Market("test market", AssetClass.Indices);
 
             // Act 
             var actual = market.IsSelected;
@@ -51,35 +51,20 @@ namespace TradeJournalCore.MicroTests
             Assert.False(actual);
         }
 
-        [Gwt("Given a market with a false is selected flag",
-            "when the is selected flag is set to false again",
-            "the is selected flag is true")]
+        [Gwt("Given a market",
+            "when the is selected flag is updated",
+            "property changed is raised for is selected")]
         public void T3()
         {
             // Arrange
             var market = new Market(string.Empty, AssetClass.Shares);
+            var catcher = Catcher.For(market);
 
             // Act 
-            market.IsSelected = false;
-
-            // Assert
-            Assert.True(market.IsSelected);
-        }
-
-        [Gwt("Given a market with a true is selected flag",
-            "when the is selected flag is set to false ",
-            "the is selected flag is false")]
-        public void T4()
-        {
-            // Arrange
-            var market = new Market(string.Empty, AssetClass.Shares);
             market.IsSelected = true;
 
-            // Act 
-            market.IsSelected = false;
-
             // Assert
-            Assert.False(market.IsSelected);
+            catcher.CaughtPropertyChanged(market, nameof(market.IsSelected));
         }
     }
 }

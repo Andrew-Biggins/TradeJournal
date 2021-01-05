@@ -9,22 +9,6 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
     public sealed class FilterTests
     {
         [Gwt("Given a main window view model",
-            "when the trade filterer's apply filters command is executed",
-            "the trade manager is told to filter trades")]
-        public void T0()
-        {
-            // Arrange
-            var tradeManager = SubTradeManager;
-            var viewModel = new MainWindowViewModel(SubRunner, tradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()));
-
-            // Act 
-            viewModel.TradeFiltererViewModel.ApplyTradeFiltersCommand.Execute(null!);
-
-            // Assert
-            tradeManager.ReceivedWithAnyArgs(1).FilterTrades(null!);
-        }
-
-        [Gwt("Given a main window view model",
             "when the markets selected changed event is raised",
             "the trade manager is told to filter trades")]
         public void T1()

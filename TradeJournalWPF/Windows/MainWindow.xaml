@@ -204,7 +204,7 @@
                         </DataGridTemplateColumn>
 
                         <DataGridTextColumn Header="Entry" x:Name="EntryColumn"
-                                    Binding="{Binding Levels.Entry, StringFormat=N1}" Width="0.85*" />
+                                    Binding="{Binding Levels.Entry}" Width="0.85*" />
                         <DataGridTextColumn Header="Stop" x:Name="StopColumn"
                                         Binding="{Binding Levels.Stop}" Width="0.85*" />
                         <DataGridTextColumn Header="Target" x:Name="TargetColumn"
@@ -243,7 +243,7 @@
                         </DataGridTextColumn>
 
                         <DataGridTextColumn Header="Open Level" x:Name="OpenLevelColumn"
-                                        Binding="{Binding Open.Level, StringFormat=N1}" Width="1*" >
+                                        Binding="{Binding Open.Level}" Width="1*" >
                         </DataGridTextColumn>
 
                         <DataGridTextColumn Header="Size" x:Name="SizeColumn"

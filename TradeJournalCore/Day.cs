@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using Common;
 using TradeJournalCore.Interfaces;
 
@@ -6,7 +7,7 @@ namespace TradeJournalCore
 {
     public sealed class Day : ISelectable
     {
-        public event EventHandler SelectedChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public string Name { get; }
 
@@ -15,9 +16,8 @@ namespace TradeJournalCore
             get => _isSelected;
             set
             {
-                value = !_isSelected;
                 _isSelected = value;
-                SelectedChanged.Raise(this);
+                PropertyChanged.Raise(this, nameof(IsSelected));
             }
         }
 

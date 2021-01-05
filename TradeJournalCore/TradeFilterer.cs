@@ -81,7 +81,7 @@ namespace TradeJournalCore
 
             foreach (var trade in trades)
             {
-                if (trade.Open.DateTime >= startDate && trade.Open.DateTime <= endDate)
+                if (trade.Open.DateTime.Date >= startDate && trade.Open.DateTime.Date <= endDate)
                 {
                     newList.Add(trade);
                 }

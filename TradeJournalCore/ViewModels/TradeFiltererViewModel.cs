@@ -24,13 +24,13 @@ namespace TradeJournalCore.ViewModels
         public DateTime TradesStartDate
         {
             get => _tradesStartDate;
-            set => SetProperty(ref _tradesStartDate, value);
+            set => SetProperty(ref _tradesStartDate, value, nameof(TradesStartDate));
         }
 
         public DateTime TradesEndDate
         {
             get => _tradesEndDate;
-            set => SetProperty(ref _tradesEndDate, value);
+            set => SetProperty(ref _tradesEndDate, value, nameof(TradesEndDate));
         }
 
         public DateTime FilterStartDate
@@ -57,19 +57,35 @@ namespace TradeJournalCore.ViewModels
             set => SetProperty(ref _filterEndTime, value);
         }
 
-        public double MinRiskRewardRatio { get; set; } = 0;
+        public double MinRiskRewardRatio
+        {
+            get => _minRiskRewardRatio;
+            set => SetProperty(ref _minRiskRewardRatio, value);
+        }
 
-        public double MaxRiskRewardRatio { get; set; } = 9999;
+        public double MaxRiskRewardRatio
+        {
+            get => _maxRiskRewardRatio;
+            set => SetProperty(ref _maxRiskRewardRatio, value);
+        }
 
         public IReadOnlyList<TradeStatus> TradeStatuses { get; } = GetTradeStatuses();
 
-        public TradeStatus SelectedTradeStatus { get; set; } = TradeStatus.Both;
+        public TradeStatus SelectedTradeStatus
+        {
+            get => _selectedTradeStatus;
+            set => SetProperty(ref _selectedTradeStatus, value);
+        }
 
         public IReadOnlyList<TradeDirection> TradeDirections { get; } = GetTradeDirections();
 
-        public TradeDirection SelectedTradeDirection { get; set; } = TradeDirection.Both;
+        public TradeDirection SelectedTradeDirection
+        {
+            get => _selectedTradeDirection;
+            set => SetProperty(ref _selectedTradeDirection, value);
+        }
 
-        public ICommand ApplyTradeFiltersCommand => new BasicCommand(() => FiltersChanged.Raise(this));
+        public ICommand ClearTradeFiltersCommand => new BasicCommand(ClearFilters);
 
         public IFilters GetFilters()
         {
@@ -78,16 +94,60 @@ namespace TradeJournalCore.ViewModels
                 MinRiskRewardRatio, MaxRiskRewardRatio, SelectedTradeStatus, SelectedTradeDirection);
         }
 
+        public void UpdateDates((DateTime, DateTime) dateRange)
+        {
+            var (startDate, endDate) = dateRange;
+            TradesStartDate = startDate;
+            TradesEndDate = endDate;
+            FilterStartDate = startDate;
+            FilterEndDate = endDate;
+        }
+
+        private void ClearFilters()
+        {
+            SelectAll(Markets);
+            SelectAll(Strategies);
+            SelectAll(AssetTypes);
+            SelectAll(DaysOfWeek);
+
+            FilterStartDate = TradesStartDate;
+            FilterEndDate = TradesEndDate;
+            FilterStartTime = DateTime.MinValue;
+            FilterEndTime = DateTime.MaxValue;
+            MinRiskRewardRatio = DefaultMinRiskRewardRatio;
+            MaxRiskRewardRatio = DefaultMaxRiskRewardRatio;
+            SelectedTradeStatus = TradeStatus.Both;
+            SelectedTradeDirection = TradeDirection.Both;
+        }
+
+        private static void SelectAll(IEnumerable<ISelectable> selectables)
+        {
+            foreach (var selectable in selectables)
+            {
+                if (!selectable.IsSelected)
+                {
+                    selectable.IsSelected = true;
+                }   
+            }
+        }
+
         private static IReadOnlyList<ISelectable> RemoveUnselected(IEnumerable<ISelectable> selectables)
         {
             return selectables.Where(x => x.IsSelected).ToList();
         }
-    
+
+        private const double DefaultMinRiskRewardRatio = 0;
+        private const double DefaultMaxRiskRewardRatio = 9999;
+
         private DateTime _tradesStartDate = DateTime.MinValue;
         private DateTime _tradesEndDate = DateTime.MaxValue;
         private DateTime _filterStartDate = DateTime.MinValue;
         private DateTime _filterEndDate = DateTime.MaxValue;
         private DateTime _filterStartTime = DateTime.MinValue;
         private DateTime _filterEndTime = DateTime.MaxValue;
+        private double _minRiskRewardRatio = DefaultMinRiskRewardRatio;
+        private double _maxRiskRewardRatio = DefaultMaxRiskRewardRatio;
+        private TradeStatus _selectedTradeStatus = TradeStatus.Both;
+        private TradeDirection _selectedTradeDirection = TradeDirection.Both;
     }
 }

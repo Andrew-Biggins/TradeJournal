@@ -246,8 +246,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             testTradeTwoDetails.Levels.Target = 300;
             tradeManager.AddNewTrade(testTradeTwoDetails);
 
-            var days = new List<ISelectable> { new Day(DayOfWeek.Saturday) };
-            var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(), days,
+            var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(), GetDays(),
                 DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue, 
                 DateTime.MaxValue, 2, 2, TradeStatus.Both, TradeDirection.Both);
 
@@ -276,8 +275,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             testTradeTwoDetails.SelectedStrategy = new Strategy("Gap fill");
             tradeManager.AddNewTrade(testTradeTwoDetails);
 
-            var days = new List<ISelectable> { new Day(DayOfWeek.Saturday) };
-            var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(), days,
+            var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(), GetDays(),
                 DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue,
                 DateTime.MaxValue, 0, 999, TradeStatus.Closed, TradeDirection.Both);
 
@@ -311,8 +309,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             testTradeTwoDetails.Levels.Target = 50;
             tradeManager.AddNewTrade(testTradeTwoDetails);
 
-            var days = new List<ISelectable> { new Day(DayOfWeek.Saturday) };
-            var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(), days,
+            var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(), GetDays(),
                 DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue,
                 DateTime.MaxValue, 0, 999, TradeStatus.Both, TradeDirection.Long);
 

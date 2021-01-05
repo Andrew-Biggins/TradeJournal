@@ -35,35 +35,20 @@ namespace TradeJournalCore.MicroTests
             Assert.False(actual);
         }
 
-        [Gwt("Given an asset type with a false is selected flag",
-            "when the is selected flag is set to false again",
-            "the is selected flag is true")]
+        [Gwt("Given an asset type",
+            "when the is selected flag is updated",
+            "property changed is raised for is selected")]
         public void T2()
         {
             // Arrange
             var assetType = new AssetType(AssetClass.Indices);
+            var catcher = Catcher.For(assetType);
 
             // Act 
-            assetType.IsSelected = false;
-
-            // Assert
-            Assert.True(assetType.IsSelected);
-        }
-
-        [Gwt("Given an asset type with a true is selected flag",
-            "when the is selected flag is set to false ",
-            "the is selected flag is false")]
-        public void T3()
-        {
-            // Arrange
-            var assetType = new AssetType(AssetClass.Indices);
             assetType.IsSelected = true;
 
-            // Act 
-            assetType.IsSelected = false;
-
             // Assert
-            Assert.False(assetType.IsSelected);
+            catcher.CaughtPropertyChanged(assetType, nameof(assetType.IsSelected));
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Common;
 using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Input;
 using TradeJournalCore.Interfaces;
 
@@ -43,6 +45,27 @@ namespace TradeJournalCore.ViewModels
             TradeFiltererViewModel.Strategies.CollectionChanged += SelectedChanged;
             TradeFiltererViewModel.AssetTypes.SelectedChanged += SelectedChanged;
             TradeFiltererViewModel.DaysOfWeek.SelectedChanged += SelectedChanged;
+
+            TradeFiltererViewModel.PropertyChanged += FiltersChanged;
+
+            TradeManager.DateRangeChanged += TradeManager_DateRangeChanged;
+
+            TradeManager.ReadInTrades();
+        }
+
+        private void TradeManager_DateRangeChanged(object sender, EventArgs e)
+        {
+            TradeFiltererViewModel.UpdateDates(TradeManager.GetDateRange());
+        }
+
+        private void FiltersChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (!(e.PropertyName == nameof(TradeFiltererViewModel.TradesStartDate) ||
+                  e.PropertyName == nameof(TradeFiltererViewModel.TradesEndDate)))
+            {
+                TradeManager.FilterTrades(TradeFiltererViewModel.GetFilters());
+                Debug.WriteLine("Filter");
+            }
         }
 
         private void SelectedChanged(object sender, EventArgs e)
