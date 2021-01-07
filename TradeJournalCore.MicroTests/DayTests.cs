@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Common.MicroTests;
+﻿using Common.MicroTests;
+using System;
 using Xunit;
 
 namespace TradeJournalCore.MicroTests

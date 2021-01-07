@@ -4,6 +4,7 @@ using NSubstitute;
 using TradeJournalCore.ViewModels;
 using Xunit;
 using static TradeJournalCore.MicroTests.Shared;
+using static TradeJournalCore.MicroTests.MainWindowViewModelTests.Shared;
 
 namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
 {
@@ -17,7 +18,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
             // Arrange
             var runner = SubRunner;
             var addTradeViewModel = new TradeDetailsViewModel(runner, new GetNameViewModel(), new AddMarketViewModel());
-            var viewModel = new MainWindowViewModel(runner, SubTradeManager, addTradeViewModel);
+            var viewModel = new MainWindowViewModel(runner, SubTradeManager, addTradeViewModel, SubPlot);
 
             // Act 
             viewModel.EditTradeCommand.Execute(null!);
@@ -35,7 +36,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
             // Arrange
             var runner = SubRunner;
             var addTradeViewModel = new TradeDetailsViewModel(runner, new GetNameViewModel(), new AddMarketViewModel());
-            var viewModel = new MainWindowViewModel(runner, SubTradeManager, addTradeViewModel);
+            var viewModel = new MainWindowViewModel(runner, SubTradeManager, addTradeViewModel, SubPlot);
             const double testEntry = 666.66;
             var testTrade = TestOpenTrade;
             testTrade.Levels.Entry = testEntry;
@@ -57,7 +58,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
             // Arrange
             var runner = SubRunner;
             var addTradeViewModel = new TradeDetailsViewModel(runner, new GetNameViewModel(), new AddMarketViewModel());
-            var viewModel = new MainWindowViewModel(runner, new TradeManager(), addTradeViewModel);
+            var viewModel = new MainWindowViewModel(runner, new TradeManager(), addTradeViewModel, SubPlot);
             var testTrade = TestOpenTrade;
             viewModel.TradeManager.Trades.Add(testTrade);
             viewModel.TradeManager.SelectedTrade = testTrade;

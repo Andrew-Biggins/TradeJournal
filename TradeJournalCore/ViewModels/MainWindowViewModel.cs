@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Input;
 using TradeJournalCore.Interfaces;
+using TradeJournalCore.ViewModelAdapters;
 
 namespace TradeJournalCore.ViewModels
 {
@@ -23,16 +24,20 @@ namespace TradeJournalCore.ViewModels
             set
             {
                 _accountStartSize = value;
+                UpdateGraph();
             }
         }
 
         public TradeFiltererViewModel TradeFiltererViewModel { get; } = new TradeFiltererViewModel();
 
-        public MainWindowViewModel(IRunner runner, ITradeManager tradeManager, TradeDetailsViewModel tradeDetailsViewModel)
+        public ITradePlot Plot { get; }
+
+        public MainWindowViewModel(IRunner runner, ITradeManager tradeManager, TradeDetailsViewModel tradeDetailsViewModel, ITradePlot plot)
         {
             _runner = runner ?? throw new ArgumentNullException(nameof(runner));
             TradeManager = tradeManager ?? throw new ArgumentNullException(nameof(tradeManager));
             _tradeDetailsViewModel = tradeDetailsViewModel ?? throw new ArgumentNullException(nameof(tradeDetailsViewModel));
+            Plot = plot ?? throw new ArgumentNullException(nameof(plot));
 
             TradeManager.Filters = TradeFiltererViewModel.GetFilters();
             _tradeDetailsViewModel.AddSelectables(TradeFiltererViewModel.Markets, TradeFiltererViewModel.Strategies);
@@ -49,8 +54,18 @@ namespace TradeJournalCore.ViewModels
             TradeFiltererViewModel.PropertyChanged += FiltersChanged;
 
             TradeManager.DateRangeChanged += TradeManager_DateRangeChanged;
+            TradeManager.PropertyChanged += TradeManager_PropertyChanged;
 
             TradeManager.ReadInTrades();
+            UpdateGraph();
+        }
+
+        private void TradeManager_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(TradeManager.Trades))
+            {
+                UpdateGraph();
+            }
         }
 
         private void TradeManager_DateRangeChanged(object sender, EventArgs e)
@@ -101,6 +116,11 @@ namespace TradeJournalCore.ViewModels
         {
             _tradeDetailsViewModel.EditTrade(TradeManager.SelectedTrade);
             _runner.GetTradeDetails(_tradeDetailsViewModel);
+        }
+
+        private void UpdateGraph()
+        {
+            Plot.UpdateData(AccountStartSize, TradeManager.Trades);
         }
 
         private readonly IRunner _runner;

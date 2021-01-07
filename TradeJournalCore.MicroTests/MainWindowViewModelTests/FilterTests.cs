@@ -3,6 +3,7 @@ using Common.MicroTests;
 using NSubstitute;
 using TradeJournalCore.ViewModels;
 using static TradeJournalCore.MicroTests.Shared;
+using static TradeJournalCore.MicroTests.MainWindowViewModelTests.Shared;
 
 namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
 {
@@ -15,7 +16,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         {
             // Arrange
             var tradeManager = SubTradeManager;
-            var viewModel = new MainWindowViewModel(SubRunner, tradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()));
+            var viewModel = new MainWindowViewModel(SubRunner, tradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()), SubPlot);
 
             // Act 
             viewModel.TradeFiltererViewModel.Markets.SelectedChanged.Raise(viewModel.TradeFiltererViewModel);
@@ -31,7 +32,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         {
             // Arrange
             var tradeManager = SubTradeManager;
-            var viewModel = new MainWindowViewModel(SubRunner, tradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()));
+            var viewModel = new MainWindowViewModel(SubRunner, tradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()), SubPlot);
 
             // Act 
             viewModel.TradeFiltererViewModel.Markets.Add(TestMarket);
@@ -47,7 +48,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         {
             // Arrange
             var tradeManager = SubTradeManager;
-            var viewModel = new MainWindowViewModel(SubRunner, tradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()));
+            var viewModel = new MainWindowViewModel(SubRunner, tradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()), SubPlot);
 
             // Act 
             viewModel.TradeFiltererViewModel.Strategies.SelectedChanged.Raise(viewModel.TradeFiltererViewModel);
@@ -63,7 +64,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         {
             // Arrange
             var tradeManager = SubTradeManager;
-            var viewModel = new MainWindowViewModel(SubRunner, tradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()));
+            var viewModel = new MainWindowViewModel(SubRunner, tradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()), SubPlot);
 
             // Act 
             viewModel.TradeFiltererViewModel.Strategies.Add(TestStrategy);

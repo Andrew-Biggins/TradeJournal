@@ -5,7 +5,7 @@ using TradeJournalCore.Interfaces;
 
 namespace TradeJournalCore.MicroTests
 {
-    public static class Shared
+    internal static class Shared
     {
         internal static IRunner SubRunner => Substitute.For<IRunner>();
 
@@ -19,7 +19,7 @@ namespace TradeJournalCore.MicroTests
 
         internal static Execution TestOpen => new Execution(100, DateTime.Today, 1);
 
-        internal static Execution TestClose => new Execution(12345.67, DateTime.MaxValue, 1);
+        internal static Execution TestClose => new Execution(200, DateTime.MaxValue, 1);
 
         internal static (Optional<double>, Optional<double>) TestEmptyExcursions =>
             (Option.None<double>(), Option.None<double>());

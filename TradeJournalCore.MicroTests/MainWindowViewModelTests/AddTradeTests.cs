@@ -3,6 +3,7 @@ using Xunit;
 using NSubstitute;
 using TradeJournalCore.ViewModels;
 using static TradeJournalCore.MicroTests.Shared;
+using static TradeJournalCore.MicroTests.MainWindowViewModelTests.Shared;
 
 namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
 {
@@ -16,7 +17,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
             // Arrange
             var runner = SubRunner;
             var addTradeViewModel = new TradeDetailsViewModel(runner, new GetNameViewModel(), new AddMarketViewModel());
-            var viewModel = new MainWindowViewModel(runner, SubTradeManager, addTradeViewModel);
+            var viewModel = new MainWindowViewModel(runner, SubTradeManager, addTradeViewModel, SubPlot);
 
             // Act 
             viewModel.AddNewTradeCommand.Execute(null!);
@@ -33,7 +34,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         {
             // Arrange
             var addTradeViewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel());
-            var viewModel = new MainWindowViewModel(SubRunner, SubTradeManager, addTradeViewModel);
+            var viewModel = new MainWindowViewModel(SubRunner, SubTradeManager, addTradeViewModel, SubPlot);
 
             // Act 
             addTradeViewModel.ConfirmNewTradeCommand.Execute(null!);
@@ -51,7 +52,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
             var runner = SubRunner;
             var addTradeViewModel = new TradeDetailsViewModel(runner, new GetNameViewModel(), new AddMarketViewModel());
             addTradeViewModel.IsEditing = true;
-            var viewModel = new MainWindowViewModel(runner, SubTradeManager, addTradeViewModel);
+            var viewModel = new MainWindowViewModel(runner, SubTradeManager, addTradeViewModel, SubPlot);
 
             // Act 
             viewModel.AddNewTradeCommand.Execute(null!);

@@ -25,21 +25,21 @@ namespace TradeJournalCore
 
         public void ReadInTrades()
         {
-            //_unfilteredTrades.Add(new Trade(new Market("USDJPY", AssetClass.Currencies), new Strategy("Triangle"),
-            //    new Levels(1.045, 1.030, 1.060), new Execution(1.045, new DateTime(2021, 01, 01, 12, 23, 00), 1),
-            //    Option.None<Execution>(), (Option.None<double>(), Option.None<double>())));
+            _unfilteredTrades.Add(new Trade(new Market("USDJPY", AssetClass.Currencies), new Strategy("Triangle"),
+                new Levels(1.045, 1.030, 1.060), new Execution(1.045, new DateTime(2021, 01, 01, 12, 23, 00), 1),
+                Option.Some(new Execution(1.06, new DateTime(2021, 01, 01, 15, 23, 00), 1)), (Option.None<double>(), Option.None<double>())));
 
-            //_unfilteredTrades.Add(new Trade(new Market("USDJPY", AssetClass.Currencies), new Strategy("Triangle"),
-            //    new Levels(1.045, 1.030, 1.060), new Execution(1.045, new DateTime(2021, 01, 21, 12, 23, 00), 1),
-            //    Option.None<Execution>(), (Option.None<double>(), Option.None<double>())));
+            _unfilteredTrades.Add(new Trade(new Market("USDJPY", AssetClass.Currencies), new Strategy("Triangle"),
+                new Levels(1.045, 1.030, 1.060), new Execution(1.045, new DateTime(2021, 01, 21, 12, 23, 00), 1),
+                Option.Some(new Execution(1.16, new DateTime(2021, 01, 22, 15, 23, 00), 1)), (Option.None<double>(), Option.None<double>())));
 
-            //_unfilteredTrades.Add(new Trade(new Market("Gold", AssetClass.Commodities), new Strategy("Gap fill"),
-            //    new Levels(1.045, 1.030, 1.060), new Execution(1.045, new DateTime(2021, 01, 11, 12, 23, 00), 1),
-            //    Option.None<Execution>(), (Option.None<double>(), Option.None<double>())));
-          
+            _unfilteredTrades.Add(new Trade(new Market("Gold", AssetClass.Commodities), new Strategy("Gap fill"),
+                new Levels(1.045, 1.030, 1.060), new Execution(1.045, new DateTime(2021, 01, 11, 12, 23, 00), 1),
+                Option.Some(new Execution(1.06, new DateTime(2021, 01, 15, 15, 23, 00), 1)), (Option.None<double>(), Option.None<double>())));
 
-          //  UpdateDateRange();
-          //  FilterTrades(Filters);
+
+            UpdateDateRange();
+            FilterTrades(Filters);
         }
 
         public void AddNewTrade(TradeDetailsViewModel tradeDetails)
@@ -60,6 +60,7 @@ namespace TradeJournalCore
         {
             _unfilteredTrades.Remove(SelectedTrade);
             Trades.Remove(SelectedTrade);
+            PropertyChanged.Raise(this, nameof(Trades));
             UpdateDateRange();
         }
 

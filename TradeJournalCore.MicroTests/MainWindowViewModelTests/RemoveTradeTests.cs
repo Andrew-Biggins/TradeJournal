@@ -3,6 +3,7 @@ using Common.MicroTests;
 using NSubstitute;
 using TradeJournalCore.ViewModels;
 using static TradeJournalCore.MicroTests.Shared;
+using static TradeJournalCore.MicroTests.MainWindowViewModelTests.Shared;
 
 namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
 {
@@ -16,7 +17,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
             // Arrange
             var runner = SubRunner;
             var addTradeViewModel = new TradeDetailsViewModel(runner, new GetNameViewModel(), new AddMarketViewModel());
-            var viewModel = new MainWindowViewModel(runner, SubTradeManager, addTradeViewModel);
+            var viewModel = new MainWindowViewModel(runner, SubTradeManager, addTradeViewModel, SubPlot);
 
             // Act 
             viewModel.RemoveTradeCommand.Execute(null!);
@@ -33,7 +34,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
             // Arrange
             var runner = SubRunner;
             var addTradeViewModel = new TradeDetailsViewModel(runner, new GetNameViewModel(), new AddMarketViewModel());
-            var viewModel = new MainWindowViewModel(runner, SubTradeManager, addTradeViewModel);
+            var viewModel = new MainWindowViewModel(runner, SubTradeManager, addTradeViewModel, SubPlot);
             runner.RunForResult(viewModel, Arg.Is<Message>(m => m.Is(Messages.ConfirmRemoveTrade))).Returns(true);
 
             // Act 
@@ -51,7 +52,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
             // Arrange
             var runner = SubRunner;
             var addTradeViewModel = new TradeDetailsViewModel(runner, new GetNameViewModel(), new AddMarketViewModel());
-            var viewModel = new MainWindowViewModel(runner, SubTradeManager, addTradeViewModel);
+            var viewModel = new MainWindowViewModel(runner, SubTradeManager, addTradeViewModel, SubPlot);
             runner.RunForResult(viewModel, Arg.Is<Message>(m => m.Is(Messages.ConfirmRemoveTrade))).Returns(false);
 
             // Act 

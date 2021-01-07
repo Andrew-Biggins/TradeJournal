@@ -2,6 +2,8 @@
 using TradeJournalCore.ViewModels;
 using Xunit;
 using static TradeJournalCore.MicroTests.Shared;
+using static TradeJournalCore.MicroTests.MainWindowViewModelTests.Shared;
+using NSubstitute;
 
 namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
 {
@@ -13,7 +15,7 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         public void T0()
         {
             // Arrange
-            var viewModel = new MainWindowViewModel(SubRunner, SubTradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()));
+            var viewModel = new MainWindowViewModel(SubRunner, SubTradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()), SubPlot);
 
             // Act 
             var actual = viewModel.AccountStartSize;
@@ -28,13 +30,29 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         public void T1()
         {
             // Arrange
-            var viewModel = new MainWindowViewModel(SubRunner, SubTradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()));
+            var viewModel = new MainWindowViewModel(SubRunner, SubTradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()), SubPlot);
 
             // Act 
             viewModel.AccountStartSize = 500;
 
             // Assert
             Assert.Equal(500, viewModel.AccountStartSize);
+        }
+
+        [Gwt("Given a main window view model",
+            "when the account start size is set",
+            "the plot is told to update data")]
+        public void T2()
+        {
+            // Arrange
+            var plot = SubPlot;
+            var viewModel = new MainWindowViewModel(SubRunner, SubTradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()), plot);
+
+            // Act 
+            viewModel.AccountStartSize = 500;
+
+            // Assert
+            plot.Received(1).UpdateData(viewModel.AccountStartSize, viewModel.TradeManager.Trades);
         }
     }
 }
