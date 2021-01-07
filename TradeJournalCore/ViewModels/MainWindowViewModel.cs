@@ -18,6 +18,8 @@ namespace TradeJournalCore.ViewModels
 
         public ICommand EditTradeCommand => new BasicCommand(EditTrade);
 
+        public ICommand ClearCommand => new BasicCommand(ClearAllTrades);
+
         public double AccountStartSize
         {
             get => _accountStartSize;
@@ -121,6 +123,14 @@ namespace TradeJournalCore.ViewModels
         private void UpdateGraph()
         {
             Plot.UpdateData(AccountStartSize, TradeManager.Trades);
+        }
+
+        private void ClearAllTrades()
+        {
+            if (_runner.RunForResult(this, Messages.ConfirmClearAllTrades))
+            {
+                TradeManager.ClearAll();
+            }
         }
 
         private readonly IRunner _runner;

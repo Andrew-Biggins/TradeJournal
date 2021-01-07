@@ -320,5 +320,21 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             Assert.Single(tradeManager.Trades);
             Assert.Equal("Triangle", tradeManager.Trades[0].Strategy.Name);
         }
+
+        [Gwt("Given a trade manager",
+            "when a trades are removed",
+            "property changed is raised for the trades collection")]
+        public void T12()
+        {
+            // Arrange
+            var tradeManager = new TradeManager();
+            var catcher = Catcher.For(tradeManager);
+
+            // Act 
+            tradeManager.FilterTrades(TestFilters);
+
+            // Assert
+            catcher.CaughtPropertyChanged(tradeManager, nameof(tradeManager.Trades));
+        }
     }
 }

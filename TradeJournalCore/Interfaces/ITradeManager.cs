@@ -25,5 +25,7 @@ namespace TradeJournalCore.Interfaces
         (DateTime, DateTime) GetDateRange();
 
         void ReadInTrades();
+
+        void ClearAll();
     }
 }

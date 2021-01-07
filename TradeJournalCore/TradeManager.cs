@@ -25,6 +25,17 @@ namespace TradeJournalCore
 
         public void ReadInTrades()
         {
+            var openTime = DateTime.Today;
+
+            for (int i = 0; i < 10000; i++)
+            {
+                openTime = openTime.AddDays(1);
+                _unfilteredTrades.Add(new Trade(new Market("USDJPY", AssetClass.Currencies), new Strategy("Triangle"),
+                    new Levels(1.045, 1.030, 1.060), new Execution(1.045, openTime, 1),
+                    Option.Some(new Execution(1.06, new DateTime(2021, 01, 01, 15, 23, 00), 1)), (Option.None<double>(), Option.None<double>())));
+            }
+
+
             _unfilteredTrades.Add(new Trade(new Market("USDJPY", AssetClass.Currencies), new Strategy("Triangle"),
                 new Levels(1.045, 1.030, 1.060), new Execution(1.045, new DateTime(2021, 01, 01, 12, 23, 00), 1),
                 Option.Some(new Execution(1.06, new DateTime(2021, 01, 01, 15, 23, 00), 1)), (Option.None<double>(), Option.None<double>())));
@@ -83,6 +94,15 @@ namespace TradeJournalCore
         public (DateTime, DateTime) GetDateRange()
         {
             return (_startDate, _endDate);
+        }
+
+        public void ClearAll()
+        {
+            _unfilteredTrades.Clear();
+            Trades.Clear();
+            PropertyChanged.Raise(this, nameof(Trades));
+            _startDate = DateTime.MaxValue;
+            _endDate = DateTime.MinValue;
         }
 
         private void UpdateDateRange(DateTime date)
