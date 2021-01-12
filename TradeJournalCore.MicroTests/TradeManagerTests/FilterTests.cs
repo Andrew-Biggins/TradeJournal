@@ -4,7 +4,7 @@ using Common.MicroTests;
 using Common.Optional;
 using TradeJournalCore.Interfaces;
 using Xunit;
-using static TradeJournalCore.MicroTests.TradeManagerTests.Shared;
+using static TradeJournalCore.MicroTests.Shared;
 using static TradeJournalCore.SelectableFactory;
 
 namespace TradeJournalCore.MicroTests.TradeManagerTests
@@ -273,6 +273,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
 
             var testTradeTwoDetails = TestTradeDetailsViewModel;
             testTradeTwoDetails.SelectedStrategy = new Strategy("Gap fill");
+            testTradeTwoDetails.CloseLevel = Option.None<double>();
             tradeManager.AddNewTrade(testTradeTwoDetails);
 
             var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(), GetDays(),

@@ -451,7 +451,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
-            <userControls:JournalTradeStats Grid.Row="1" DataContext="{Binding StrategyResultsStatsViewModel}"/>
+            <userControls:TradeCollectionStatistics Grid.Row="1" DataContext="{Binding Statistics}"/>
             <oxy:PlotView Grid.Row="2" Model="{Binding Plot, Mode=OneTime}" MouseDoubleClick="OnGraphDoubleClick" Margin="0,0,20,0"
                           ToolTip="Double Click to Pop-out" Background="Black"/>
         </Grid>

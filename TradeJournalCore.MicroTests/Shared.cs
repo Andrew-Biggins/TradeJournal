@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using Common.Optional;
 using NSubstitute;
 using TradeJournalCore.Interfaces;
+using TradeJournalCore.ViewModels;
+using static TradeJournalCore.SelectableFactory;
 
 namespace TradeJournalCore.MicroTests
 {
@@ -9,7 +12,15 @@ namespace TradeJournalCore.MicroTests
     {
         internal static IRunner SubRunner => Substitute.For<IRunner>();
 
-        internal static ITradeManager SubTradeManager => Substitute.For<ITradeManager>();
+        internal static ITradeManager SubTradeManager
+        {
+            get
+            {
+                var subTradeManager = Substitute.For<ITradeManager>();
+                subTradeManager.Trades.Returns(new ObservableCollection<ITrade>());
+                return subTradeManager;
+            }
+        }
 
         internal static IMarket TestMarket => new Market("Gold", AssetClass.Commodities);
 
@@ -17,9 +28,9 @@ namespace TradeJournalCore.MicroTests
 
         internal static Levels TestLevels => new Levels(100, 50, 200);
 
-        internal static Execution TestOpen => new Execution(100, DateTime.Today, 1);
+        internal static Execution TestOpen => new Execution(TestsOpenLevel, DateTime.Today, TestSize);
 
-        internal static Execution TestClose => new Execution(200, DateTime.MaxValue, 1);
+        internal static Execution TestClose => new Execution(TestsCloseLevel, DateTime.MaxValue, TestSize);
 
         internal static (Optional<double>, Optional<double>) TestEmptyExcursions =>
             (Option.None<double>(), Option.None<double>());
@@ -29,5 +40,22 @@ namespace TradeJournalCore.MicroTests
 
         internal static ITrade TestClosedTrade => new Trade(TestMarket, TestStrategy, TestLevels, TestOpen,
             Option.Some(TestClose), TestEmptyExcursions);
+
+        internal static Filters TestFilters => new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(),
+            GetDays(), DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue, DateTime.MaxValue, 0, 999,
+            TradeStatus.Both, TradeDirection.Both);
+
+        internal static TradeDetailsViewModel TestTradeDetailsViewModel => new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel())
+        {
+            SelectedMarket = TestMarket,
+            SelectedStrategy = TestStrategy,
+            CloseLevel = Option.Some(TestsCloseLevel),
+            CloseDateTime = DateTime.MaxValue,
+            Open = { DateTime = DateTime.MaxValue, Level = TestsOpenLevel, Size = TestSize}
+        };
+
+        private const double TestsOpenLevel = 6000.00;
+        private const double TestsCloseLevel = 6250.00;
+        private const double TestSize = 1;
     }
 }

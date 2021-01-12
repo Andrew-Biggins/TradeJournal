@@ -4,11 +4,11 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Input;
 using TradeJournalCore.Interfaces;
-using TradeJournalCore.ViewModelAdapters;
+using static TradeJournalCore.StatisticsGenerator;
 
 namespace TradeJournalCore.ViewModels
 {
-    public sealed class MainWindowViewModel
+    public sealed class MainWindowViewModel : ViewModelBase
     {
         public ITradeManager TradeManager { get; }
 
@@ -31,6 +31,12 @@ namespace TradeJournalCore.ViewModels
         }
 
         public TradeFiltererViewModel TradeFiltererViewModel { get; } = new TradeFiltererViewModel();
+
+        public TradeCollectionStatistics Statistics
+        {
+            get => _statistics;
+            private set => SetProperty(ref _statistics, value, nameof(Statistics));
+        }
 
         public ITradePlot Plot { get; }
 
@@ -58,8 +64,9 @@ namespace TradeJournalCore.ViewModels
             TradeManager.DateRangeChanged += TradeManager_DateRangeChanged;
             TradeManager.PropertyChanged += TradeManager_PropertyChanged;
 
-            TradeManager.ReadInTrades();
+        //    TradeManager.ReadInTrades();
             UpdateGraph();
+            Statistics = GetStatistics(TradeManager.Trades, AccountStartSize);
         }
 
         private void TradeManager_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -67,6 +74,7 @@ namespace TradeJournalCore.ViewModels
             if (e.PropertyName == nameof(TradeManager.Trades))
             {
                 UpdateGraph();
+                Statistics = GetStatistics(TradeManager.Trades, AccountStartSize);
             }
         }
 
@@ -81,7 +89,6 @@ namespace TradeJournalCore.ViewModels
                   e.PropertyName == nameof(TradeFiltererViewModel.TradesEndDate)))
             {
                 TradeManager.FilterTrades(TradeFiltererViewModel.GetFilters());
-                Debug.WriteLine("Filter");
             }
         }
 
@@ -136,5 +143,6 @@ namespace TradeJournalCore.ViewModels
         private readonly IRunner _runner;
         private readonly TradeDetailsViewModel _tradeDetailsViewModel;
         private double _accountStartSize = 10000;
+        private TradeCollectionStatistics _statistics;
     }
 }

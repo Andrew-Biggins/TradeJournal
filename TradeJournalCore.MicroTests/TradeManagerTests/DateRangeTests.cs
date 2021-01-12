@@ -1,7 +1,7 @@
 ﻿using System;
 using Common.MicroTests;
 using Xunit;
-using static TradeJournalCore.MicroTests.TradeManagerTests.Shared;
+using static TradeJournalCore.MicroTests.Shared;
 
 namespace TradeJournalCore.MicroTests.TradeManagerTests
 {

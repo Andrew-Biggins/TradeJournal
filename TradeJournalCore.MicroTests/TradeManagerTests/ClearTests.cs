@@ -3,7 +3,6 @@ using Common.MicroTests;
 using TradeJournalCore.ViewModels;
 using Xunit;
 using static TradeJournalCore.MicroTests.Shared;
-using static TradeJournalCore.MicroTests.TradeManagerTests.Shared;
 
 namespace TradeJournalCore.MicroTests.TradeManagerTests
 {
