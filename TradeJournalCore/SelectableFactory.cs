@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Data.SqlClient;
 using TradeJournalCore.Interfaces;
 
 namespace TradeJournalCore
@@ -17,15 +17,35 @@ namespace TradeJournalCore
         internal static SelectableCollection<IMarket> GetDefaultMarkets()
         {
             var collection = new SelectableCollection<IMarket>();
+            
+            try
+            {
+                var connection = new SqlConnection(DataConnection.Builder.ConnectionString);
+                connection.Open();
 
-            collection.AddSelectable(new Market("USDJPY", AssetClass.Currencies) { IsSelected = true });
-            collection.AddSelectable(new Market("EURUSD", AssetClass.Currencies) { IsSelected = true });
-            collection.AddSelectable(new Market("Nasdaq", AssetClass.Indices) { IsSelected = true });
-            collection.AddSelectable(new Market("BTCUSD", AssetClass.Crypto) { IsSelected = true });
-            collection.AddSelectable(new Market("Silver", AssetClass.Commodities) { IsSelected = true });
-            collection.AddSelectable(new Market("Gold", AssetClass.Commodities) { IsSelected = true });
-            collection.AddSelectable(new Market("TSLA", AssetClass.Shares) { IsSelected = true });
+                const string sql = "SELECT * From Market;";
 
+                using (var cmd = new SqlCommand(sql, connection))
+                {
+                    var reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            var assetClass = (AssetClass) Enum.Parse(typeof(AssetClass), reader.GetFieldValue<string>(2));
+                            collection.AddSelectable(new Market(reader.GetFieldValue<string>(1), assetClass) { IsSelected = true });
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+           
             return collection;
         }
 
@@ -33,8 +53,33 @@ namespace TradeJournalCore
         {
             var collection = new SelectableCollection<ISelectable>();
 
-            collection.AddSelectable(new Strategy("Triangle") { IsSelected = true });
-            collection.AddSelectable(new Strategy("Gap fill") { IsSelected = true });
+            try
+            {
+                var connection = new SqlConnection(DataConnection.Builder.ConnectionString);
+                connection.Open();
+
+                const string sql = "SELECT * From Strategy;";
+
+                using (var cmd = new SqlCommand(sql, connection))
+                {
+                    var reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            collection.AddSelectable(new Strategy(reader.GetFieldValue<string>(1)) { IsSelected = true });
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
 
             return collection;
         }

@@ -1,7 +1,6 @@
 ﻿using Common;
 using Common.Optional;
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 using TradeJournalCore.Interfaces;
@@ -115,8 +114,15 @@ namespace TradeJournalCore.ViewModels
             Markets = markets;
             Strategies = strategies;
 
-            SelectedStrategy = Strategies[0];
-            SelectedMarket = Markets[0];
+            if (Strategies.Count > 0)
+            {
+                SelectedStrategy = Strategies[0];
+            }
+
+            if (Markets.Count > 0)
+            {
+                SelectedMarket = Markets[0];
+            }
         }
 
         private void OnLevelsChanged(object sender, PropertyChangedEventArgs e)
@@ -214,6 +220,7 @@ namespace TradeJournalCore.ViewModels
                 IsSelected = true
             };
 
+            DataConnection.AddMarket(market);
             Markets.AddSelectable(market);
             SelectedMarket = market;
             RaisePropertyChanged(nameof(SelectedMarket));
@@ -222,7 +229,12 @@ namespace TradeJournalCore.ViewModels
 
         private void AddStrategy(object sender, EventArgs e)
         {
-            var strategy = new Strategy(_getNameViewModel.Name);
+            var strategy = new Strategy(_getNameViewModel.Name)
+            {
+                IsSelected = true
+            };
+
+            DataConnection.AddStrategy(strategy);
             Strategies.AddSelectable(strategy);
             SelectedStrategy = strategy;
             RaisePropertyChanged(nameof(SelectedStrategy));

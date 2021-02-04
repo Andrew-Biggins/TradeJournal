@@ -13,6 +13,8 @@ namespace TradeJournalCore
 
     public sealed class Trade : ITrade
     {
+        public int Id { get; set; }
+
         public IMarket Market { get; }
 
         public ISelectable Strategy { get; }
@@ -27,9 +29,9 @@ namespace TradeJournalCore
 
         public Optional<Execution> Close { get; }
 
-        public TradeDirection Direction { get; }
+        public TradeDirection Direction { private set; get; }
 
-        public double RiskRewardRatio { get; }
+        public double RiskRewardRatio { private set; get; }
 
         public Optional<double> ResultInR { get; private set; } = Option.None<double>();
 
@@ -58,15 +60,23 @@ namespace TradeJournalCore
             MaxAdverseExcursion = adverse ?? throw new ArgumentNullException(nameof(adverse));
             MaxFavourableExcursion = favourable ?? throw new ArgumentNullException(nameof(favourable));
 
-            Direction = Levels.Target > Levels.Stop ? TradeDirection.Long : TradeDirection.Short;
-
-            _stopSize = Math.Abs(Levels.Entry - Levels.Stop);
-
-            RiskRewardRatio = Math.Abs(Levels.Entry - Levels.Target) / _stopSize;
-
+            SetDirection();
+            
+            CalculateRiskRewardRatio();
             CalculateResult();
             CalculateDrawdown();
             CalculateExcursionStats();
+        }
+
+        private void SetDirection()
+        {
+            Direction = Levels.Target > Levels.Stop ? TradeDirection.Long : TradeDirection.Short;
+        }
+
+        private void CalculateRiskRewardRatio()
+        {
+            _stopSize = Math.Abs(Levels.Entry - Levels.Stop);
+            RiskRewardRatio = Math.Abs(Levels.Entry - Levels.Target) / _stopSize;
         }
 
         private void CalculateResult()
@@ -117,6 +127,6 @@ namespace TradeJournalCore
             });
         }
 
-        private readonly double _stopSize;
+        private double _stopSize;
     }
 }

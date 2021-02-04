@@ -10,7 +10,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
     {
         [Gwt("Given a trade",
             "when the levels are read",
-            "the levels are the same as the ones given at construction")]
+            "then the levels are the same as the ones given at construction")]
         public void T0()
         {
             // Arrange

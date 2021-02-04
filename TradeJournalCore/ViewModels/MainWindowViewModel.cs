@@ -64,7 +64,7 @@ namespace TradeJournalCore.ViewModels
             TradeManager.DateRangeChanged += TradeManager_DateRangeChanged;
             TradeManager.PropertyChanged += TradeManager_PropertyChanged;
 
-        //    TradeManager.ReadInTrades();
+            TradeManager.ReadInTrades();
             UpdateGraph();
             Statistics = GetStatistics(TradeManager.Trades, AccountStartSize);
         }

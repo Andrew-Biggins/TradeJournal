@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="a514e629-6a3e-425e-8f10-399662842a04" ChangeDateTime="02/02/2021 18:36:25">
+    <Property Name="ElementName" Value="[dbo].[Trade].[Market Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Trade]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MarketId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="cb31663b-7c3a-4eb9-8137-acd42fb791b3" ChangeDateTime="02/02/2021 18:36:29">
+    <Property Name="ElementName" Value="[dbo].[Trade].[Strategy Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Trade]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="StrategyId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="28bd4df6-04dd-4105-96f3-4922512adc97" ChangeDateTime="02/02/2021 18:36:34">
+    <Property Name="ElementName" Value="[dbo].[Trade].[Open DateTime]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Trade]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="OpenDateTime" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="91a9f380-df6b-4d93-ab94-ed32b9451790" ChangeDateTime="02/02/2021 18:36:37">
+    <Property Name="ElementName" Value="[dbo].[Trade].[Open Size]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Trade]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="OpenSize" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4955fa9b-72da-471b-973c-1baa12fe94fc" ChangeDateTime="02/02/2021 18:36:40">
+    <Property Name="ElementName" Value="[dbo].[Trade].[Close Size]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Trade]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CloseSize" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="21423963-794c-41ca-8acf-97ee01a81d55" ChangeDateTime="02/04/2021 11:25:33">
+    <Property Name="ElementName" Value="[dbo].[Trade].[Close Level]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Trade]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CloseLevel" />
+  </Operation>
+</Operations>

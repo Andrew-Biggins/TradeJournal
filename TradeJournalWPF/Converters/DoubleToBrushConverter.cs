@@ -9,7 +9,7 @@ namespace TradeJournalWPF.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (double)value  >=0 ? Brushes.LawnGreen : Brushes.OrangeRed;
+            return (double)value >=0 ? Brushes.LawnGreen : Brushes.OrangeRed;
         }
 
         public new object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

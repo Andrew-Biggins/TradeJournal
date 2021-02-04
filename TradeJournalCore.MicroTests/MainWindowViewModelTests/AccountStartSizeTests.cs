@@ -4,6 +4,7 @@ using Xunit;
 using static TradeJournalCore.MicroTests.Shared;
 using static TradeJournalCore.MicroTests.MainWindowViewModelTests.Shared;
 using NSubstitute;
+using TradeJournalCore.Interfaces;
 
 namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
 {
@@ -11,11 +12,12 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
     {
         [Gwt("Given a main window view model",
             "when the account start size is read",
-            "the account start size is 10000 by default")]
+            "then the account start size is 10000 by default")]
         public void T0()
         {
             // Arrange
-            var viewModel = new MainWindowViewModel(SubRunner, SubTradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()), SubPlot);
+            var viewModel = new MainWindowViewModel(SubRunner, SubTradeManager,
+                new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()), SubPlot);
 
             // Act 
             var actual = viewModel.AccountStartSize;
@@ -45,14 +47,16 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         public void T2()
         {
             // Arrange
-            var plot = SubPlot;
-            var viewModel = new MainWindowViewModel(SubRunner, SubTradeManager, new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()), plot);
+            var subPlot = Substitute.For<ITradePlot>();
+            var viewModel = new MainWindowViewModel(SubRunner, SubTradeManager,
+                new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), 
+                    new AddMarketViewModel()), subPlot);
 
             // Act 
             viewModel.AccountStartSize = 500;
 
             // Assert
-            plot.Received(1).UpdateData(viewModel.AccountStartSize, viewModel.TradeManager.Trades);
+            subPlot.Received(1).UpdateData(viewModel.AccountStartSize, viewModel.TradeManager.Trades);
         }
     }
 }

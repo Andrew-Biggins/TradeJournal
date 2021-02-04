@@ -2,8 +2,10 @@
 
 namespace TradeJournalCore.Interfaces
 {
-    public interface ITrade
+    public interface ITrade 
     {
+        int Id { get; set; }
+
         IMarket Market { get; }
 
         ISelectable Strategy { get; }
@@ -12,15 +14,15 @@ namespace TradeJournalCore.Interfaces
 
         Execution Open { get; }
 
+        TradeDirection Direction { get; }
+
+        double RiskRewardRatio { get; }
+
         Optional<Execution> Close { get; }
 
         Optional<double> MaxAdverseExcursion { get; }
 
         Optional<double> MaxFavourableExcursion { get; }
-
-        TradeDirection Direction { get; }
-
-        double RiskRewardRatio { get; }
 
         Optional<double> ResultInR { get; }
 

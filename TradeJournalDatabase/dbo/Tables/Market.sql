@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Market]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [Name] NVARCHAR(50) NOT NULL, 
+    [AssetClass] NVARCHAR(50) NOT NULL 
+)
