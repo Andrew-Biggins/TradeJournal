@@ -149,6 +149,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
         {
             // Arrange
             var tradeManager = new TradeManager { Filters = TestFilters };
+            tradeManager.SelectedTrade = TestOpenTrade;
             var catcher = Catcher.Simple;
             tradeManager.DateRangeChanged += catcher.Catch;
 

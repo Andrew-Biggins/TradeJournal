@@ -30,8 +30,9 @@ namespace TradeJournalCore
                         while (results.Read())
                         {
                             var assetClass = (AssetClass)Enum.Parse(typeof(AssetClass), results.GetFieldValue<string>(16));
-                            var market = new Market(results.GetFieldValue<string>(15), assetClass);
-                            var strategy = new Strategy(results.GetFieldValue<string>(18));
+                            var pipDivisor = (PipDivisor)Enum.Parse(typeof(PipDivisor), results.GetFieldValue<string>(17));
+                            var market = new Market(results.GetFieldValue<string>(15), assetClass, pipDivisor);
+                            var strategy = new Strategy(results.GetFieldValue<string>(19));
                             var entry = results.GetFieldValue<double>(3);
                             var stop = results.GetFieldValue<double>(4);
                             var target = results.GetFieldValue<double>(5);
@@ -90,12 +91,14 @@ namespace TradeJournalCore
                 var connection = new SqlConnection(Builder.ConnectionString);
                 connection.Open();
 
-                const string sql = "INSERT INTO Market (Name, AssetClass) VALUES (@name, @assetClass)";
+                const string sql = "INSERT INTO Market (Name, AssetClass, PipDivisor) " +
+                                   "VALUES (@name, @assetClass, @pipDivisor)";
 
                 using (var cmd = new SqlCommand(sql, connection))
                 {
                     cmd.Parameters.AddWithValue("@name", market.Name);
                     cmd.Parameters.AddWithValue("@assetClass", market.AssetClass.ToString());
+                    cmd.Parameters.AddWithValue("@pipDivisor", market.PipDivisor.ToString());
                     cmd.ExecuteNonQuery();
                 }
 

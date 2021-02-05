@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Common.Optional;
 using NSubstitute;
@@ -22,7 +23,7 @@ namespace TradeJournalCore.MicroTests
             }
         }
 
-        internal static IMarket TestMarket => new Market("Gold", AssetClass.Commodities);
+        internal static IMarket TestMarket => new Market("Gold", AssetClass.Commodities, PipDivisor.One);
 
         internal static ISelectable TestStrategy => new Strategy("Triangle");
 
@@ -41,7 +42,7 @@ namespace TradeJournalCore.MicroTests
         internal static ITrade TestClosedTrade => new Trade(TestMarket, TestStrategy, TestLevels, TestOpen,
             Option.Some(TestClose), TestEmptyExcursions);
 
-        internal static Filters TestFilters => new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(),
+        internal static Filters TestFilters => new Filters(TestMarkets, TestStrategies, GetAssetTypes(),
             GetDays(), DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue, DateTime.MaxValue, 0, 999,
             TradeStatus.Both, TradeDirection.Both);
 
@@ -53,6 +54,34 @@ namespace TradeJournalCore.MicroTests
             CloseDateTime = DateTime.MaxValue,
             Open = { DateTime = DateTime.MaxValue, Level = TestsOpenLevel, Size = TestSize}
         };
+
+        private static IReadOnlyList<ISelectable> TestMarkets
+        {
+            get
+            {
+                var markets = new List<ISelectable>
+                {
+                    TestMarket,
+                    new Market("USDJPY", AssetClass.Currencies, PipDivisor.One)
+                };
+
+                return markets;
+            }
+        }
+
+        private static IReadOnlyList<ISelectable> TestStrategies
+        {
+            get
+            {
+                var markets = new List<ISelectable>
+                {
+                    TestStrategy,
+                    new Strategy("Gap fill"),
+                };
+
+                return markets;
+            }
+        }
 
         private const double TestsOpenLevel = 6000.00;
         private const double TestsCloseLevel = 6250.00;

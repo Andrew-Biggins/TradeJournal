@@ -59,6 +59,8 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
             var runner = SubRunner;
             var addTradeViewModel = new TradeDetailsViewModel(runner, new GetNameViewModel(), new AddMarketViewModel());
             var viewModel = new MainWindowViewModel(runner, new TradeManager(), addTradeViewModel, SubPlot);
+            runner.RunForResult(viewModel, Arg.Is<Message>(m => m.Is(Messages.ConfirmClearAllTrades))).Returns(true);
+            viewModel.ClearCommand.Execute(null!);
             var testTrade = TestOpenTrade;
             viewModel.TradeManager.Trades.Add(testTrade);
             viewModel.TradeManager.SelectedTrade = testTrade;

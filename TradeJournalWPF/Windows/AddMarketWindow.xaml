@@ -8,7 +8,7 @@
         xmlns:converters="clr-namespace:TradeJournalWPF.Converters"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance {x:Type viewModels:AddMarketViewModel}}"
-        Height="100" Width="420"
+        Height="100" Width="500"
         Background="Black"
         Title="{Binding Title}"
         FocusManager.FocusedElement="{Binding ElementName=TextBox}">
@@ -20,6 +20,14 @@
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={converters:AssetClassToStringConverter}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <ComboBox Width="70" Height="22" Margin="0,0"  ItemsSource="{Binding PipDivisors}" 
+                      SelectedItem="{Binding SelectedPipDivisor}" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={converters:PipDivisorToStringConverter}}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>

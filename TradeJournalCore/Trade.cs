@@ -84,12 +84,12 @@ namespace TradeJournalCore
             Close.IfExistsThen(x =>
             {
                 PointsResult = Direction == TradeDirection.Long
-                    ? Option.Some(x.Level - Open.Level)
-                    : Option.Some(Open.Level - x.Level);
+                    ? Option.Some((x.Level - Open.Level) * (double) Market.PipDivisor)
+                    : Option.Some((Open.Level - x.Level) * (double) Market.PipDivisor);
 
                 PointsResult.IfExistsThen(y =>
                 {
-                    ResultInR = Option.Some(y / _stopSize);
+                    ResultInR = Option.Some((y / (double) Market.PipDivisor) / _stopSize);
                     CashResult = Option.Some(Open.Size * y);
                 });
             });

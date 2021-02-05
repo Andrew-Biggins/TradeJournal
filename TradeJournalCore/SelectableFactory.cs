@@ -34,7 +34,8 @@ namespace TradeJournalCore
                         while (reader.Read())
                         {
                             var assetClass = (AssetClass) Enum.Parse(typeof(AssetClass), reader.GetFieldValue<string>(2));
-                            collection.AddSelectable(new Market(reader.GetFieldValue<string>(1), assetClass) { IsSelected = true });
+                            var pipDivisor = (PipDivisor) Enum.Parse(typeof(PipDivisor), reader.GetFieldValue<string>(3));
+                            collection.AddSelectable(new Market(reader.GetFieldValue<string>(1), assetClass, pipDivisor) { IsSelected = true });
                         }
                     }
                 }

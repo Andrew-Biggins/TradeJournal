@@ -113,46 +113,47 @@ namespace TradeJournalCore
             VerifyInputs();
         }
 
-        internal void UpdateExcursionLimits(Direction tradeDirection, Optional<double> close, double open)
+        internal void UpdateExcursionLimits(Direction tradeDirection, Optional<double> close, double open,
+            PipDivisor pipDivisor)
         {
             if (tradeDirection == Direction.Long)
             {
-                CalculateLongMaximumMae(close, open);
-                CalculateLongMinimumMfe(close, open);
+                CalculateLongMaximumMae(close, open, pipDivisor);
+                CalculateLongMinimumMfe(close, open, pipDivisor);
             }
             else
             {
-                CalculateShortMaximumMae(close, open);
-                CalculateShortMinimumMfe(close, open);
+                CalculateShortMaximumMae(close, open, pipDivisor);
+                CalculateShortMinimumMfe(close, open, pipDivisor);
             }
 
             ValidateMae(_mae);
             ValidateMfe(_mfe);
         }
 
-        private void CalculateLongMaximumMae(Optional<double> close, double open)
+        private void CalculateLongMaximumMae(Optional<double> close, double open, PipDivisor pipDivisor)
         {
             close.IfExistsThen(x =>
             {
                 if (x >= open)
                 {
-                    MaximumMae = open;
+                    MaximumMae = open * (int)pipDivisor;
                 }
                 else
                 {
-                    MaximumMae = open - x;
+                    MaximumMae = (open - x) * (int)pipDivisor;
                 }
 
-            }).IfEmpty(() => { MaximumMae = open; });
+            }).IfEmpty(() => { MaximumMae = open *(int)pipDivisor; });
         }
 
-        private void CalculateLongMinimumMfe(Optional<double> close, double open)
+        private void CalculateLongMinimumMfe(Optional<double> close, double open, PipDivisor pipDivisor)
         {
             close.IfExistsThen(x =>
             {
                 if (x >= open)
                 {
-                    MinimumMfe = x - open;
+                    MinimumMfe = (x - open) * (int)pipDivisor;
                 }
                 else
                 {
@@ -161,7 +162,7 @@ namespace TradeJournalCore
             }).IfEmpty(() => { MinimumMfe = 0; });
         }
 
-        private void CalculateShortMaximumMae(Optional<double> close, double open)
+        private void CalculateShortMaximumMae(Optional<double> close, double open, PipDivisor pipDivisor)
         {
             close.IfExistsThen(x =>
             {
@@ -171,19 +172,19 @@ namespace TradeJournalCore
                 }
                 else
                 {
-                    MaximumMae = x - open;
+                    MaximumMae = (x - open) * (int)pipDivisor;
                 }
 
             }).IfEmpty(() => { MaximumMae = double.PositiveInfinity; });
         }
 
-        private void CalculateShortMinimumMfe(Optional<double> close, double open)
+        private void CalculateShortMinimumMfe(Optional<double> close, double open, PipDivisor pipDivisor)
         {
             close.IfExistsThen(x =>
             {
                 if (x <= open)
                 {
-                    MinimumMfe = open - x;
+                    MinimumMfe = (open - x) * (int)pipDivisor;
                 }
                 else
                 {

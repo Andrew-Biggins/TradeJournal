@@ -12,7 +12,7 @@ namespace TradeJournalCore.MicroTests
         {
             // Arrange
             const string testName = "test name";
-            var market = new Market(testName, AssetClass.Commodities);
+            var market = new Market(testName, AssetClass.Commodities, PipDivisor.One);
 
             // Act 
             var actual = market.Name;
@@ -27,7 +27,7 @@ namespace TradeJournalCore.MicroTests
         public void T1()
         {
             // Arrange
-            var market = new Market(string.Empty, AssetClass.Shares);
+            var market = new Market(string.Empty, AssetClass.Shares, PipDivisor.One);
 
             // Act 
             var actual = market.AssetClass;
@@ -42,7 +42,7 @@ namespace TradeJournalCore.MicroTests
         public void T2()
         {
             // Arrange
-            var market = new Market("test market", AssetClass.Indices);
+            var market = new Market("test market", AssetClass.Indices, PipDivisor.One);
 
             // Act 
             var actual = market.IsSelected;
@@ -57,7 +57,7 @@ namespace TradeJournalCore.MicroTests
         public void T3()
         {
             // Arrange
-            var market = new Market(string.Empty, AssetClass.Shares);
+            var market = new Market(string.Empty, AssetClass.Shares, PipDivisor.One);
             var catcher = Catcher.For(market);
 
             // Act 

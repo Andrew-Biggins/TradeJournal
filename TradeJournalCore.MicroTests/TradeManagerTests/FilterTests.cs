@@ -52,11 +52,11 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var tradeManager = new TradeManager {Filters = TestFilters};
 
             var testTradeOneDetails = TestTradeDetailsViewModel;
-            testTradeOneDetails.SelectedMarket = new Market("Gold", AssetClass.Commodities);
+            testTradeOneDetails.SelectedMarket = new Market("Gold", AssetClass.Commodities, PipDivisor.One);
             tradeManager.AddNewTrade(testTradeOneDetails);
 
             var testTradeTwoDetails = TestTradeDetailsViewModel;
-            testTradeTwoDetails.SelectedMarket = new Market("USDJPY", AssetClass.Currencies);
+            testTradeTwoDetails.SelectedMarket = new Market("USDJPY", AssetClass.Currencies, PipDivisor.One);
             tradeManager.AddNewTrade(testTradeTwoDetails);
 
             var assetClasses = new List<ISelectable> { new AssetType(AssetClass.Commodities)};
@@ -81,14 +81,14 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var tradeManager = new TradeManager { Filters = TestFilters };
 
             var testTradeOneDetails = TestTradeDetailsViewModel;
-            testTradeOneDetails.SelectedMarket = new Market("Gold", AssetClass.Commodities);
+            testTradeOneDetails.SelectedMarket = new Market("Gold", AssetClass.Commodities, PipDivisor.One);
             tradeManager.AddNewTrade(testTradeOneDetails);
 
             var testTradeTwoDetails = TestTradeDetailsViewModel;
-            testTradeTwoDetails.SelectedMarket = new Market("USDJPY", AssetClass.Currencies);
+            testTradeTwoDetails.SelectedMarket = new Market("USDJPY", AssetClass.Currencies, PipDivisor.One);
             tradeManager.AddNewTrade(testTradeTwoDetails);
 
-            var markets = new List<ISelectable> { new Market("USDJPY", AssetClass.Currencies) };
+            var markets = new List<ISelectable> { new Market("USDJPY", AssetClass.Currencies, PipDivisor.One) };
             var filters = new Filters(markets, GetDefaultStrategies(), GetAssetTypes(), GetDays(),
                 DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue, DateTime.MaxValue, 0, 999, TradeStatus.Both,
                 TradeDirection.Both);

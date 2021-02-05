@@ -129,6 +129,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
         {
             // Arrange
             var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel());
+            viewModel.SelectedMarket = TestMarket;
             viewModel.CloseLevel = Option.Some(666.66);
 
             // Act

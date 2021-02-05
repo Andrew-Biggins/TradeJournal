@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Common;
 using Common.MicroTests;
+using NSubstitute;
 using TradeJournalCore.Interfaces;
 using TradeJournalCore.ViewModels;
 using static TradeJournalCore.MicroTests.MainWindowViewModelTests.Shared;
@@ -34,8 +36,11 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
         public void T2()
         {
             // Arrange
+            var runner = SubRunner;
             var expected = GetStatistics(new List<ITrade> {TestClosedTrade}, 10000);
-            var viewModel = new MainWindowViewModel(SubRunner, new TradeManager(), TestTradeDetailsViewModel, SubPlot);
+            var viewModel = new MainWindowViewModel(runner, new TradeManager(), TestTradeDetailsViewModel, SubPlot);
+            runner.RunForResult(viewModel, Arg.Is<Message>(m => m.Is(Messages.ConfirmClearAllTrades))).Returns(true);
+            viewModel.ClearCommand.Execute(null!);
             viewModel.TradeManager.AddNewTrade(TestTradeDetailsViewModel);
 
             // Act

@@ -23,6 +23,15 @@ namespace TradeJournalCore
         PreciousMetals
     }
 
+    public enum PipDivisor
+    {
+        One = 1,
+        Ten = 10,
+        OneHundred = 100,
+        OneThousand = 1000,
+        TenThousand = 10000
+    }
+
     public sealed class Market : IMarket
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -41,10 +50,13 @@ namespace TradeJournalCore
 
         public AssetClass AssetClass { get; }
 
-        public Market(string name, AssetClass assetClass)
+        public PipDivisor PipDivisor { get; }
+
+        public Market(string name, AssetClass assetClass, PipDivisor pipDivisor)
         {
             Name = name;
             AssetClass = assetClass;
+            PipDivisor = pipDivisor;
         }
 
         private bool _isSelected;

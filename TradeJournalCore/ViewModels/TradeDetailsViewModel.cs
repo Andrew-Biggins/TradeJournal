@@ -145,7 +145,8 @@ namespace TradeJournalCore.ViewModels
 
         private void UpdateExcursions()
         {
-            TradeDetailsValidator.UpdateExcursionLimits(Levels.TradeDirection, CloseLevel, Open.Level);
+            TradeDetailsValidator.UpdateExcursionLimits(Levels.TradeDirection, CloseLevel, Open.Level,
+                SelectedMarket.PipDivisor);
 
             double closeLevel = 0;
             var isCloseLevelSet = false;
@@ -215,7 +216,7 @@ namespace TradeJournalCore.ViewModels
 
         private void AddMarket(object sender, EventArgs e)
         {
-            var market = new Market(_addMarketViewModel.Name, _addMarketViewModel.SelectedAssetClass)
+            var market = new Market(_addMarketViewModel.Name, _addMarketViewModel.SelectedAssetClass, _addMarketViewModel.SelectedPipDivisor)
             {
                 IsSelected = true
             };

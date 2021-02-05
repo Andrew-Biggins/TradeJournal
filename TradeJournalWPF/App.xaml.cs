@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
 using Common;
 using Common.Interfaces;
 using TradeJournalCore;
@@ -13,6 +14,10 @@ namespace TradeJournalWPF
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            EventManager.RegisterClassHandler(typeof(TextBox),
+                UIElement.GotFocusEvent,
+                new RoutedEventHandler(TextBox_GotFocus));
+
             var context = GetDispatcherContext();
             var runner = new Runner(context);
             Window window = new MainWindow();
@@ -37,6 +42,11 @@ namespace TradeJournalWPF
 
             var context = new Context(dispatcherContext);
             return context;
+        }
+
+        private static void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            (sender as TextBox)?.SelectAll();
         }
     }
 }

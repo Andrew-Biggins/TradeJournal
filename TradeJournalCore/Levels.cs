@@ -9,7 +9,7 @@ namespace TradeJournalCore
         Short
     }
 
-    public class Levels
+    public class Levels : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -75,6 +75,7 @@ namespace TradeJournalCore
             Entry = entry;
             Stop = stop;
             Target = target;
+            VerifyLevels();
         }
 
         private void VerifyLevels()

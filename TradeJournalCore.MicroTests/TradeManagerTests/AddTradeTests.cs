@@ -29,7 +29,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
         {
             // Arrange
             var tradeDetails = TestTradeDetailsViewModel;
-            var testMarket = new Market("USDJPY", AssetClass.Currencies);
+            var testMarket = new Market("USDJPY", AssetClass.Currencies, PipDivisor.One);
             tradeDetails.SelectedMarket = testMarket;
             var tradeManager = new TradeManager { Filters = TestFilters };
 

@@ -16,11 +16,17 @@ namespace TradeJournalCore.ViewModels
 
         public List<AssetClass> AssetClasses { get; }
 
+        public List<PipDivisor> PipDivisors { get; }
+
         public AssetClass SelectedAssetClass { get; set; }
+
+        public PipDivisor SelectedPipDivisor { get; set; }
 
         public AddMarketViewModel()
         {
             AssetClasses = GetAssetClasses();
+            PipDivisors = GetPipDivisors();
+            SelectedPipDivisor = PipDivisor.One;
         }
 
         private static List<AssetClass> GetAssetClasses()
@@ -28,6 +34,13 @@ namespace TradeJournalCore.ViewModels
             var assetClasses = (AssetClass[])Enum.GetValues(typeof(AssetClass));
 
             return assetClasses.ToList();
+        }
+
+        private static List<PipDivisor> GetPipDivisors()
+        {
+            var pipDivisors = (PipDivisor[])Enum.GetValues(typeof(PipDivisor));
+
+            return pipDivisors.ToList();
         }
     }
 }

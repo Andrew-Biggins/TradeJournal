@@ -169,7 +169,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
         {
             // Arrange
             var validator = new TradeDetailsValidator();
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(100), 200);
+            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(100), 200, PipDivisor.One);
 
             // Act 
             validator.ValidateMae(Option.Some(101.00));
@@ -185,7 +185,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
         {
             // Arrange
             var validator = new TradeDetailsValidator();
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(100), 200);
+            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(100), 200, PipDivisor.One);
             validator.MaeHasError = true;
 
             // Act 
@@ -202,7 +202,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
         {
             // Arrange
             var validator = new TradeDetailsValidator();
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(200), 100);
+            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(200), 100, PipDivisor.One);
 
             // Act 
             validator.ValidateMfe(Option.Some(99.99));
@@ -218,7 +218,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
         {
             // Arrange
             var validator = new TradeDetailsValidator();
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(200), 100);
+            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(200), 100, PipDivisor.One);
             validator.MfeHasError = true;
 
             // Act 
@@ -238,7 +238,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             const double testOpen = 200;
 
             // Act 
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(300), testOpen);
+            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(300), testOpen, PipDivisor.One);
 
             // Assert
             Assert.Equal(testOpen, validator.MaximumMae);
@@ -255,7 +255,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             const double testClose = 50;
 
             // Act 
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(testClose), testOpen);
+            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(testClose), testOpen, PipDivisor.One);
 
             // Assert
             Assert.Equal(testOpen - testClose, validator.MaximumMae);
@@ -271,7 +271,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             const double testOpen = 200;
 
             // Act 
-            validator.UpdateExcursionLimits(Direction.Long, Option.None<double>(), testOpen);
+            validator.UpdateExcursionLimits(Direction.Long, Option.None<double>(), testOpen, PipDivisor.One);
 
             // Assert
             Assert.Equal(testOpen, validator.MaximumMae);
@@ -288,7 +288,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             const double testClose = 350;
 
             // Act 
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(testClose), testOpen);
+            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(testClose), testOpen, PipDivisor.One);
 
             // Assert
             Assert.Equal(testClose - testOpen, validator.MinimumMfe);
@@ -301,10 +301,10 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
         {
             // Arrange
             var validator = new TradeDetailsValidator();
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(200), 100);
+            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(200), 100, PipDivisor.One);
 
             // Act 
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(50), 100);
+            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(50), 100, PipDivisor.One);
 
             // Assert
             Assert.Equal(0, validator.MinimumMfe);
@@ -317,10 +317,10 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
         {
             // Arrange
             var validator = new TradeDetailsValidator();
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(200), 100);
+            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(200), 100, PipDivisor.One);
 
             // Act 
-            validator.UpdateExcursionLimits(Direction.Long, Option.None<double>(), 100);
+            validator.UpdateExcursionLimits(Direction.Long, Option.None<double>(), 100, PipDivisor.One);
 
             // Assert
             Assert.Equal(0, validator.MinimumMfe);
@@ -333,10 +333,10 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
         {
             // Arrange
             var validator = new TradeDetailsValidator();
-            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(200), 100);
+            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(200), 100, PipDivisor.One);
 
             // Act 
-            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(50), 100);
+            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(50), 100, PipDivisor.One);
 
             // Assert
             Assert.Equal(double.PositiveInfinity, validator.MaximumMae);
@@ -353,7 +353,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             const double testClose = 350;
 
             // Act 
-            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(testClose), testOpen);
+            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(testClose), testOpen, PipDivisor.One);
 
             // Assert
             Assert.Equal(testClose - testOpen, validator.MaximumMae);
@@ -366,10 +366,10 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
         {
             // Arrange
             var validator = new TradeDetailsValidator();
-            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(200), 100);
+            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(200), 100, PipDivisor.One);
 
             // Act 
-            validator.UpdateExcursionLimits(Direction.Short, Option.None<double>(), 100);
+            validator.UpdateExcursionLimits(Direction.Short, Option.None<double>(), 100, PipDivisor.One);
 
             // Assert
             Assert.Equal(double.PositiveInfinity, validator.MaximumMae);
@@ -386,7 +386,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             const double testClose = 50;
 
             // Act 
-            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(testClose), testOpen);
+            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(testClose), testOpen, PipDivisor.One);
 
             // Assert
             Assert.Equal(testOpen - testClose, validator.MinimumMfe);
@@ -399,10 +399,10 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
         {
             // Arrange
             var validator = new TradeDetailsValidator();
-            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(50), 100);
+            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(50), 100, PipDivisor.One);
 
             // Act 
-            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(200), 100);
+            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(200), 100, PipDivisor.One);
 
             // Assert
             Assert.Equal(0, validator.MinimumMfe);
@@ -415,10 +415,10 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
         {
             // Arrange
             var validator = new TradeDetailsValidator();
-            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(50), 100);
+            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(50), 100, PipDivisor.One);
 
             // Act 
-            validator.UpdateExcursionLimits(Direction.Short, Option.None<double>(), 100);
+            validator.UpdateExcursionLimits(Direction.Short, Option.None<double>(), 100, PipDivisor.One);
 
             // Assert
             Assert.Equal(0, validator.MinimumMfe);
@@ -434,7 +434,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             validator.ValidateMae(Option.Some(100.00));
 
             // Act 
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(50), 100);
+            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(50), 100, PipDivisor.One);
 
             // Assert
             Assert.True(validator.MaeHasError);
@@ -450,7 +450,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             validator.ValidateMfe(Option.Some(100.00));
 
             // Act 
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(250), 100);
+            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(250), 100, PipDivisor.One);
 
             // Assert
             Assert.True(validator.MfeHasError);
@@ -467,7 +467,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             validator.MaeHasError = true;
 
             // Act 
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(50), 100);
+            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(50), 100, PipDivisor.One);
 
             // Assert
             Assert.False(validator.MaeHasError);
@@ -484,7 +484,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             validator.MfeHasError = true;
 
             // Act 
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(150), 100);
+            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(150), 100, PipDivisor.One);
 
             // Assert
             Assert.False(validator.MfeHasError);

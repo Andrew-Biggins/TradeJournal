@@ -32,6 +32,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
         {
             // Arrange
             var tradeManager = new TradeManager();
+            tradeManager.SelectedTrade = TestOpenTrade;
             var catcher = Catcher.For(tradeManager);
 
             // Act 
