@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="TradeJournalWPF.UserControls.RiskManagementPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TradeJournalWPF.UserControls"
+             xmlns:oxy="http://oxyplot.org/wpf"
+             xmlns:viewModels="clr-namespace:TradeJournalCore.ViewModels;assembly=TradeJournalCore"
+             xmlns:tradeJournalCore="clr-namespace:TradeJournalCore;assembly=TradeJournalCore"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance {x:Type tradeJournalCore:RiskManager}}"
+             Language="en-GB"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Width="245">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="134"/>
+
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid ItemsSource="{Binding Risks, Mode=OneWay}" AutoGenerateColumns="False" CanUserResizeColumns="False"
+                  CanUserReorderColumns="False" Background="Black" RowHeaderWidth="0" IsReadOnly="True" IsHitTestVisible="False">
+            <DataGrid.Resources>
+                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="ContentTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding}" 
+                                           TextAlignment="Center" Background="BurlyWood" />
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Background" Value="BurlyWood" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="BorderBrush" Value="Black"/>
+                    <Setter Property="BorderThickness" Value="0,0,1,0"/>
+                    <Setter Property="FontWeight" Value="Bold" />
+                </Style>
+            </DataGrid.Resources>
+            
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Name}" Value="Commodities">
+                            <Setter Property="Background" Value="PaleVioletRed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Name}" Value="Currencies">
+                            <Setter Property="Background" Value="Green" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Name}" Value="Crypto">
+                            <Setter Property="Background" Value="Yellow" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Name}" Value="Shares">
+                            <Setter Property="Background" Value="MediumVioletRed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Name}" Value="Indices">
+                            <Setter Property="Background" Value="LightBlue" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Name}" Value="Total">
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="BorderThickness" Value="0,2,0,0"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Asset Class"
+                                    Binding="{Binding Name}" Width="0.9*" />
+                <DataGridTextColumn Header="£"
+                                    Binding="{Binding Amount, StringFormat=C}" Width="0.75*" >
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell" >
+                            <Setter Property="TextBlock.TextAlignment" Value="Right" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="%"
+                                    Binding="{Binding Percentage, StringFormat=P}" Width="0.55*" >
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell" >
+                            <Setter Property="TextBlock.TextAlignment" Value="Right" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                </DataGrid.Columns>
+        </DataGrid>
+        <oxy:PlotView Grid.Column="0" Grid.Row="1" Model="{Binding PiePlot, Mode=OneTime}" 
+                      Background="Black"/>
+    </Grid>
+</UserControl>

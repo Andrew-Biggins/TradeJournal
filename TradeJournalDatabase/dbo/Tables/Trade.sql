@@ -14,6 +14,7 @@
     [CloseSize] FLOAT NULL, 
     [MaxAdverseExcursion] FLOAT NULL, 
     [MaxFavourableExcursion] FLOAT NULL, 
+    [EntryOrderType] NVARCHAR(50) NOT NULL, 
     CONSTRAINT [FK_Trades_Market] FOREIGN KEY ([MarketId]) REFERENCES [Market]([Id]), 
     CONSTRAINT [FK_Trades_Strategy] FOREIGN KEY ([StrategyId]) REFERENCES [Strategy]([Id])
     )

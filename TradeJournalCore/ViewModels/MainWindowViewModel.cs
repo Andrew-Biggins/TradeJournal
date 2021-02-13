@@ -3,6 +3,8 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Input;
+using OxyPlot;
+using OxyPlot.Series;
 using TradeJournalCore.Interfaces;
 using static TradeJournalCore.StatisticsGenerator;
 
@@ -39,6 +41,8 @@ namespace TradeJournalCore.ViewModels
         }
 
         public ITradePlot Plot { get; }
+
+        public RiskManager RiskManager { get; } = new RiskManager();
 
         public MainWindowViewModel(IRunner runner, ITradeManager tradeManager, TradeDetailsViewModel tradeDetailsViewModel, ITradePlot plot)
         {
@@ -111,6 +115,7 @@ namespace TradeJournalCore.ViewModels
             }
 
             TradeManager.AddNewTrade(_tradeDetailsViewModel);
+            RiskManager.UpdateRisks();
         }
 
         private void RemoveTrade()
@@ -118,6 +123,7 @@ namespace TradeJournalCore.ViewModels
             if (_runner.RunForResult(this, Messages.ConfirmRemoveTrade))
             {
                 TradeManager.RemoveTrade();
+                RiskManager.UpdateRisks();
             }
         }
 
@@ -137,6 +143,7 @@ namespace TradeJournalCore.ViewModels
             if (_runner.RunForResult(this, Messages.ConfirmClearAllTrades))
             {
                 TradeManager.ClearAll();
+                RiskManager.UpdateRisks();
             }
         }
 

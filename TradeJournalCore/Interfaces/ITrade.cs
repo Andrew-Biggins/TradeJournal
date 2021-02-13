@@ -37,5 +37,7 @@ namespace TradeJournalCore.Interfaces
         Optional<double> UnrealisedPointsProfit { get; }
 
         Optional<double> UnrealisedCashProfit { get; }
+
+        EntryOrderType EntryOrderType { get; }
     }
 }

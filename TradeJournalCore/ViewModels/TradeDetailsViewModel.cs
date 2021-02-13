@@ -1,7 +1,9 @@
 ﻿using Common;
 using Common.Optional;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 using TradeJournalCore.Interfaces;
 
@@ -28,6 +30,10 @@ namespace TradeJournalCore.ViewModels
         public Levels Levels { get; private set; } = new Levels(6000, 5900, 6500);
 
         public Execution Open { get; private set; } = new Execution(6000, DateTime.Today, 1);
+
+        public EntryOrderType SelectedEntryOrderType { get; set; }
+
+        public List<EntryOrderType> EntryOrderTypes { get; } = ((EntryOrderType[])Enum.GetValues(typeof(EntryOrderType))).ToList();
 
         public Optional<double> CloseLevel
         {

@@ -189,21 +189,31 @@
                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Size"/>
                     <TextBlock Grid.Column="0" Grid.Row="3" Text="Open Date/Time"/>
 
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="3,3,0,3"
+                    <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+                        <TextBox  Margin="3,3,0,3"
                              Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"
                              helpers:HasErrorUtility.MvvmHasError="{Binding Path=TradeDetailsValidator.OpenLevelHasError}">
-                        <TextBox.Text>
-                            <Binding Path="Open.Level"
+                            <TextBox.Text>
+                                <Binding Path="Open.Level"
                                      Mode="TwoWay"
                                      UpdateSourceTrigger="LostFocus"
                                      TargetNullValue="{x:Static system:String.Empty}"
                                      Converter="{converters:EmptyDoubleToStringConverter}">
-                                <Binding.ValidationRules>
-                                    <validationRules:PositiveNumberValidationRule/>
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
-                    </TextBox>
+                                    <Binding.ValidationRules>
+                                        <validationRules:PositiveNumberValidationRule/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <ComboBox Width="96" Height="22" Margin="7,3,0,3" 
+                                  SelectedItem="{Binding SelectedEntryOrderType}" ItemsSource="{Binding EntryOrderTypes}" >
+                            <ComboBox.Resources>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Foreground" Value="Black" />
+                                </Style>
+                            </ComboBox.Resources>
+                        </ComboBox>
+                    </StackPanel>
 
 
                     <TextBox Grid.Column="1" Grid.Row="2" Margin="3,3,0,3"

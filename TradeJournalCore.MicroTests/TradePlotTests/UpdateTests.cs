@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Common.MicroTests;
+﻿using Common.MicroTests;
 using Common.Optional;
-using NSubstitute;
 using OxyPlot.Axes;
-using OxyPlot.Series;
+using System;
+using System.Collections.Generic;
 using TradeJournalCore.Interfaces;
 using TradeJournalCore.ViewModelAdapters;
 using Xunit;
@@ -38,13 +35,13 @@ namespace TradeJournalCore.MicroTests.TradePlotTests
             // Arrange
             var plot = new TradePlot();
             var dtOne = new DateTime(2021, 1, 3);
-            var testTradeOne = new Trade(TestMarket, TestStrategy, TestLevels, new Execution(100, dtOne, 1), Option.Some(new Execution(150, dtOne, 1)), TestEmptyExcursions);
+            var testTradeOne = new Trade(TestMarket, TestStrategy, TestLevels, new Execution(100, dtOne, 1), Option.Some(new Execution(150, dtOne, 1)), TestEmptyExcursions, EntryOrderType.Limit);
 
             var dtTwo = new DateTime(2021, 1, 1);
-            var testTradeTwo = new Trade(TestMarket, TestStrategy, TestLevels, new Execution(100, dtTwo, 1), Option.Some(new Execution(110, dtTwo, 1)), TestEmptyExcursions);
+            var testTradeTwo = new Trade(TestMarket, TestStrategy, TestLevels, new Execution(100, dtTwo, 1), Option.Some(new Execution(110, dtTwo, 1)), TestEmptyExcursions, EntryOrderType.Limit);
 
             var dtThree = new DateTime(2021, 1, 2);
-            var testTradeThree = new Trade(TestMarket, TestStrategy, TestLevels, new Execution(100, dtThree, 1), Option.Some(new Execution(120, dtThree, 1)), TestEmptyExcursions);
+            var testTradeThree = new Trade(TestMarket, TestStrategy, TestLevels, new Execution(100, dtThree, 1), Option.Some(new Execution(120, dtThree, 1)), TestEmptyExcursions, EntryOrderType.Limit);
 
             // Act 
             plot.UpdateData(1, new List<ITrade> { testTradeOne, testTradeTwo, testTradeThree });
@@ -66,7 +63,7 @@ namespace TradeJournalCore.MicroTests.TradePlotTests
         {
             // Arrange
             var plot = new TradePlot();
-            var testTradeOne = new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(new Execution(150, new DateTime(2021, 1, 3), 1)), TestEmptyExcursions);
+            var testTradeOne = new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(new Execution(150, new DateTime(2021, 1, 3), 1)), TestEmptyExcursions, EntryOrderType.Limit);
             plot.UpdateData(1, new List<ITrade> { testTradeOne });
 
             // Act 

@@ -37,10 +37,10 @@ namespace TradeJournalCore.MicroTests
             (Option.None<double>(), Option.None<double>());
 
         internal static ITrade TestOpenTrade => new Trade(TestMarket, TestStrategy, TestLevels, TestOpen,
-            Option.None<Execution>(), TestEmptyExcursions);
+            Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
 
         internal static ITrade TestClosedTrade => new Trade(TestMarket, TestStrategy, TestLevels, TestOpen,
-            Option.Some(TestClose), TestEmptyExcursions);
+            Option.Some(TestClose), TestEmptyExcursions, EntryOrderType.Limit);
 
         internal static Filters TestFilters => new Filters(TestMarkets, TestStrategies, GetAssetTypes(),
             GetDays(), DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue, DateTime.MaxValue, 0, 999,

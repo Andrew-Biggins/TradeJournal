@@ -39,7 +39,7 @@ namespace TradeJournalCore
             var trade = new Trade(tradeDetails.SelectedMarket, tradeDetails.SelectedStrategy,
                 new Levels(tradeDetails.Levels.Entry, tradeDetails.Levels.Stop, tradeDetails.Levels.Target),
                 new Execution(tradeDetails.Open.Level, tradeDetails.Open.DateTime, tradeDetails.Open.Size), close,
-                (tradeDetails.MaxAdverse, tradeDetails.MaxFavourable));
+                (tradeDetails.MaxAdverse, tradeDetails.MaxFavourable), tradeDetails.SelectedEntryOrderType);
 
             _unfilteredTrades.Add(trade);
             DataConnection.AddTrade(trade);

@@ -21,13 +21,13 @@ namespace TradeJournalCore.MicroTests
         {
             // Arrange
             var testTradeOne = new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.None<Execution>(),
-                TestEmptyExcursions);
+                TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeTwo = new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.None<Execution>(),
-                TestEmptyExcursions);
+                TestEmptyExcursions, EntryOrderType.Limit);
 
             const string testMarketName = "USDJPY";
             var testTradeThree = new Trade(new Market(testMarketName, AssetClass.Currencies, PipDivisor.One), TestStrategy, TestLevels,
-                TestOpen, Option.None<Execution>(), TestEmptyExcursions);
+                TestOpen, Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
 
             var trades = new List<ITrade> {testTradeOne, testTradeTwo, testTradeThree};
             var assetClasses = new List<ISelectable> {new AssetType(AssetClass.Currencies)};
@@ -47,13 +47,13 @@ namespace TradeJournalCore.MicroTests
         {
             // Arrange
             var testTradeOne = new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.None<Execution>(),
-                TestEmptyExcursions);
+                TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeTwo = new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.None<Execution>(),
-                TestEmptyExcursions);
+                TestEmptyExcursions, EntryOrderType.Limit);
 
             const string testMarketName = "USDJPY";
             var testTradeThree = new Trade(new Market(testMarketName, AssetClass.Currencies, PipDivisor.One), TestStrategy, TestLevels,
-                TestOpen, Option.None<Execution>(), TestEmptyExcursions);
+                TestOpen, Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
 
             var trades = new List<ITrade> { testTradeOne, testTradeTwo, testTradeThree };
             var markets = new List<ISelectable> { new Market("USDJPY", AssetClass.Currencies, PipDivisor.One) };
@@ -73,13 +73,13 @@ namespace TradeJournalCore.MicroTests
         {
             // Arrange
             var testTradeOne = new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.None<Execution>(),
-                TestEmptyExcursions);
+                TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeTwo = new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.None<Execution>(),
-                TestEmptyExcursions);
+                TestEmptyExcursions, EntryOrderType.Limit);
 
             const string testStrategyName = "Gap fill";
             var testTradeThree = new Trade(TestMarket, new Strategy(testStrategyName), TestLevels,
-                TestOpen, Option.None<Execution>(), TestEmptyExcursions);
+                TestOpen, Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
 
             var trades = new List<ITrade> { testTradeOne, testTradeTwo, testTradeThree };
             var strategies = new List<ISelectable> { new Strategy("Gap fill") };
@@ -100,11 +100,11 @@ namespace TradeJournalCore.MicroTests
             // Arrange
             const string testMarketName = "Silver";
             var testTradeOne = new Trade(new Market(testMarketName, AssetClass.Commodities, PipDivisor.One), TestStrategy, TestLevels,
-                new Execution(1, new DateTime(2021, 1, 2), 1), Option.None<Execution>(), TestEmptyExcursions);
+                new Execution(1, new DateTime(2021, 1, 2), 1), Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeTwo = new Trade(TestMarket, TestStrategy, TestLevels,
-                new Execution(1, new DateTime(2021, 1, 3), 1), Option.None<Execution>(), TestEmptyExcursions);
+                new Execution(1, new DateTime(2021, 1, 3), 1), Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeThree = new Trade(TestMarket, TestStrategy, TestLevels,
-                new Execution(1, new DateTime(2021, 1, 4), 1), Option.None<Execution>(), TestEmptyExcursions);
+                new Execution(1, new DateTime(2021, 1, 4), 1), Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
 
             var trades = new List<ITrade> { testTradeOne, testTradeTwo, testTradeThree };
             var days = new List<ISelectable> { new Day(DayOfWeek.Saturday) };
@@ -125,11 +125,11 @@ namespace TradeJournalCore.MicroTests
             // Arrange
             const string testMarketName = "Silver";
             var testTradeOne = new Trade(new Market(testMarketName, AssetClass.Commodities, PipDivisor.One), TestStrategy, TestLevels,
-                new Execution(1, new DateTime(2021, 1, 3), 1), Option.None<Execution>(), TestEmptyExcursions);
+                new Execution(1, new DateTime(2021, 1, 3), 1), Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeTwo = new Trade(TestMarket, TestStrategy, TestLevels,
-                new Execution(1, new DateTime(2021, 1, 2), 1), Option.None<Execution>(), TestEmptyExcursions);
+                new Execution(1, new DateTime(2021, 1, 2), 1), Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeThree = new Trade(TestMarket, TestStrategy, TestLevels,
-                new Execution(1, new DateTime(2021, 1, 4), 1), Option.None<Execution>(), TestEmptyExcursions);
+                new Execution(1, new DateTime(2021, 1, 4), 1), Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
 
             var trades = new List<ITrade> { testTradeOne, testTradeTwo, testTradeThree };
 
@@ -150,11 +150,11 @@ namespace TradeJournalCore.MicroTests
             // Arrange
             const string testMarketName = "Silver";
             var testTradeOne = new Trade(new Market(testMarketName, AssetClass.Commodities, PipDivisor.One), TestStrategy, TestLevels,
-                new Execution(1, new DateTime(2021, 1, 3, 11,01,00), 1), Option.None<Execution>(), TestEmptyExcursions);
+                new Execution(1, new DateTime(2021, 1, 3, 11,01,00), 1), Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeTwo = new Trade(TestMarket, TestStrategy, TestLevels,
-                new Execution(1, new DateTime(2021, 1, 2, 10, 59, 00), 1), Option.None<Execution>(), TestEmptyExcursions);
+                new Execution(1, new DateTime(2021, 1, 2, 10, 59, 00), 1), Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeThree = new Trade(TestMarket, TestStrategy, TestLevels,
-                new Execution(1, new DateTime(2021, 1, 4, 12, 01,00), 1), Option.None<Execution>(), TestEmptyExcursions);
+                new Execution(1, new DateTime(2021, 1, 4, 12, 01,00), 1), Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
 
             var trades = new List<ITrade> { testTradeOne, testTradeTwo, testTradeThree };
 
@@ -175,11 +175,11 @@ namespace TradeJournalCore.MicroTests
             // Arrange
             const string testMarketName = "Silver";
             var testTradeOne = new Trade(new Market(testMarketName, AssetClass.Commodities, PipDivisor.One), TestStrategy,
-                new Levels(100, 50, 200), TestOpen, Option.None<Execution>(), TestEmptyExcursions);
+                new Levels(100, 50, 200), TestOpen, Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeTwo = new Trade(TestMarket, TestStrategy, new Levels(100, 50, 201), TestOpen,
-                Option.None<Execution>(), TestEmptyExcursions);
+                Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeThree = new Trade(TestMarket, TestStrategy, new Levels(100, 50, 199), TestOpen,
-                Option.None<Execution>(), TestEmptyExcursions);
+                Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
 
             var trades = new List<ITrade> { testTradeOne, testTradeTwo, testTradeThree };
 
@@ -199,11 +199,11 @@ namespace TradeJournalCore.MicroTests
             // Arrange
             const string testMarketName = "Silver";
             var testTradeOne = new Trade(new Market(testMarketName, AssetClass.Commodities, PipDivisor.One), TestStrategy,
-                TestLevels, TestOpen, Option.Some(new Execution(1, DateTime.Today, 1)), TestEmptyExcursions);
+                TestLevels, TestOpen, Option.Some(new Execution(1, DateTime.Today, 1)), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeTwo = new Trade(TestMarket, TestStrategy, TestLevels, TestOpen,
-                Option.None<Execution>(), TestEmptyExcursions);
+                Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeThree = new Trade(TestMarket, TestStrategy, TestLevels, TestOpen,
-                Option.None<Execution>(), TestEmptyExcursions);
+                Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
 
             var trades = new List<ITrade> { testTradeOne, testTradeTwo, testTradeThree };
 
@@ -223,11 +223,11 @@ namespace TradeJournalCore.MicroTests
             // Arrange
             const string testMarketName = "Silver";
             var testTradeOne = new Trade(new Market(testMarketName, AssetClass.Commodities, PipDivisor.One), TestStrategy,
-                TestLevels, TestOpen, Option.None<Execution>(), TestEmptyExcursions);
+                TestLevels, TestOpen, Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeTwo = new Trade(TestMarket, TestStrategy, TestLevels, TestOpen,
-                Option.Some(new Execution(1, DateTime.Today, 1)), TestEmptyExcursions);
+                Option.Some(new Execution(1, DateTime.Today, 1)), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeThree = new Trade(TestMarket, TestStrategy, TestLevels, TestOpen,
-                Option.Some(new Execution(1, DateTime.Today, 1)), TestEmptyExcursions);
+                Option.Some(new Execution(1, DateTime.Today, 1)), TestEmptyExcursions, EntryOrderType.Limit);
 
             var trades = new List<ITrade> { testTradeOne, testTradeTwo, testTradeThree };
 
@@ -246,11 +246,11 @@ namespace TradeJournalCore.MicroTests
         {
             // Arrange
             var testTradeOne = new Trade(TestMarket, TestStrategy,
-                TestLevels, TestOpen, Option.None<Execution>(), TestEmptyExcursions);
+                TestLevels, TestOpen, Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeTwo = new Trade(TestMarket, TestStrategy, TestLevels, TestOpen,
-                Option.Some(new Execution(1, DateTime.Today, 1)), TestEmptyExcursions);
+                Option.Some(new Execution(1, DateTime.Today, 1)), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeThree = new Trade(TestMarket, TestStrategy, TestLevels, TestOpen,
-                Option.Some(new Execution(1, DateTime.Today, 1)), TestEmptyExcursions);
+                Option.Some(new Execution(1, DateTime.Today, 1)), TestEmptyExcursions, EntryOrderType.Limit);
 
             var trades = new List<ITrade> { testTradeOne, testTradeTwo, testTradeThree };
 
@@ -269,11 +269,11 @@ namespace TradeJournalCore.MicroTests
             // Arrange
             const string testMarketName = "Silver";
             var testTradeOne = new Trade(new Market(testMarketName, AssetClass.Commodities, PipDivisor.One), TestStrategy,
-                TestLevels, TestOpen, Option.Some(new Execution(1, DateTime.Today, 1)), TestEmptyExcursions);
+                TestLevels, TestOpen, Option.Some(new Execution(1, DateTime.Today, 1)), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeTwo = new Trade(TestMarket, TestStrategy, TestLevels, TestOpen,
-                Option.None<Execution>(), TestEmptyExcursions);
+                Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeThree = new Trade(TestMarket, TestStrategy, TestLevels, TestOpen,
-                Option.None<Execution>(), TestEmptyExcursions);
+                Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
 
             var trades = new List<ITrade> { testTradeOne, testTradeTwo, testTradeThree };
 
@@ -293,11 +293,11 @@ namespace TradeJournalCore.MicroTests
             // Arrange
             const string testMarketName = "Silver";
             var testTradeOne = new Trade(new Market(testMarketName, AssetClass.Commodities, PipDivisor.One), TestStrategy, new Levels(100, 200, 50),
-                TestOpen, Option.None<Execution>(), TestEmptyExcursions);
+                TestOpen, Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeTwo = new Trade(TestMarket, TestStrategy, new Levels(100, 50, 201), TestOpen,
-                Option.None<Execution>(), TestEmptyExcursions);
+                Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeThree = new Trade(TestMarket, TestStrategy, new Levels(100, 50, 201), TestOpen,
-                Option.None<Execution>(), TestEmptyExcursions);
+                Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
 
             var trades = new List<ITrade> { testTradeOne, testTradeTwo, testTradeThree };
 
@@ -317,11 +317,11 @@ namespace TradeJournalCore.MicroTests
             // Arrange
             const string testMarketName = "Silver";
             var testTradeOne = new Trade(new Market(testMarketName, AssetClass.Commodities, PipDivisor.One), TestStrategy, new Levels(100, 50, 100),
-                TestOpen, Option.None<Execution>(), TestEmptyExcursions);
+                TestOpen, Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeTwo = new Trade(TestMarket, TestStrategy, new Levels(100, 200, 50), TestOpen,
-                Option.None<Execution>(), TestEmptyExcursions);
+                Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeThree = new Trade(TestMarket, TestStrategy, new Levels(100, 200, 50), TestOpen,
-                Option.None<Execution>(), TestEmptyExcursions);
+                Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
 
             var trades = new List<ITrade> { testTradeOne, testTradeTwo, testTradeThree };
 
@@ -340,11 +340,11 @@ namespace TradeJournalCore.MicroTests
         {
             // Arrange
             var testTradeOne = new Trade(TestMarket, TestStrategy, new Levels(100, 50, 100),
-                TestOpen, Option.None<Execution>(), TestEmptyExcursions);
+                TestOpen, Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeTwo = new Trade(TestMarket, TestStrategy, new Levels(100, 200, 50), TestOpen,
-                Option.None<Execution>(), TestEmptyExcursions);
+                Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
             var testTradeThree = new Trade(TestMarket, TestStrategy, new Levels(100, 200, 50), TestOpen,
-                Option.None<Execution>(), TestEmptyExcursions);
+                Option.None<Execution>(), TestEmptyExcursions, EntryOrderType.Limit);
 
             var trades = new List<ITrade> { testTradeOne, testTradeTwo, testTradeThree };
 

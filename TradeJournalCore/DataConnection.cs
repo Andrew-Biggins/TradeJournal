@@ -29,10 +29,10 @@ namespace TradeJournalCore
                     {
                         while (results.Read())
                         {
-                            var assetClass = (AssetClass)Enum.Parse(typeof(AssetClass), results.GetFieldValue<string>(16));
-                            var pipDivisor = (PipDivisor)Enum.Parse(typeof(PipDivisor), results.GetFieldValue<string>(17));
-                            var market = new Market(results.GetFieldValue<string>(15), assetClass, pipDivisor);
-                            var strategy = new Strategy(results.GetFieldValue<string>(19));
+                            var assetClass = (AssetClass)Enum.Parse(typeof(AssetClass), results.GetFieldValue<string>(17));
+                            var pipDivisor = (PipDivisor)Enum.Parse(typeof(PipDivisor), results.GetFieldValue<string>(18));
+                            var market = new Market(results.GetFieldValue<string>(16), assetClass, pipDivisor);
+                            var strategy = new Strategy(results.GetFieldValue<string>(20));
                             var entry = results.GetFieldValue<double>(3);
                             var stop = results.GetFieldValue<double>(4);
                             var target = results.GetFieldValue<double>(5);
@@ -40,6 +40,7 @@ namespace TradeJournalCore
                             var openDateTime = results.GetFieldValue<DateTime>(7);
                             var openSize = results.GetFieldValue<double>(8);
                             var id = results.GetFieldValue<int>(0);
+                            var entryOrderType = (EntryOrderType)Enum.Parse(typeof(EntryOrderType), results.GetFieldValue<string>(14));
 
                             var close = Option.None<Execution>();
 
@@ -68,7 +69,7 @@ namespace TradeJournalCore
                             trades.Add(new Trade(market,
                                 strategy, new Levels(entry, stop, target),
                                 new Execution(openLevel, openDateTime, openSize), close,
-                                (mae, mfe)){Id = id});
+                                (mae, mfe), entryOrderType){Id = id});
                         }
                     }
                 }
@@ -82,7 +83,6 @@ namespace TradeJournalCore
 
             return trades;
         }
-
 
         internal static void AddMarket(Market market)
         {
@@ -145,9 +145,9 @@ namespace TradeJournalCore
 
                 const string sql =
                     "INSERT INTO Trade (MarketId, StrategyId, Entry, Stop, Target, OpenLevel, OpenDateTime, OpenSize, " +
-                    "CloseLevel, CloseDateTime, CloseSize, MaxAdverseExcursion, MaxFavourableExcursion) " +
+                    "CloseLevel, CloseDateTime, CloseSize, MaxAdverseExcursion, MaxFavourableExcursion, EntryOrderType) " +
                     "OUTPUT INSERTED.Id VALUES (@marketId, @strategyId, @entry, @stop, @target, @openLevel," +
-                    "@openDateTime, @openSize, @closeLevel, @closeDateTime, @closeSize, @mae, @mfe)";
+                    "@openDateTime, @openSize, @closeLevel, @closeDateTime, @closeSize, @mae, @mfe, @entryOrderType)";
 
                 using (var cmd = new SqlCommand(sql, connection))
                 {
@@ -181,6 +181,8 @@ namespace TradeJournalCore
                     object mfe = DBNull.Value;
                     trade.MaxAdverseExcursion.IfExistsThen(x => mfe = x);
                     cmd.Parameters.AddWithValue("@mfe", mfe);
+
+                    cmd.Parameters.AddWithValue("@entryOrderType", trade.EntryOrderType.ToString());
 
                     trade.Id = (int) cmd.ExecuteScalar();
                 }
@@ -237,6 +239,84 @@ namespace TradeJournalCore
                 Console.WriteLine(e.ToString());
             }
         }
+
+        internal static IList<ITrade> GetOpenTradesByAssetClass(AssetClass ac)
+        {
+            var trades = new List<ITrade>();
+
+            try
+            {
+                using var connection = new SqlConnection(Builder.ConnectionString);
+                connection.Open();
+
+                const string sql = "SELECT * From Trade INNER JOIN Market ON Trade.MarketId=Market.Id" +
+                                   " INNER JOIN Strategy ON Trade.StrategyId=Strategy.Id WHERE CloseLevel IS NULL AND Market.AssetClass = @assetClass;";
+
+                using (var cmd = new SqlCommand(sql, connection))
+                {
+                    cmd.Parameters.AddWithValue("@assetClass", ac.ToString());
+                    var results = cmd.ExecuteReader();
+
+                    if (results.HasRows)
+                    {
+                        while (results.Read())
+                        {
+                            var assetClass = (AssetClass)Enum.Parse(typeof(AssetClass), results.GetFieldValue<string>(17));
+                            var pipDivisor = (PipDivisor)Enum.Parse(typeof(PipDivisor), results.GetFieldValue<string>(18));
+                            var market = new Market(results.GetFieldValue<string>(16), assetClass, pipDivisor);
+                            var strategy = new Strategy(results.GetFieldValue<string>(20));
+                            var entry = results.GetFieldValue<double>(3);
+                            var stop = results.GetFieldValue<double>(4);
+                            var target = results.GetFieldValue<double>(5);
+                            var openLevel = results.GetFieldValue<double>(6);
+                            var openDateTime = results.GetFieldValue<DateTime>(7);
+                            var openSize = results.GetFieldValue<double>(8);
+                            var id = results.GetFieldValue<int>(0);
+                            var entryOrderType = (EntryOrderType)Enum.Parse(typeof(EntryOrderType), results.GetFieldValue<string>(14));
+
+                            var close = Option.None<Execution>();
+
+                            if (!results.IsDBNull(9))
+                            {
+                                var closeLevel = results.GetFieldValue<double>(9);
+                                var closeDateTime = results.GetFieldValue<DateTime>(10);
+                                var closeSize = results.GetFieldValue<double>(11);
+                                close = Option.Some(new Execution(closeLevel, closeDateTime, closeSize));
+                            }
+
+                            var mae = Option.None<double>();
+
+                            if (!results.IsDBNull(12))
+                            {
+                                mae = Option.Some(results.GetFieldValue<double>(12));
+                            }
+
+                            var mfe = Option.None<double>();
+
+                            if (!results.IsDBNull(13))
+                            {
+                                mfe = Option.Some(results.GetFieldValue<double>(13));
+                            }
+
+                            trades.Add(new Trade(market,
+                                strategy, new Levels(entry, stop, target),
+                                new Execution(openLevel, openDateTime, openSize), close,
+                                (mae, mfe), entryOrderType)
+                            { Id = id });
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+
+            return trades;
+        }
+
 
         internal static SqlConnectionStringBuilder Builder
         {

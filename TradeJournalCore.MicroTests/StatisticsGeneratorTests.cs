@@ -337,22 +337,22 @@ namespace TradeJournalCore.MicroTests
 
         private readonly List<ITrade> _testTrades = new List<ITrade>
         {
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(10.00), Option.Some(1000.0))), 
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(50.00), Option.Some(550.0))), 
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(10.00), Option.Some(1000.00))),
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.None<Execution>(), (Option.Some(102.00), Option.Some(1000.00))),
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(new Execution(5750, DateTime.MaxValue, 1)), (Option.Some(10.00), Option.Some(1000.00))),
-            new Trade(TestMarket, TestStrategy, TestLevels, new Execution(6000, DateTime.MaxValue, 2), Option.Some(new Execution(5750, DateTime.MaxValue, 2)), (Option.Some(10.00), Option.Some(1000.00))), 
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(65.00), Option.Some(1000.00))), 
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(10.00), Option.Some(100.00))), 
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(10.00), Option.Some(10.00))),
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(new Execution(5750, DateTime.MaxValue, 1)), (Option.Some(10.00), Option.Some(10.00))), 
-            new Trade(TestMarket, TestStrategy, TestLevels, new Execution(5750, DateTime.MaxValue, 2), Option.Some(new Execution(6010, DateTime.MaxValue, 2)), (Option.Some(10.00), Option.Some(10.00))),
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(20.00), Option.Some(70.00))), 
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(10.00), Option.Some(10.00))),
-            new Trade(TestMarket, TestStrategy, TestLevels, new Execution(5750, DateTime.MaxValue, 2), Option.Some(new Execution(5325, DateTime.MaxValue, 2)), (Option.Some(10.00), Option.Some(10.00))),
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(10.00), Option.Some(10.00))), 
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(20.00), Option.Some(70.00)))
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(10.00), Option.Some(1000.0)), EntryOrderType.Limit), 
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(50.00), Option.Some(550.0)), EntryOrderType.Limit), 
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(10.00), Option.Some(1000.00)), EntryOrderType.Limit),
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.None<Execution>(), (Option.Some(102.00), Option.Some(1000.00)), EntryOrderType.Limit),
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(new Execution(5750, DateTime.MaxValue, 1)), (Option.Some(10.00), Option.Some(1000.00)), EntryOrderType.Limit),
+            new Trade(TestMarket, TestStrategy, TestLevels, new Execution(6000, DateTime.MaxValue, 2), Option.Some(new Execution(5750, DateTime.MaxValue, 2)), (Option.Some(10.00), Option.Some(1000.00)), EntryOrderType.Limit), 
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(65.00), Option.Some(1000.00)), EntryOrderType.Limit), 
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(10.00), Option.Some(100.00)), EntryOrderType.Limit), 
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(10.00), Option.Some(10.00)), EntryOrderType.Limit),
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(new Execution(5750, DateTime.MaxValue, 1)), (Option.Some(10.00), Option.Some(10.00)), EntryOrderType.Limit), 
+            new Trade(TestMarket, TestStrategy, TestLevels, new Execution(5750, DateTime.MaxValue, 2), Option.Some(new Execution(6010, DateTime.MaxValue, 2)), (Option.Some(10.00), Option.Some(10.00)), EntryOrderType.Limit),
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(20.00), Option.Some(70.00)), EntryOrderType.Limit), 
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(10.00), Option.Some(10.00)), EntryOrderType.Limit),
+            new Trade(TestMarket, TestStrategy, TestLevels, new Execution(5750, DateTime.MaxValue, 2), Option.Some(new Execution(5325, DateTime.MaxValue, 2)), (Option.Some(10.00), Option.Some(10.00)), EntryOrderType.Limit),
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(10.00), Option.Some(10.00)), EntryOrderType.Limit), 
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(20.00), Option.Some(70.00)), EntryOrderType.Limit)
         };
     }
 }

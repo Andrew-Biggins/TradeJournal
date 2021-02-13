@@ -11,6 +11,12 @@ namespace TradeJournalCore
         Both
     }
 
+    public enum EntryOrderType
+    {
+        Limit,
+        Market
+    }
+
     public sealed class Trade : ITrade
     {
         public int Id { get; set; }
@@ -47,8 +53,10 @@ namespace TradeJournalCore
 
         public Optional<double> UnrealisedCashProfit { get; private set; } = Option.None<double>();
 
+        public EntryOrderType EntryOrderType { get; }
+
         public Trade(IMarket market, ISelectable strategy, Levels levels, Execution open, Optional<Execution> close,
-            (Optional<double>, Optional<double>) excursions)
+            (Optional<double>, Optional<double>) excursions, EntryOrderType entryOrderType)
         {
             Market = market ?? throw new ArgumentNullException(nameof(market));
             Strategy = strategy ?? throw new ArgumentNullException(nameof(strategy));
@@ -59,6 +67,7 @@ namespace TradeJournalCore
             var (adverse, favourable) = excursions;
             MaxAdverseExcursion = adverse ?? throw new ArgumentNullException(nameof(adverse));
             MaxFavourableExcursion = favourable ?? throw new ArgumentNullException(nameof(favourable));
+            EntryOrderType = entryOrderType;
 
             SetDirection();
             
