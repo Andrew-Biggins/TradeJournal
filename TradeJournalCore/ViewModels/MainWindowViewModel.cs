@@ -19,6 +19,10 @@ namespace TradeJournalCore.ViewModels
 
         public ICommand ClearCommand => new BasicCommand(ClearAllTrades);
 
+        public ICommand PopOutGraphCommand => new BasicCommand(PopOutGraph);
+
+        public ICommand MoreDetailsCommand => new BasicCommand(() => _runner.ShowStatsWindow(Statistics));
+
         public double AccountStartSize
         {
             get => _accountStartSize;
@@ -133,6 +137,13 @@ namespace TradeJournalCore.ViewModels
         private void UpdateGraph()
         {
             Plot.UpdateData(AccountStartSize, TradeManager.Trades);
+        }
+
+        private void PopOutGraph()
+        {
+            var vm = new GraphWindowViewModel(AccountStartSize, TradeManager.Trades);
+
+            _runner.ShowGraphWindow(vm);
         }
 
         private void ClearAllTrades()

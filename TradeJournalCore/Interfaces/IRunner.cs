@@ -11,5 +11,10 @@ namespace TradeJournalCore.Interfaces
         void GetNewMarket(object viewModel, string title);
 
         bool RunForResult(object sender, Message message);
+
+        void ShowGraphWindow(object sender);
+
+        void ShowStatsWindow(object sender);
+
     }
 }

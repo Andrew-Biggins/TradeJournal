@@ -56,6 +56,24 @@ namespace TradeJournalWPF
             return result;
         }
 
+        public void ShowGraphWindow(object sender)
+        {
+            _context.Send(_ =>
+            {
+                var window = new GraphWindow { DataContext = sender };
+                window.ShowDialog();
+            });
+        }
+
+        public void ShowStatsWindow(object sender)
+        {
+            _context.Send(_ =>
+            {
+                var window = new StatisticsWindow { DataContext = sender};
+                window.ShowDialog();
+            });
+        }
+
         private readonly IContext _context;
     }
 }

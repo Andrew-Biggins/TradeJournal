@@ -477,7 +477,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
-                <userControls:TradeCollectionStatistics Grid.Row="1" DataContext="{Binding Statistics}"/>
+            <userControls:TradeCollectionStatistics Grid.Row="1" DataContext="{Binding Statistics}" MouseLeftButtonUp="OnMouseLeftButtonUpOnStatistics"/>
                 <oxy:PlotView Grid.Row="2" Model="{Binding Plot, Mode=OneTime}" MouseDoubleClick="OnGraphDoubleClick" Margin="0,0,20,0"
                           ToolTip="Double Click to Pop-out" Background="Black"/>
             </Grid>
