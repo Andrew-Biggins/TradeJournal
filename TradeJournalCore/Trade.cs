@@ -14,7 +14,8 @@ namespace TradeJournalCore
     public enum EntryOrderType
     {
         Limit,
-        Market
+        Market,
+        Both
     }
 
     public sealed class Trade : ITrade

@@ -32,10 +32,12 @@ namespace TradeJournalCore
 
         public TradeDirection Direction { get; }
 
+        public EntryOrderType OrderType { get; }
+
         public Filters(IReadOnlyList<ISelectable> markets, IReadOnlyList<ISelectable> strategies,
             IReadOnlyList<ISelectable> assetClasses, IReadOnlyList<ISelectable> days, DateTime startDate,
             DateTime endDate, DateTime startTime, DateTime endTime, double minRiskRewardRatio,
-            double maxRiskRewardRatio, TradeStatus status, TradeDirection direction)
+            double maxRiskRewardRatio, TradeStatus status, TradeDirection direction, EntryOrderType orderType)
         {
             Markets = markets;
             Strategies = strategies;
@@ -49,6 +51,7 @@ namespace TradeJournalCore
             MaxRiskRewardRatio = maxRiskRewardRatio;
             Status = status;
             Direction = direction;
+            OrderType = orderType;
         }
     }
 }

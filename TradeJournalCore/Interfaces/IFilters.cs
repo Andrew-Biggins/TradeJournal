@@ -28,6 +28,7 @@ namespace TradeJournalCore.Interfaces
         TradeStatus Status { get; }
 
         TradeDirection Direction { get; }
-        
+
+        EntryOrderType OrderType { get; }
     }
 }

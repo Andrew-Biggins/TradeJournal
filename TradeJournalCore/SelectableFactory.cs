@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using TradeJournalCore.Interfaces;
 
 namespace TradeJournalCore
@@ -113,32 +114,9 @@ namespace TradeJournalCore
             return list;
         }
 
-        internal static IReadOnlyList<TradeStatus> GetTradeStatuses()
+        internal static IReadOnlyList<T> GetEnumList<T>()
         {
-            var list = new List<TradeStatus>();
-
-            var statuses = (TradeStatus[])Enum.GetValues(typeof(TradeStatus));
-
-            foreach (var status in statuses)
-            {
-                list.Add(status);
-            }
-
-            return list;
-        }
-
-        internal static IReadOnlyList<TradeDirection> GetTradeDirections()
-        {
-            var list = new List<TradeDirection>();
-
-            var directions = (TradeDirection[])Enum.GetValues(typeof(TradeDirection));
-
-            foreach (var direction in directions)
-            {
-                list.Add(direction);
-            }
-
-            return list;
+            return ((T[]) Enum.GetValues(typeof(T))).ToList();
         }
     }
 }

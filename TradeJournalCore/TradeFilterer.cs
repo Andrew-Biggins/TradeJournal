@@ -144,14 +144,30 @@ namespace TradeJournalCore
             return newList;
         }
 
-        internal static ObservableCollection<ITrade> RemoveUnselectedTradeDirections(IEnumerable<ITrade> trades,
+        internal static IEnumerable<ITrade> RemoveUnselectedTradeDirections(IEnumerable<ITrade> trades,
             TradeDirection direction)
+        {
+            var newList = new List<ITrade>();
+
+            foreach (var trade in trades)
+            {
+                if (direction == TradeDirection.Both || direction == trade.Direction)
+                {
+                    newList.Add(trade);
+                }
+            }
+
+            return newList;
+        }
+
+        internal static ObservableCollection<ITrade> RemoveUnselectedOrderTypes(IEnumerable<ITrade> trades,
+            EntryOrderType orderType)
         {
             var newList = new ObservableCollection<ITrade>();
 
             foreach (var trade in trades)
             {
-                if (direction == TradeDirection.Both || direction == trade.Direction)
+                if (orderType == EntryOrderType.Both || orderType == trade.EntryOrderType)
                 {
                     newList.Add(trade);
                 }

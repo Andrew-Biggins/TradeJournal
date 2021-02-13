@@ -33,7 +33,8 @@ namespace TradeJournalCore.ViewModels
 
         public EntryOrderType SelectedEntryOrderType { get; set; }
 
-        public List<EntryOrderType> EntryOrderTypes { get; } = ((EntryOrderType[])Enum.GetValues(typeof(EntryOrderType))).ToList();
+        public List<EntryOrderType> EntryOrderTypes { get; } = new List<EntryOrderType>
+            {EntryOrderType.Limit, EntryOrderType.Market};
 
         public Optional<double> CloseLevel
         {

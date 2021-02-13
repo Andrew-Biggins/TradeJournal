@@ -23,7 +23,7 @@ namespace TradeJournalCore
 
         public IFilters Filters { get; set; } = new Filters(GetDefaultMarkets(), GetDefaultStrategies(),
             GetAssetTypes(), GetDays(), DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue, DateTime.MaxValue, 0,
-            9999, TradeStatus.Both, TradeDirection.Both);
+            9999, TradeStatus.Both, TradeDirection.Both, EntryOrderType.Both);
 
         public void ReadInTrades()
         {
@@ -68,7 +68,8 @@ namespace TradeJournalCore
             var riskRewardRatiosRemoved = RemoveTradesOutsideRiskRewardRatioRange(timesRemoved,
                 filters.MinRiskRewardRatio, filters.MaxRiskRewardRatio);
             var statusesRemoved = RemoveUnselectedTradeStatuses(riskRewardRatiosRemoved, filters.Status);
-            Trades = RemoveUnselectedTradeDirections(statusesRemoved, filters.Direction);
+            var directionsRemoved = RemoveUnselectedTradeDirections(statusesRemoved, filters.Direction);
+            Trades = RemoveUnselectedOrderTypes(directionsRemoved, filters.OrderType);
             PropertyChanged.Raise(this, nameof(Trades));
         }
 

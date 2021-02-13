@@ -48,12 +48,13 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="90"/>
-                <ColumnDefinition Width="155"/>
+                <ColumnDefinition Width="105"/>
                 <ColumnDefinition Width="155"/>
                 <ColumnDefinition Width="110"/>
                 <ColumnDefinition Width="193"/>
                 <ColumnDefinition Width="162"/>
                 <ColumnDefinition Width="122"/>
+                <ColumnDefinition Width="90"/>
                 <ColumnDefinition Width="90"/>
                 <ColumnDefinition Width="90"/>
                 <ColumnDefinition Width="65"/>
@@ -234,7 +235,21 @@
                 </StackPanel>
             </Border>
 
-            <Button Grid.Column="9" Grid.Row="0" Height="60" Command="{Binding ClearTradeFiltersCommand}" Margin="0,5,5,5">
+            <Border BorderThickness="1" Grid.Column="9" Grid.Row="0" Margin="0,5,5,5">
+                <StackPanel>
+                    <TextBlock Text="Order Type"  HorizontalAlignment="Center" Margin="0,5,0,8"/>
+                    <ComboBox  Width="70" Height="22" ItemsSource="{Binding OrderTypes}"
+                               SelectedItem="{Binding SelectedOrderType}">
+                        <ComboBox.Resources>
+                            <Style TargetType="TextBlock" BasedOn="{x:Null}">
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Style>
+                        </ComboBox.Resources>
+                    </ComboBox>
+                </StackPanel>
+            </Border>
+
+            <Button Grid.Column="10" Grid.Row="0" Height="60" Command="{Binding ClearTradeFiltersCommand}" Margin="0,5,5,5">
                 <TextBlock Foreground="Black">Clear<LineBreak/>Filters</TextBlock>
             </Button>
         </Grid>

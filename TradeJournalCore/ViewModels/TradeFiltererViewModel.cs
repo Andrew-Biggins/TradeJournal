@@ -69,7 +69,7 @@ namespace TradeJournalCore.ViewModels
             set => SetProperty(ref _maxRiskRewardRatio, value);
         }
 
-        public IReadOnlyList<TradeStatus> TradeStatuses { get; } = GetTradeStatuses();
+        public IReadOnlyList<TradeStatus> TradeStatuses { get; } = GetEnumList<TradeStatus>();
 
         public TradeStatus SelectedTradeStatus
         {
@@ -77,12 +77,20 @@ namespace TradeJournalCore.ViewModels
             set => SetProperty(ref _selectedTradeStatus, value);
         }
 
-        public IReadOnlyList<TradeDirection> TradeDirections { get; } = GetTradeDirections();
+        public IReadOnlyList<TradeDirection> TradeDirections { get; } = GetEnumList<TradeDirection>();
 
         public TradeDirection SelectedTradeDirection
         {
             get => _selectedTradeDirection;
             set => SetProperty(ref _selectedTradeDirection, value);
+        }
+
+        public IReadOnlyList<EntryOrderType> OrderTypes { get; } = GetEnumList<EntryOrderType>();
+
+        public EntryOrderType SelectedOrderType
+        {
+            get => _selectedOrderType;
+            set => SetProperty(ref _selectedOrderType, value);
         }
 
         public ICommand ClearTradeFiltersCommand => new BasicCommand(ClearFilters);
@@ -91,7 +99,7 @@ namespace TradeJournalCore.ViewModels
         {
             return new Filters(RemoveUnselected(Markets), RemoveUnselected(Strategies), RemoveUnselected(AssetTypes),
                 RemoveUnselected(DaysOfWeek), FilterStartDate, FilterEndDate, FilterStartTime, FilterEndTime,
-                MinRiskRewardRatio, MaxRiskRewardRatio, SelectedTradeStatus, SelectedTradeDirection);
+                MinRiskRewardRatio, MaxRiskRewardRatio, SelectedTradeStatus, SelectedTradeDirection, SelectedOrderType);
         }
 
         public void UpdateDates((DateTime, DateTime) dateRange)
@@ -118,6 +126,7 @@ namespace TradeJournalCore.ViewModels
             MaxRiskRewardRatio = DefaultMaxRiskRewardRatio;
             SelectedTradeStatus = TradeStatus.Both;
             SelectedTradeDirection = TradeDirection.Both;
+            SelectedOrderType = EntryOrderType.Both;
         }
 
         private static void SelectAll(IEnumerable<ISelectable> selectables)
@@ -149,5 +158,6 @@ namespace TradeJournalCore.ViewModels
         private double _maxRiskRewardRatio = DefaultMaxRiskRewardRatio;
         private TradeStatus _selectedTradeStatus = TradeStatus.Both;
         private TradeDirection _selectedTradeDirection = TradeDirection.Both;
+        private EntryOrderType _selectedOrderType = EntryOrderType.Both;
     }
 }

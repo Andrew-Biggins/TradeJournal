@@ -1,10 +1,7 @@
 ﻿using Common;
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows.Input;
-using OxyPlot;
-using OxyPlot.Series;
 using TradeJournalCore.Interfaces;
 using static TradeJournalCore.StatisticsGenerator;
 
