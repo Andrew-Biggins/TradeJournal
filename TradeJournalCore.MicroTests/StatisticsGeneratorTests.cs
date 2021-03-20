@@ -200,7 +200,7 @@ namespace TradeJournalCore.MicroTests
             var actual = StatisticsGenerator.GetStatistics(_testTrades, 10000);
 
             // Assert
-            Assert.Equal(0.35, Math.Round(actual.AverageDrawdown, 2));
+            Assert.Equal(0.78, Math.Round(actual.AverageDrawdown, 2));
         }
 
         [Gwt("Given a statistics generator calculates a trade collection's statistics",
@@ -212,7 +212,7 @@ namespace TradeJournalCore.MicroTests
             var actual = StatisticsGenerator.GetStatistics(_testTrades, 10000);
 
             // Assert
-            Assert.Equal(17.67, Math.Round(actual.AverageMaximumAdverseExcursion, 2));
+            Assert.Equal(39, Math.Round(actual.AverageMaximumAdverseExcursion, 2));
         }
 
         [Gwt("Given a statistics generator calculates a trade collection's statistics",
@@ -224,7 +224,7 @@ namespace TradeJournalCore.MicroTests
             var actual = StatisticsGenerator.GetStatistics(_testTrades, 10000);
 
             // Assert
-            Assert.Equal(390, Math.Round(actual.AverageMaximumFavourableExcursion, 2));
+            Assert.Equal(510.67, Math.Round(actual.AverageMaximumFavourableExcursion, 2));
         }
 
         [Gwt("Given a statistics generator calculates a trade collection's statistics",
@@ -260,7 +260,7 @@ namespace TradeJournalCore.MicroTests
             var actual = StatisticsGenerator.GetStatistics(_testTrades, 10000);
 
             // Assert
-            Assert.Equal(7.46, Math.Round(actual.AverageRealisedProfitPercentage, 2));
+            Assert.Equal(8.46, Math.Round(actual.AverageRealisedProfitPercentage, 2));
         }
 
         [Gwt("Given a statistics generator calculates a trade collection's statistics",
@@ -272,7 +272,7 @@ namespace TradeJournalCore.MicroTests
             var actual = StatisticsGenerator.GetStatistics(_testTrades, 10000);
 
             // Assert
-            Assert.Equal(206, Math.Round(actual.AverageUnrealisedProfitPoints, 2));
+            Assert.Equal(326.67, Math.Round(actual.AverageUnrealisedProfitPoints, 2));
         }
 
         [Gwt("Given a statistics generator calculates a trade collection's statistics",
@@ -284,7 +284,7 @@ namespace TradeJournalCore.MicroTests
             var actual = StatisticsGenerator.GetStatistics(_testTrades, 10000);
 
             // Assert
-            Assert.Equal(256.67, Math.Round(actual.AverageUnrealisedProfitCash, 2));
+            Assert.Equal(427.33, Math.Round(actual.AverageUnrealisedProfitCash, 2));
         }
 
         [Gwt("Given a statistics generator calculates a trade collection's statistics",
@@ -337,22 +337,22 @@ namespace TradeJournalCore.MicroTests
 
         private readonly List<ITrade> _testTrades = new List<ITrade>
         {
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(10.00), Option.Some(1000.0)), EntryOrderType.Limit), 
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(50.00), Option.Some(550.0)), EntryOrderType.Limit), 
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(10.00), Option.Some(1000.00)), EntryOrderType.Limit),
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.None<Execution>(), (Option.Some(102.00), Option.Some(1000.00)), EntryOrderType.Limit),
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(new Execution(5750, DateTime.MaxValue, 1)), (Option.Some(10.00), Option.Some(1000.00)), EntryOrderType.Limit),
-            new Trade(TestMarket, TestStrategy, TestLevels, new Execution(6000, DateTime.MaxValue, 2), Option.Some(new Execution(5750, DateTime.MaxValue, 2)), (Option.Some(10.00), Option.Some(1000.00)), EntryOrderType.Limit), 
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(65.00), Option.Some(1000.00)), EntryOrderType.Limit), 
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(10.00), Option.Some(100.00)), EntryOrderType.Limit), 
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(10.00), Option.Some(10.00)), EntryOrderType.Limit),
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(new Execution(5750, DateTime.MaxValue, 1)), (Option.Some(10.00), Option.Some(10.00)), EntryOrderType.Limit), 
-            new Trade(TestMarket, TestStrategy, TestLevels, new Execution(5750, DateTime.MaxValue, 2), Option.Some(new Execution(6010, DateTime.MaxValue, 2)), (Option.Some(10.00), Option.Some(10.00)), EntryOrderType.Limit),
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(20.00), Option.Some(70.00)), EntryOrderType.Limit), 
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(10.00), Option.Some(10.00)), EntryOrderType.Limit),
-            new Trade(TestMarket, TestStrategy, TestLevels, new Execution(5750, DateTime.MaxValue, 2), Option.Some(new Execution(5325, DateTime.MaxValue, 2)), (Option.Some(10.00), Option.Some(10.00)), EntryOrderType.Limit),
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(10.00), Option.Some(10.00)), EntryOrderType.Limit), 
-            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(20.00), Option.Some(70.00)), EntryOrderType.Limit)
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(7250.00), Option.Some(5990.00)), EntryOrderType.Limit), 
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(6800.00), Option.Some(5990.00)), EntryOrderType.Limit), 
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(7250.00), Option.Some(5950.00)), EntryOrderType.Limit),
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.None<Execution>(), (Option.None<double>(), Option.None<double>()), EntryOrderType.Limit),
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(new Execution(5750, DateTime.MaxValue, 1)), (Option.Some(7250.00), Option.Some(5750.00)), EntryOrderType.Limit),
+            new Trade(TestMarket, TestStrategy, TestLevels, new Execution(6000, DateTime.MaxValue, 2), Option.Some(new Execution(5750, DateTime.MaxValue, 2)), (Option.Some(7250.00), Option.Some(5750.00)), EntryOrderType.Limit), 
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(7250.00), Option.Some(5935.00)), EntryOrderType.Limit), 
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(6010.00), Option.Some(5990.00)), EntryOrderType.Limit), 
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(6010.00), Option.Some(5990.00)), EntryOrderType.Limit),
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(new Execution(5750, DateTime.MaxValue, 1)), (Option.Some(6010.00), Option.Some(5750.00)), EntryOrderType.Limit), 
+            new Trade(TestMarket, TestStrategy, TestLevels, new Execution(5750, DateTime.MaxValue, 2), Option.Some(new Execution(6010, DateTime.MaxValue, 2)), (Option.Some(6010.00), Option.Some(5990.00)), EntryOrderType.Limit),
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(6020.00), Option.Some(5930.00)), EntryOrderType.Limit), 
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(6010.00), Option.Some(5990.00)), EntryOrderType.Limit),
+            new Trade(TestMarket, TestStrategy, TestLevels, new Execution(5750, DateTime.MaxValue, 2), Option.Some(new Execution(5325, DateTime.MaxValue, 2)), (Option.Some(6010.00), Option.Some(5990.00)), EntryOrderType.Limit),
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(6010.00), Option.Some(5990.00)), EntryOrderType.Limit), 
+            new Trade(TestMarket, TestStrategy, TestLevels, TestOpen, Option.Some(TestClose), (Option.Some(6020.00), Option.Some(5930.00)), EntryOrderType.Limit)
         };
     }
 }

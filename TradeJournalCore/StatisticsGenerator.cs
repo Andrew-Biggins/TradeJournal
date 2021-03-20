@@ -5,7 +5,7 @@ namespace TradeJournalCore
 {
     internal static class StatisticsGenerator
     {
-        public static TradeCollectionStatistics GetStatistics(IEnumerable<ITrade> trades, double startBalance)
+        public static TradeStatistics GetStatistics(IEnumerable<ITrade> trades, double startBalance)
         {
             double pointsTotal = 0,
                 cashTotal = 0,
@@ -131,7 +131,7 @@ namespace TradeJournalCore
             var winProbability = (double) wins / (wins + loses);
             var total = wins + loses;
          
-            return new TradeCollectionStatistics(wins, loses, winProbability, longestWinningStreak, longestLosingStreak,
+            return new TradeStatistics(wins, loses, winProbability, longestWinningStreak, longestLosingStreak,
                 pointsTotal, cashTotal, biggestPointsWin, biggestCashWin, biggestPointsLoss, biggestCashLoss,
                 averagePointsWin, averagePointsLoss, averageCashWin, averageCashLoss, cashWinTotal / -cashLossTotal,
                 drawdownTotal / maeCount, maeTotal / maeCount, mfeTotal / mfeCount, riskRewardRatioTotal / total,

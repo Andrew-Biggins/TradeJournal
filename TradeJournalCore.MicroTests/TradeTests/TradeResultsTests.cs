@@ -64,7 +64,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
             // Arrange
             var testClose = new Execution(close, DateTime.Today, 1);
             var trade = new Trade(TestMarket, new Strategy(string.Empty), new Levels(20, 10, 100),
-                new Execution(open, DateTime.MinValue, 0), Option.Some(testClose), (Option.None<double>(), Option.None<double>()));
+                new Execution(open, DateTime.MinValue, 0), Option.Some(testClose), (Option.None<double>(), Option.None<double>()), EntryOrderType.Limit);
             var outResultInR = 0.00;
 
             // Act
@@ -85,7 +85,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
             // Arrange
             var testClose = new Execution(close, DateTime.Today, 1);
             var trade = new Trade(TestMarket, new Strategy(string.Empty), new Levels(20, 10, 100),
-                new Execution(open, DateTime.MinValue, 0), Option.Some(testClose), (Option.None<double>(), Option.None<double>()));
+                new Execution(open, DateTime.MinValue, 0), Option.Some(testClose), (Option.None<double>(), Option.None<double>()), EntryOrderType.Limit);
             var outPointsResult = 0.00;
 
             // Act
@@ -106,7 +106,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
             // Arrange
             var testClose = new Execution(close, DateTime.Today, 1);
             var trade = new Trade(TestMarket, new Strategy(string.Empty), new Levels(200, 210, 100),
-                new Execution(open, DateTime.MinValue, 0), Option.Some(testClose), (Option.None<double>(), Option.None<double>()));
+                new Execution(open, DateTime.MinValue, 0), Option.Some(testClose), (Option.None<double>(), Option.None<double>()), EntryOrderType.Limit);
             var outPointsResult = 0.00;
 
             // Act
@@ -127,7 +127,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
             // Arrange
             var testClose = new Execution(close, DateTime.Today, 1);
             var trade = new Trade(TestMarket, new Strategy(string.Empty), new Levels(200, 210, 100),
-                new Execution(open, DateTime.MinValue, 2), Option.Some(testClose), (Option.None<double>(), Option.None<double>()));
+                new Execution(open, DateTime.MinValue, 2), Option.Some(testClose), (Option.None<double>(), Option.None<double>()), EntryOrderType.Limit);
             var outCashResult = 0.00;
 
             // Act

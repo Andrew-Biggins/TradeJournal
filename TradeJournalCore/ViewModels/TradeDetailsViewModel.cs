@@ -21,9 +21,10 @@ namespace TradeJournalCore.ViewModels
 
         public IMarket SelectedMarket { get; set; } 
 
-        public ISelectable SelectedStrategy { get; set; }
+        public ISelectableTradeField SelectedStrategy { get; set; }
 
-        public SelectableCollection<ISelectable> Strategies { get; private set; } = new SelectableCollection<ISelectable>();
+        public SelectableCollection<ISelectableTradeField> Strategies { get; private set; } =
+            new SelectableCollection<ISelectableTradeField>();
 
         public SelectableCollection<IMarket> Markets { get; private set; } = new SelectableCollection<IMarket>();
 
@@ -58,30 +59,36 @@ namespace TradeJournalCore.ViewModels
 
         public Optional<double> CloseSize { get; set; } = Option.None<double>();
 
-        public Optional<double> MaxAdverse
+        public Optional<double> High
         {
-            get => _maxAdverse;
+            get => _high;
             set
             {
-                SetProperty(ref _maxAdverse, value, nameof(MaxAdverse));
-                TradeDetailsValidator.ValidateMae(_maxAdverse);
+                SetProperty(ref _high, value, nameof(High));
+                TradeDetailsValidator.ValidateHigh(_high);
             }
         }
 
-        public Optional<double> MaxFavourable
+        public Optional<double> Low
         {
-            get => _maxFavourable;
+            get => _low;
             set
             {
-                SetProperty(ref _maxFavourable, value, nameof(MaxFavourable));
-                TradeDetailsValidator.ValidateMfe(_maxFavourable);
+                SetProperty(ref _low, value, nameof(Low));
+                TradeDetailsValidator.ValidateLow(_low);
             }
         }
 
-        public bool IsMaeFixed
+        public bool IsHighFixed
         {
-            get => _isMaeFixed;
-            private set => SetProperty(ref _isMaeFixed, value, nameof(IsMaeFixed));
+            get => _isHighFixed;
+            private set => SetProperty(ref _isHighFixed, value, nameof(IsHighFixed));
+        }
+
+        public bool IsLowFixed
+        {
+            get => _isLowFixed;
+            private set => SetProperty(ref _isLowFixed, value, nameof(IsLowFixed));
         }
 
         public bool IsEditing { get; set; }
@@ -103,20 +110,28 @@ namespace TradeJournalCore.ViewModels
         public void EditTrade(ITrade trade)
         {
             IsEditing = true;
-
-            SelectedMarket = trade.Market;
-            SelectedStrategy = trade.Strategy;
+            SetSelectedMarket(trade.Market.Id);
+            SetSelectedStrategy(trade.Strategy.Id);
+            
             Levels = trade.Levels;
             Open = trade.Open;
+
+            Levels.PropertyChanged += OnLevelsChanged;
 
             trade.Close.IfExistsThen(x =>
             {
                 CloseLevel = Option.Some(x.Level);
                 CloseDateTime = x.DateTime;
-            }).IfEmpty(() => CloseLevel = Option.None<double>());
+            }).IfEmpty(() =>
+            {
+                CloseLevel = Option.None<double>();
+                High = Option.None<double>();
+                Low = Option.None<double>();
+            });
         }
 
-        public void AddSelectables(SelectableCollection<IMarket> markets, SelectableCollection<ISelectable> strategies)
+        public void AddSelectables(SelectableCollection<IMarket> markets,
+            SelectableCollection<ISelectableTradeField> strategies)
         {
             Markets = markets;
             Strategies = strategies;
@@ -125,15 +140,29 @@ namespace TradeJournalCore.ViewModels
             {
                 SelectedStrategy = Strategies[0];
             }
+            else
+            {
+                TradeDetailsValidator.StrategiesHaveError = true;
+            }
 
             if (Markets.Count > 0)
             {
                 SelectedMarket = Markets[0];
             }
+            else
+            {
+                TradeDetailsValidator.MarketsHaveError = true;
+            }
         }
 
         private void OnLevelsChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (e.PropertyName == nameof(Levels.Entry))
+            {
+                Open.Level = Levels.Entry;
+                RaisePropertyChanged(nameof(Open));
+            }
+
             UpdateExcursions();
         }
 
@@ -152,8 +181,7 @@ namespace TradeJournalCore.ViewModels
 
         private void UpdateExcursions()
         {
-            TradeDetailsValidator.UpdateExcursionLimits(Levels.TradeDirection, CloseLevel, Open.Level,
-                SelectedMarket.PipDivisor);
+            TradeDetailsValidator.UpdateExcursionLimits(Levels.TradeDirection, CloseLevel, Open.Level);
 
             double closeLevel = 0;
             var isCloseLevelSet = false;
@@ -164,46 +192,52 @@ namespace TradeJournalCore.ViewModels
                     isCloseLevelSet = true; 
                 }).IfEmpty(() =>
                 {
-                    MaxAdverse = Option.None<double>();
-                    IsMaeFixed = false;
+                    High = Option.None<double>();
+                    Low = Option.None<double>();
+                    IsHighFixed = true;
+                    IsLowFixed = true;
                 });
 
             if (isCloseLevelSet)
             {
                 if (Levels.TradeDirection == Direction.Long)
                 {
-                    SetFixedLongMae(closeLevel);
+                    SetFixedLongLow(closeLevel);
+                    High = Option.None<double>();
+                    IsHighFixed = false;
                 }
                 else
                 {
-                    SetFixedShortMae(closeLevel);
+                    SetFixedShortHigh(closeLevel);
+                    Low = Option.None<double>();
+                    IsLowFixed = false;
                 }
             }
         }
 
-        private void SetFixedLongMae(double closeLevel)
+        private void SetFixedLongLow(double closeLevel)
         {
             if (Open.Level > closeLevel)
             {
-                MaxAdverse = Option.Some(Open.Level - closeLevel);
-                IsMaeFixed = true;
+                Low = Option.Some(closeLevel);
+                IsLowFixed = true;
             }
             else
             {
-                IsMaeFixed = false;
+                IsLowFixed = false;
             }
         }
 
-        private void SetFixedShortMae(double closeLevel)
+        private void SetFixedShortHigh(double closeLevel)
         {
             if (Open.Level < closeLevel)
             {
-                MaxAdverse = Option.Some(closeLevel - Open.Level);
-                IsMaeFixed = true;
+                High = Option.Some(closeLevel);
+                IsHighFixed = true;
             }
             else
             {
-                IsMaeFixed = false;
+                IsHighFixed = false;
             }
         }
 
@@ -230,6 +264,12 @@ namespace TradeJournalCore.ViewModels
 
             DataConnection.AddMarket(market);
             Markets.AddSelectable(market);
+
+            if (TradeDetailsValidator.MarketsHaveError)
+            {
+                TradeDetailsValidator.MarketsHaveError = false;
+            }
+
             SelectedMarket = market;
             RaisePropertyChanged(nameof(SelectedMarket));
             _addMarketViewModel.MarketConfirmed -= AddMarket;
@@ -244,9 +284,39 @@ namespace TradeJournalCore.ViewModels
 
             DataConnection.AddStrategy(strategy);
             Strategies.AddSelectable(strategy);
+
+            if (TradeDetailsValidator.StrategiesHaveError)
+            {
+                TradeDetailsValidator.StrategiesHaveError = false;
+            }
+
             SelectedStrategy = strategy;
             RaisePropertyChanged(nameof(SelectedStrategy));
             _getNameViewModel.NameConfirmed -= AddStrategy;
+        }
+
+        private void SetSelectedMarket(int id)
+        {
+            foreach (var market in Markets)
+            {
+                if (market.Id == id)
+                {
+                    SelectedMarket = market;
+                    break;
+                }
+            }
+        }
+
+        private void SetSelectedStrategy(int id)
+        {
+            foreach (var strategy in Strategies)
+            {
+                if (strategy.Id == id)
+                {
+                    SelectedStrategy = strategy;
+                    break;
+                }
+            }
         }
 
         private readonly IRunner _runner;
@@ -254,9 +324,10 @@ namespace TradeJournalCore.ViewModels
         private readonly AddMarketViewModel _addMarketViewModel;
 
         private DateTime _closeDateTime = DateTime.Today.AddMinutes(1);
-        private Optional<double> _maxAdverse = Option.None<double>();
-        private Optional<double> _maxFavourable = Option.None<double>();
+        private Optional<double> _high = Option.None<double>();
+        private Optional<double> _low = Option.None<double>();
         private Optional<double> _closeLevel = Option.None<double>();
-        private bool _isMaeFixed;
+        private bool _isHighFixed = true;
+        private bool _isLowFixed = true;
     }
 }

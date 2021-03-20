@@ -16,7 +16,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
             // Arrange
             var testClose = new Execution(70, DateTime.MaxValue, 8);
             var trade = new Trade(TestMarket, new Strategy(string.Empty), new Levels(1, 2, 3),
-                new Execution(0, DateTime.MinValue, 0), Option.Some(testClose), (Option.None<double>(), Option.None<double>()));
+                new Execution(0, DateTime.MinValue, 0), Option.Some(testClose), (Option.None<double>(), Option.None<double>()), EntryOrderType.Limit);
             var outExecution = new Execution(0, DateTime.MinValue, 0);
 
             // Act 

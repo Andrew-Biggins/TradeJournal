@@ -42,4 +42,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="CloseLevel" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="f45d431c-33d4-47e7-9d31-2cf8f4d9d71f" ChangeDateTime="02/15/2021 09:32:06">
+    <Property Name="ElementName" Value="[dbo].[Trade].[MaxAdverseExcursion]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Trade]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="High" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="502422db-7af0-45fd-ae87-858b48bd5137" ChangeDateTime="02/15/2021 09:32:11">
+    <Property Name="ElementName" Value="[dbo].[Trade].[MaxFavourableExcursion]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Trade]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Low" />
+  </Operation>
 </Operations>

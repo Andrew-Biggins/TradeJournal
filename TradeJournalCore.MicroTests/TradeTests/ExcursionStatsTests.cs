@@ -8,18 +8,17 @@ namespace TradeJournalCore.MicroTests.TradeTests
 {
     public sealed class ExcursionStatsTests
     {
-        [GwtTheory("Given a trade",
+        [GwtTheory("Given a long trade",
             "when the realised profit percentage is read",
             "the realised profit percentage is correct")]
-        [InlineData(10, 100, 180, 0.5)]
-        [InlineData(20, 30, 10, 1)]
-        [InlineData(125, 200, 100, 0.75)]
-        public void T0(double open, double close, double mfe, double expected)
+        [InlineData(10, 110, 210, 0.5)]
+        [InlineData(125, 200, 225, 0.75)]
+        public void T0(double open, double close, double high, double expected)
         {
             // Arrange
             var testClose = new Execution(close, DateTime.Today, 1);
             var trade = new Trade(TestMarket, new Strategy(string.Empty), new Levels(20, 10, 30),
-                new Execution(open, DateTime.MinValue, 0), Option.Some(testClose), (Option.None<double>(), Option.Some(mfe)));
+                new Execution(open, DateTime.MinValue, 0), Option.Some(testClose), (Option.Some(high), Option.None<double>()), EntryOrderType.Limit);
             var outRealisedProfitPercentage = 0.00;
 
             // Act
@@ -29,18 +28,17 @@ namespace TradeJournalCore.MicroTests.TradeTests
             Assert.Equal(expected, outRealisedProfitPercentage);
         }
 
-        [GwtTheory("Given a trade",
+        [GwtTheory("Given a long trade",
             "when the unrealised points profit is read",
             "the unrealised points profit is correct")]
-        [InlineData(10, 100, 180, 90)]
-        [InlineData(20, 30, 10, 0)]
-        [InlineData(125, 200, 100, 25)]
-        public void T1(double open, double close, double mfe, double expected)
+        [InlineData(10, 110, 210, 100)]
+        [InlineData(125, 200, 225, 25)]
+        public void T1(double open, double close, double high, double expected)
         {
             // Arrange
             var testClose = new Execution(close, DateTime.Today, 1);
             var trade = new Trade(TestMarket, new Strategy(string.Empty), new Levels(20, 10, 30),
-                new Execution(open, DateTime.MinValue, 0), Option.Some(testClose), (Option.None<double>(), Option.Some(mfe)));
+                new Execution(open, DateTime.MinValue, 0), Option.Some(testClose), (Option.Some(high), Option.None<double>()), EntryOrderType.Limit);
             var outUnrealisedPointsProfit = 0.00;
 
             // Act
@@ -53,15 +51,14 @@ namespace TradeJournalCore.MicroTests.TradeTests
         [GwtTheory("Given a trade",
             "when the unrealised cash profit is read",
             "the unrealised cash profit is correct")]
-        [InlineData(10, 100, 180, 90)]
-        [InlineData(20, 30, 10, 0)]
-        [InlineData(125, 200, 100, 25)]
-        public void T2(double open, double close, double mfe, double expected)
+        [InlineData(10, 110, 210, 100)]
+        [InlineData(125, 200, 225, 25)]
+        public void T2(double open, double close, double high, double expected)
         {
             // Arrange
             var testClose = new Execution(close, DateTime.Today, 1);
             var trade = new Trade(TestMarket, new Strategy(string.Empty), new Levels(20, 10, 30),
-                new Execution(open, DateTime.MinValue, 1), Option.Some(testClose), (Option.None<double>(), Option.Some(mfe)));
+                new Execution(open, DateTime.MinValue, 1), Option.Some(testClose), (Option.Some(high), Option.None<double>()), EntryOrderType.Limit);
             var outUnrealisedCashProfit = 0.00;
 
             // Act

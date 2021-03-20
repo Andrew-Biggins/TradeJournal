@@ -62,7 +62,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var assetClasses = new List<ISelectable> { new AssetType(AssetClass.Commodities)};
             var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), assetClasses, GetDays(),
                 DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue, DateTime.MaxValue, 0, 999, TradeStatus.Both,
-                TradeDirection.Both);
+                TradeDirection.Both, EntryOrderType.Both);
 
             // Act 
             tradeManager.FilterTrades(filters);
@@ -91,7 +91,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var markets = new List<ISelectable> { new Market("USDJPY", AssetClass.Currencies, PipDivisor.One) };
             var filters = new Filters(markets, GetDefaultStrategies(), GetAssetTypes(), GetDays(),
                 DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue, DateTime.MaxValue, 0, 999, TradeStatus.Both,
-                TradeDirection.Both);
+                TradeDirection.Both, EntryOrderType.Both);
 
             // Act 
             tradeManager.FilterTrades(filters);
@@ -120,7 +120,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var strategies = new List<ISelectable> { new Strategy("Triangle") };
             var filters = new Filters(GetDefaultMarkets(), strategies, GetAssetTypes(), GetDays(),
                 DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue, DateTime.MaxValue, 0, 999, TradeStatus.Both,
-                TradeDirection.Both);
+                TradeDirection.Both, EntryOrderType.Both);
 
             // Act 
             tradeManager.FilterTrades(filters);
@@ -151,7 +151,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var days = new List<ISelectable> { new Day(DayOfWeek.Saturday) };
             var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(), days,
                 DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue, DateTime.MaxValue, 0, 999, TradeStatus.Both,
-                TradeDirection.Both);
+                TradeDirection.Both, EntryOrderType.Both);
 
             // Act 
             tradeManager.FilterTrades(filters);
@@ -182,7 +182,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var days = new List<ISelectable> { new Day(DayOfWeek.Saturday) };
             var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(), days,
                 new DateTime(2021, 1, 2), new DateTime(2021, 1, 2), DateTime.MinValue, DateTime.MaxValue, 
-                0, 999, TradeStatus.Both, TradeDirection.Both);
+                0, 999, TradeStatus.Both, TradeDirection.Both, EntryOrderType.Both);
 
             // Act 
             tradeManager.FilterTrades(filters);
@@ -214,7 +214,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(), days,
                 DateTime.MinValue, DateTime.MaxValue, new DateTime(2021, 1, 2, 10, 00, 00),
                 new DateTime(2021, 1, 2, 11, 30, 00),
-                0, 999, TradeStatus.Both, TradeDirection.Both);
+                0, 999, TradeStatus.Both, TradeDirection.Both, EntryOrderType.Both);
 
             // Act 
             tradeManager.FilterTrades(filters);
@@ -248,7 +248,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
 
             var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(), GetDays(),
                 DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue, 
-                DateTime.MaxValue, 2, 2, TradeStatus.Both, TradeDirection.Both);
+                DateTime.MaxValue, 2, 2, TradeStatus.Both, TradeDirection.Both, EntryOrderType.Both);
 
             // Act 
             tradeManager.FilterTrades(filters);
@@ -278,7 +278,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
 
             var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(), GetDays(),
                 DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue,
-                DateTime.MaxValue, 0, 999, TradeStatus.Closed, TradeDirection.Both);
+                DateTime.MaxValue, 0, 999, TradeStatus.Closed, TradeDirection.Both, EntryOrderType.Both);
 
             // Act 
             tradeManager.FilterTrades(filters);
@@ -312,7 +312,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
 
             var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(), GetDays(),
                 DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue,
-                DateTime.MaxValue, 0, 999, TradeStatus.Both, TradeDirection.Long);
+                DateTime.MaxValue, 0, 999, TradeStatus.Both, TradeDirection.Long, EntryOrderType.Both);
 
             // Act 
             tradeManager.FilterTrades(filters);

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using OxyPlot;
+﻿using OxyPlot;
 using OxyPlot.Series;
+using System;
+using System.Collections.Generic;
 using TradeJournalCore.Interfaces;
 
 namespace TradeJournalCore.ViewModelAdapters

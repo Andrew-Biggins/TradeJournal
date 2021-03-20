@@ -19,13 +19,14 @@ namespace TradeJournalCore.MicroTests
             {
                 var subTradeManager = Substitute.For<ITradeManager>();
                 subTradeManager.Trades.Returns(new ObservableCollection<ITrade>());
+                subTradeManager.SelectedTrade = TestOpenTrade;
                 return subTradeManager;
             }
         }
 
         internal static IMarket TestMarket => new Market("Gold", AssetClass.Commodities, PipDivisor.One);
 
-        internal static ISelectable TestStrategy => new Strategy("Triangle");
+        internal static ISelectableTradeField TestStrategy => new Strategy("Triangle");
 
         internal static Levels TestLevels => new Levels(100, 50, 200);
 
@@ -44,7 +45,7 @@ namespace TradeJournalCore.MicroTests
 
         internal static Filters TestFilters => new Filters(TestMarkets, TestStrategies, GetAssetTypes(),
             GetDays(), DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue, DateTime.MaxValue, 0, 999,
-            TradeStatus.Both, TradeDirection.Both);
+            TradeStatus.Both, TradeDirection.Both, EntryOrderType.Both);
 
         internal static TradeDetailsViewModel TestTradeDetailsViewModel => new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel())
         {

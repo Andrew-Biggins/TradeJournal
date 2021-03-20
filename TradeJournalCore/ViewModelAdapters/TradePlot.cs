@@ -36,8 +36,8 @@ namespace TradeJournalCore.ViewModelAdapters
             LinearAxis xAxis = new DateTimeAxis()
             {
                 Position = AxisPosition.Bottom,
-                StringFormat = "dd/MM HH:mm",
-                Title = "Date/Time",
+                StringFormat = "dd/MM",
+                Title = "Date",
                 AxisTitleDistance = 10,
                 TextColor = OxyColors.White,
                 TicklineColor = OxyColors.White,

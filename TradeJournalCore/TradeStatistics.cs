@@ -1,6 +1,6 @@
 ﻿namespace TradeJournalCore
 {
-    public sealed class TradeCollectionStatistics
+    public sealed class TradeStatistics
     {
         public int TradeCount { get; }
 
@@ -58,7 +58,7 @@
 
         public double PointsExpectancy { get; }
 
-        public TradeCollectionStatistics(int wins, int loses, double winProbability, int longestWinningStreak,
+        public TradeStatistics(int wins, int loses, double winProbability, int longestWinningStreak,
             int longestLosingStreak, double pointsTotal, double cashTotal, double biggestPointsWin,
             double biggestCashWin, double biggestPointsLoss, double biggestCashLoss, double averagePointsWin,
             double averagePointsLoss, double averageCashWin, double averageCashLoss, double profitFactor, 

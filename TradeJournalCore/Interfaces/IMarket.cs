@@ -1,6 +1,6 @@
 ﻿namespace TradeJournalCore.Interfaces
 {
-    public interface IMarket : ISelectable
+    public interface IMarket : ISelectableTradeField
     {
         AssetClass AssetClass { get; }
 

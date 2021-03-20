@@ -20,7 +20,7 @@ namespace TradeJournalCore.MicroTests.TradeFiltererViewModelTests
             viewModel.Markets[2].IsSelected = false;
 
             // Act
-            viewModel.ClearTradeFiltersCommand.Execute(null!);
+            viewModel.ClearFiltersCommand.Execute(null!);
 
             // Assert
             Assert.True(IsAllSelected(viewModel.Markets));
@@ -37,7 +37,7 @@ namespace TradeJournalCore.MicroTests.TradeFiltererViewModelTests
             viewModel.Strategies[1].IsSelected = false;
 
             // Act
-            viewModel.ClearTradeFiltersCommand.Execute(null!);
+            viewModel.ClearFiltersCommand.Execute(null!);
 
             // Assert
             Assert.True(IsAllSelected(viewModel.Strategies));
@@ -54,7 +54,7 @@ namespace TradeJournalCore.MicroTests.TradeFiltererViewModelTests
             viewModel.Strategies[1].IsSelected = false;
 
             // Act
-            viewModel.ClearTradeFiltersCommand.Execute(null!);
+            viewModel.ClearFiltersCommand.Execute(null!);
 
             // Assert
             Assert.True(IsAllSelected(viewModel.Strategies));
@@ -71,7 +71,7 @@ namespace TradeJournalCore.MicroTests.TradeFiltererViewModelTests
             viewModel.AssetTypes[4].IsSelected = false;
 
             // Act
-            viewModel.ClearTradeFiltersCommand.Execute(null!);
+            viewModel.ClearFiltersCommand.Execute(null!);
 
             // Assert
             Assert.True(IsAllSelected(viewModel.AssetTypes));
@@ -88,7 +88,7 @@ namespace TradeJournalCore.MicroTests.TradeFiltererViewModelTests
             viewModel.DaysOfWeek[6].IsSelected = false;
 
             // Act
-            viewModel.ClearTradeFiltersCommand.Execute(null!);
+            viewModel.ClearFiltersCommand.Execute(null!);
 
             // Assert
             Assert.True(IsAllSelected(viewModel.DaysOfWeek));
@@ -107,7 +107,7 @@ namespace TradeJournalCore.MicroTests.TradeFiltererViewModelTests
             viewModel.TradesEndDate = endDate;
 
             // Act
-            viewModel.ClearTradeFiltersCommand.Execute(null!);
+            viewModel.ClearFiltersCommand.Execute(null!);
 
             // Assert
             Assert.Equal(startDate, viewModel.FilterStartDate);
@@ -127,7 +127,7 @@ namespace TradeJournalCore.MicroTests.TradeFiltererViewModelTests
             viewModel.FilterEndTime = new DateTime(2021,1,1,11,16,00);
 
             // Act
-            viewModel.ClearTradeFiltersCommand.Execute(null!);
+            viewModel.ClearFiltersCommand.Execute(null!);
 
             // Assert
             Assert.Equal(startTime, viewModel.FilterStartTime);
@@ -147,7 +147,7 @@ namespace TradeJournalCore.MicroTests.TradeFiltererViewModelTests
             viewModel.MaxRiskRewardRatio = 15.00;
 
             // Act
-            viewModel.ClearTradeFiltersCommand.Execute(null!);
+            viewModel.ClearFiltersCommand.Execute(null!);
 
             // Assert
             Assert.Equal(min, viewModel.MinRiskRewardRatio);
@@ -164,7 +164,7 @@ namespace TradeJournalCore.MicroTests.TradeFiltererViewModelTests
             viewModel.SelectedTradeStatus = TradeStatus.Open;
 
             // Act
-            viewModel.ClearTradeFiltersCommand.Execute(null!);
+            viewModel.ClearFiltersCommand.Execute(null!);
 
             // Assert
             Assert.Equal(TradeStatus.Both, viewModel.SelectedTradeStatus);
@@ -180,7 +180,7 @@ namespace TradeJournalCore.MicroTests.TradeFiltererViewModelTests
             viewModel.SelectedTradeDirection = TradeDirection.Long;
 
             // Act
-            viewModel.ClearTradeFiltersCommand.Execute(null!);
+            viewModel.ClearFiltersCommand.Execute(null!);
 
             // Assert
             Assert.Equal(TradeDirection.Both, viewModel.SelectedTradeDirection);

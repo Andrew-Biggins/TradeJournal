@@ -91,7 +91,7 @@ namespace TradeJournalCore.MicroTests
             "it contains 3 elements")]
         public void T6()
         {
-            Assert.Equal(3, SelectableFactory.GetTradeStatuses().Count);
+            Assert.Equal(3, SelectableFactory.GetEnumList<TradeStatus>().Count);
         }
 
         [Gwt("Given a selectable factory",
@@ -99,7 +99,7 @@ namespace TradeJournalCore.MicroTests
             "it contains 3 elements")]
         public void T7()
         {
-            Assert.Equal(3, SelectableFactory.GetTradeDirections().Count);
+            Assert.Equal(3, SelectableFactory.GetEnumList<TradeDirection>().Count);
         }
 
         [Gwt("Given a selectable factory",
@@ -108,7 +108,7 @@ namespace TradeJournalCore.MicroTests
         public void T8()
         {
             // Arrange
-            var statuses = SelectableFactory.GetTradeStatuses();
+            var statuses = SelectableFactory.GetEnumList<TradeStatus>();
 
             // Act
             var actual = statuses[0];
@@ -123,7 +123,7 @@ namespace TradeJournalCore.MicroTests
         public void T9()
         {
             // Arrange
-            var directions = SelectableFactory.GetTradeDirections();
+            var directions = SelectableFactory.GetEnumList<TradeDirection>();
 
             // Act
             var actual = directions[0];

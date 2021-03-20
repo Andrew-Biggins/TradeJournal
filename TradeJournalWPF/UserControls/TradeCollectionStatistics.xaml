@@ -7,7 +7,7 @@
              xmlns:converters="clr-namespace:TradeJournalWPF.Converters"
              xmlns:tradeJournalCore="clr-namespace:TradeJournalCore;assembly=TradeJournalCore"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance {x:Type tradeJournalCore:TradeCollectionStatistics}}"
+             d:DataContext="{d:DesignInstance {x:Type tradeJournalCore:TradeStatistics}}"
              d:DesignHeight="75" d:DesignWidth="680" Language="en-GB">
     <UserControl.Resources>
         <Style TargetType="TextBlock">
@@ -31,18 +31,18 @@
                 <ColumnDefinition Width="60"/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="0.8*"/>
-                <ColumnDefinition Width="1.8*"/>
-                <ColumnDefinition Width="1.8*"/>
+                <ColumnDefinition Width="0.6*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="0.7*"/>
                 <ColumnDefinition Width="0.8*"/>
                 <ColumnDefinition Width="0.8*"/>
                 <ColumnDefinition Width="0.8*"/>
                 <ColumnDefinition Width="0.8*"/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="0.55*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1.5*"/>
             </Grid.ColumnDefinitions>
             <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="18" Background="BurlyWood"
                     BorderThickness="1" BorderBrush="White" Margin="0,-1,0,0">

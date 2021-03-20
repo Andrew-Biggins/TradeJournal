@@ -31,12 +31,17 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
         {
             // Arrange
             var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel());
+            var markets = SelectableFactory.GetDefaultMarkets();
+            var expected = markets[1];
+            viewModel.AddSelectables(markets, SelectableFactory.GetDefaultStrategies());
+            var testTrade = new Trade(expected, TestStrategy, TestLevels, TestOpen, new Option.OptionNone<Execution>(),
+                TestEmptyExcursions, EntryOrderType.Limit);
 
             // Act
-            viewModel.EditTrade(TestOpenTrade);
+            viewModel.EditTrade(testTrade);
 
             // Assert
-            Assert.Equal(TestMarket.Name, viewModel.SelectedMarket.Name);
+            Assert.Equal(expected.Id, viewModel.SelectedMarket.Id);
         }
 
         [Gwt("Given a trade details view model",
@@ -46,12 +51,17 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
         {
             // Arrange
             var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel());
+            var strategies = SelectableFactory.GetDefaultStrategies();
+            var expected = strategies[1];
+            viewModel.AddSelectables(SelectableFactory.GetDefaultMarkets(), strategies);
+            var testTrade = new Trade(TestMarket, expected, TestLevels, TestOpen, new Option.OptionNone<Execution>(), 
+                TestEmptyExcursions, EntryOrderType.Limit);
 
             // Act
-            viewModel.EditTrade(TestOpenTrade);
+            viewModel.EditTrade(testTrade);
 
             // Assert
-            Assert.Equal(TestStrategy.Name, viewModel.SelectedStrategy.Name);
+            Assert.Equal(expected.Id, viewModel.SelectedStrategy.Id);
         }
 
         [Gwt("Given a trade details view model",

@@ -11,7 +11,7 @@ namespace TradeJournalCore
         Both
     }
 
-    public enum EntryOrderType
+    public enum EntryOrderType 
     {
         Limit,
         Market,
@@ -24,11 +24,15 @@ namespace TradeJournalCore
 
         public IMarket Market { get; }
 
-        public ISelectable Strategy { get; }
+        public ISelectableTradeField Strategy { get; }
 
-        public Optional<double> MaxFavourableExcursion { get; }
+        public Optional<double> MaxFavourableExcursion { get; private set; } = Option.None<double>();
 
-        public Optional<double> MaxAdverseExcursion { get; }
+        public Optional<double> MaxAdverseExcursion { get; private set; } = Option.None<double>();
+
+        public Optional<double> High { get; }
+
+        public Optional<double> Low { get; }
 
         public Levels Levels { get; }
 
@@ -56,8 +60,8 @@ namespace TradeJournalCore
 
         public EntryOrderType EntryOrderType { get; }
 
-        public Trade(IMarket market, ISelectable strategy, Levels levels, Execution open, Optional<Execution> close,
-            (Optional<double>, Optional<double>) excursions, EntryOrderType entryOrderType)
+        public Trade(IMarket market, ISelectableTradeField strategy, Levels levels, Execution open,
+            Optional<Execution> close, (Optional<double>, Optional<double>) excursions, EntryOrderType entryOrderType)
         {
             Market = market ?? throw new ArgumentNullException(nameof(market));
             Strategy = strategy ?? throw new ArgumentNullException(nameof(strategy));
@@ -65,17 +69,35 @@ namespace TradeJournalCore
             Open = open ?? throw new ArgumentNullException(nameof(open));
             Close = close ?? throw new ArgumentNullException(nameof(close));
 
-            var (adverse, favourable) = excursions;
-            MaxAdverseExcursion = adverse ?? throw new ArgumentNullException(nameof(adverse));
-            MaxFavourableExcursion = favourable ?? throw new ArgumentNullException(nameof(favourable));
+            var (high, low) = excursions;
+            High = high ?? throw new ArgumentNullException(nameof(high));
+            Low = low ?? throw new ArgumentNullException(nameof(low));
             EntryOrderType = entryOrderType;
 
             SetDirection();
             
             CalculateRiskRewardRatio();
             CalculateResult();
+
+            Close.IfExistsThen(x => CalculateExcursions());
+
             CalculateDrawdown();
             CalculateExcursionStats();
+        }
+
+        private void CalculateExcursions()
+        {
+            if (Direction == TradeDirection.Long)
+            {
+                Low.IfExistsThen(x => MaxAdverseExcursion = Option.Some((Open.Level - x) * (double)Market.PipDivisor));
+                High.IfExistsThen(x => MaxFavourableExcursion = Option.Some((x - Open.Level) * (double)Market.PipDivisor));
+            }
+
+            if (Direction == TradeDirection.Short)
+            {
+                Low.IfExistsThen(x => MaxFavourableExcursion = Option.Some((Open.Level - x) * (double)Market.PipDivisor));
+                High.IfExistsThen(x => MaxAdverseExcursion = Option.Some((x - Open.Level) * (double)Market.PipDivisor));
+            }
         }
 
         private void SetDirection()
@@ -109,7 +131,7 @@ namespace TradeJournalCore
         {
             MaxAdverseExcursion.IfExistsThen(x =>
             {
-                DrawdownPercentage = Option.Some(x / _stopSize);
+                DrawdownPercentage = Option.Some(x / _stopSize / (double) Market.PipDivisor);
             });
         }
 
@@ -127,6 +149,7 @@ namespace TradeJournalCore
                     else
                     {
                         UnrealisedPointsProfit = Option.Some(x);
+                        RealisedProfitPercentage = Option.Some(0.00);
                     }
 
                     UnrealisedPointsProfit.IfExistsThen(d =>

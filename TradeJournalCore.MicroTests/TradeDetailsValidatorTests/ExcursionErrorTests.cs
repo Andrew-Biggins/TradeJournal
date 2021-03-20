@@ -7,37 +7,37 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
     public class ExcursionErrorTests
     {
         [Gwt("Given a trade details validator",
-            "when the MAE error property is read",
-            "the MAE error property is false by default")]
+            "when the high error property is read",
+            "the high error property is false by default")]
         public void T0()
         {
             // Arrange
             var validator = new TradeDetailsValidator();
 
             // Act 
-            var actual = validator.MaeHasError;
+            var actual = validator.HighHasError;
 
             // Assert
             Assert.False(actual);
         }
 
         [Gwt("Given a trade details validator",
-            "when the MFE error property is read",
-            "the MFE error property is false by default")]
+            "when the low error property is read",
+            "the low error property is false by default")]
         public void T1()
         {
             // Arrange
             var validator = new TradeDetailsValidator();
 
             // Act 
-            var actual = validator.MfeHasError;
+            var actual = validator.LowHasError;
 
             // Assert
             Assert.False(actual);
         }
 
         [Gwt("Given a trade details validator has validated details",
-            "when MAE error is set to true",
+            "when high error is set to true",
             "the valid trade property is false")]
         public void T2()
         {
@@ -46,14 +46,14 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             validator.EntryHasError = false; // Call the verify method
 
             // Act 
-            validator.MaeHasError = true;
+            validator.HighHasError = true;
 
             // Assert
             Assert.False(validator.IsTradeValid);
         }
 
         [Gwt("Given a trade details validator has validated details",
-            "when MFE error is set to true",
+            "when low error is set to true",
             "the valid trade property is false")]
         public void T3()
         {
@@ -62,14 +62,14 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             validator.EntryHasError = false; // Call the verify method
 
             // Act 
-            validator.MfeHasError = true;
+            validator.LowHasError = true;
 
             // Assert
             Assert.False(validator.IsTradeValid);
         }
 
         [Gwt("Given a trade details validator has validated details",
-            "when MAE error is set to true",
+            "when high error is set to true",
             "property changed is raised for the MAE error property")]
         public void T4()
         {
@@ -78,14 +78,14 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             var catcher = Catcher.For(validator);
 
             // Act 
-            validator.MaeHasError = true;
+            validator.HighHasError = true;
 
             // Assert
-            catcher.CaughtPropertyChanged(validator, nameof(validator.MaeHasError));
+            catcher.CaughtPropertyChanged(validator, nameof(validator.HighHasError));
         }
 
         [Gwt("Given a trade details validator has validated details",
-            "when MFE error is set to true",
+            "when low error is set to true",
             "property changed is raised for the MAE error property")]
         public void T5()
         {
@@ -94,143 +94,113 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             var catcher = Catcher.For(validator);
 
             // Act 
-            validator.MfeHasError = true;
+            validator.LowHasError = true;
 
             // Assert
-            catcher.CaughtPropertyChanged(validator, nameof(validator.MfeHasError));
+            catcher.CaughtPropertyChanged(validator, nameof(validator.LowHasError));
         }
 
-        [Gwt("Given a trade details validator",
-            "when the maximum MAE is read",
-            "the maximum MAE is positive infinity by default")]
+        [Gwt("Given a trade details validator has an high error",
+            "when an option none high is validated",
+            "the high error is false")]
         public void T6()
         {
             // Arrange
             var validator = new TradeDetailsValidator();
+            validator.HighHasError = true;
 
             // Act 
-            var actual = validator.MaximumMae;
+            validator.ValidateHigh(Option.None<double>());
 
             // Assert
-            Assert.Equal(double.PositiveInfinity, actual);
+            Assert.False(validator.HighHasError);
         }
 
-        [Gwt("Given a trade details validator",
-            "when the minimum MFE is read",
-            "the minimum MFE is zero by default")]
+        [Gwt("Given a trade details validator has an low error",
+            "when an option none low is validated",
+            "the MFE error is false")]
         public void T7()
         {
             // Arrange
             var validator = new TradeDetailsValidator();
+            validator.LowHasError = true;
 
             // Act 
-            var actual = validator.MinimumMfe;
+            validator.ValidateLow(Option.None<double>());
 
             // Assert
-            Assert.Equal(0, actual);
+            Assert.False(validator.LowHasError);
         }
 
-        [Gwt("Given a trade details validator has an MAE error",
-            "when an option none MAE is validated",
-            "the MAE error is false")]
+        [Gwt("Given a trade details validator has a minimum high set",
+            "when a high above the limit is validated",
+            "the high error is true")]
         public void T8()
         {
             // Arrange
             var validator = new TradeDetailsValidator();
-            validator.MaeHasError = true;
+            validator.UpdateExcursionLimits(Direction.Long, Option.Some(100.00), 200);
 
             // Act 
-            validator.ValidateMae(Option.None<double>());
+            validator.ValidateHigh(Option.Some(199.00));
 
             // Assert
-            Assert.False(validator.MaeHasError);
+            Assert.True(validator.HighHasError);
         }
 
-        [Gwt("Given a trade details validator has an MAE error",
-            "when an option none MFE is validated",
-            "the MFE error is false")]
-        public void T9()
-        {
-            // Arrange
-            var validator = new TradeDetailsValidator();
-            validator.MfeHasError = true;
-
-            // Act 
-            validator.ValidateMfe(Option.None<double>());
-
-            // Assert
-            Assert.False(validator.MfeHasError);
-        }
-
-        [Gwt("Given a trade details validator has an MAE limit",
-            "when an MAE above the limit is validated",
-            "the MAE error is true")]
-        public void T10()
-        {
-            // Arrange
-            var validator = new TradeDetailsValidator();
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(100), 200, PipDivisor.One);
-
-            // Act 
-            validator.ValidateMae(Option.Some(101.00));
-
-            // Assert
-            Assert.True(validator.MaeHasError);
-        }
-
-        [Gwt("Given a trade details validator has an MAE limit and an MAE error",
-            "when an MAE below the limit is validated",
-            "the MAE error is false")]
+        [Gwt("Given a trade details validator has a maximum high limit and an high error",
+            "when an high below the limit is validated",
+            "the high error is false")]
         public void T11()
         {
             // Arrange
             var validator = new TradeDetailsValidator();
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(100), 200, PipDivisor.One);
-            validator.MaeHasError = true;
+            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(100), 200);
+            validator.HighHasError = true;
 
             // Act 
-            validator.ValidateMae(Option.Some(99.00));
+            validator.ValidateHigh(Option.Some(201.00));
 
             // Assert
-            Assert.False(validator.MaeHasError);
+            Assert.False(validator.HighHasError);
         }
 
-        [Gwt("Given a trade details validator has an MFE limit",
-            "when an MFE below the limit is validated",
-            "the MFE error is true")]
+        [Gwt("Given a trade details validator has an maximum low limit",
+            "when a low below the limit is validated",
+            "the low error is true")]
         public void T12()
         {
             // Arrange
             var validator = new TradeDetailsValidator();
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(200), 100, PipDivisor.One);
+            validator.UpdateExcursionLimits(Direction.Long, Option.Some(200.00), 100);
 
             // Act 
-            validator.ValidateMfe(Option.Some(99.99));
+            validator.ValidateLow(Option.Some(101.00));
 
             // Assert
-            Assert.True(validator.MfeHasError);
+            Assert.True(validator.LowHasError);
         }
 
-        [Gwt("Given a trade details validator has an MFE limit and an MFE error",
-            "when an MFE above the limit is validated",
+        [Gwt("Given a trade details validator has an maximum low limit and a low error",
+            "when an low above the limit is validated",
             "the MFE error is false")]
         public void T13()
         {
             // Arrange
             var validator = new TradeDetailsValidator();
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(200), 100, PipDivisor.One);
-            validator.MfeHasError = true;
+            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(200), 100);
+            validator.LowHasError = true;
 
             // Act 
-            validator.ValidateMfe(Option.Some(101.1));
+            validator.ValidateLow(Option.Some(99.00));
 
             // Assert
-            Assert.False(validator.MaeHasError);
+            Assert.False(validator.HighHasError);
         }
 
         [Gwt("Given a trade details validator",
             "when excursion limits are updated for a winning long trade",
-            "the maximum MAE is the same as the open level")]
+            "the maximum low is the same as the open level")]
         public void T14()
         {
             // Arrange
@@ -238,256 +208,57 @@ namespace TradeJournalCore.MicroTests.TradeDetailsValidatorTests
             const double testOpen = 200;
 
             // Act 
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(300), testOpen, PipDivisor.One);
+            validator.UpdateExcursionLimits(Direction.Long, Option.Some(300.00), testOpen);
 
             // Assert
-            Assert.Equal(testOpen, validator.MaximumMae);
+            Assert.Equal(testOpen, validator.MaximumLow);
         }
 
         [Gwt("Given a trade details validator",
-            "when excursion limits are updated for a losing long trade",
-            "the maximum MAE is equal to the difference between the open and close")]
+            "when excursion limits are updated for a losing short trade",
+            "the minimum high is equal to the open")]
         public void T15()
         {
             // Arrange
             var validator = new TradeDetailsValidator();
             const double testOpen = 200;
-            const double testClose = 50;
 
             // Act 
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(testClose), testOpen, PipDivisor.One);
+            validator.UpdateExcursionLimits(Direction.Short, Option.Some(350.00), testOpen);
 
             // Assert
-            Assert.Equal(testOpen - testClose, validator.MaximumMae);
+            Assert.Equal(testOpen, validator.MinimumHigh);
         }
 
         [Gwt("Given a trade details validator",
             "when excursion limits are updated for a long trade with no close",
-            "the maximum MAE is equal to the open level")]
+            "the minimum high is equal to the open level")]
         public void T16()
         {
             // Arrange
             var validator = new TradeDetailsValidator();
-            const double testOpen = 200;
 
             // Act 
-            validator.UpdateExcursionLimits(Direction.Long, Option.None<double>(), testOpen, PipDivisor.One);
+            validator.UpdateExcursionLimits(Direction.Long, Option.None<double>(), 200.00);
 
             // Assert
-            Assert.Equal(testOpen, validator.MaximumMae);
+            Assert.Equal(0, validator.MinimumHigh);
         }
 
         [Gwt("Given a trade details validator",
             "when excursion limits are updated for a winning long trade",
-            "the minimum MFE is equal to the difference between the open and close")]
+            "the maximum low is equal to the open")]
         public void T17()
         {
             // Arrange
             var validator = new TradeDetailsValidator();
             const double testOpen = 200;
-            const double testClose = 350;
 
             // Act 
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(testClose), testOpen, PipDivisor.One);
+            validator.UpdateExcursionLimits(Direction.Long, Option.Some(350.00), testOpen);
 
             // Assert
-            Assert.Equal(testClose - testOpen, validator.MinimumMfe);
-        }
-
-        [Gwt("Given a trade details validator has a minimum MFE set above zero",
-            "when excursion limits are updated for a losing long trade",
-            "the minimum MFE is zero")]
-        public void T18()
-        {
-            // Arrange
-            var validator = new TradeDetailsValidator();
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(200), 100, PipDivisor.One);
-
-            // Act 
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(50), 100, PipDivisor.One);
-
-            // Assert
-            Assert.Equal(0, validator.MinimumMfe);
-        }
-
-        [Gwt("Given a trade details validator has a minimum MFE set above zero",
-            "when excursion limits are updated for a long trade with no close",
-            "the minimum MFE is zero")]
-        public void T19()
-        {
-            // Arrange
-            var validator = new TradeDetailsValidator();
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(200), 100, PipDivisor.One);
-
-            // Act 
-            validator.UpdateExcursionLimits(Direction.Long, Option.None<double>(), 100, PipDivisor.One);
-
-            // Assert
-            Assert.Equal(0, validator.MinimumMfe);
-        }
-
-        [Gwt("Given a trade details validator has an MAE below positive infinity",
-            "when excursion limits are updated for a winning short trade",
-            "the maximum MAE is positive infinity")]
-        public void T20()
-        {
-            // Arrange
-            var validator = new TradeDetailsValidator();
-            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(200), 100, PipDivisor.One);
-
-            // Act 
-            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(50), 100, PipDivisor.One);
-
-            // Assert
-            Assert.Equal(double.PositiveInfinity, validator.MaximumMae);
-        }
-
-        [Gwt("Given a trade details validator",
-            "when excursion limits are updated for a losing short trade",
-            "the maximum MAE is equal to the difference between the open and close")]
-        public void T21()
-        {
-            // Arrange
-            var validator = new TradeDetailsValidator();
-            const double testOpen = 200;
-            const double testClose = 350;
-
-            // Act 
-            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(testClose), testOpen, PipDivisor.One);
-
-            // Assert
-            Assert.Equal(testClose - testOpen, validator.MaximumMae);
-        }
-
-        [Gwt("Given a trade details validator has a maximum MAE below positive infinity",
-            "when excursion limits are updated for a short trade with no close",
-            "the maximum MAE is positive infinity")]
-        public void T22()
-        {
-            // Arrange
-            var validator = new TradeDetailsValidator();
-            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(200), 100, PipDivisor.One);
-
-            // Act 
-            validator.UpdateExcursionLimits(Direction.Short, Option.None<double>(), 100, PipDivisor.One);
-
-            // Assert
-            Assert.Equal(double.PositiveInfinity, validator.MaximumMae);
-        }
-
-        [Gwt("Given a trade details validator",
-            "when excursion limits are updated for a winning short trade",
-            "the minimum MFE is equal to the difference between the open and close")]
-        public void T23()
-        {
-            // Arrange
-            var validator = new TradeDetailsValidator();
-            const double testOpen = 200;
-            const double testClose = 50;
-
-            // Act 
-            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(testClose), testOpen, PipDivisor.One);
-
-            // Assert
-            Assert.Equal(testOpen - testClose, validator.MinimumMfe);
-        }
-
-        [Gwt("Given a trade details validator has an MFE set above zero",
-            "when excursion limits are updated for a losing short trade",
-            "the minimum MFE is zero")]
-        public void T24()
-        {
-            // Arrange
-            var validator = new TradeDetailsValidator();
-            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(50), 100, PipDivisor.One);
-
-            // Act 
-            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(200), 100, PipDivisor.One);
-
-            // Assert
-            Assert.Equal(0, validator.MinimumMfe);
-        }
-
-        [Gwt("Given a trade details validator has an minimum MFE above zero",
-            "when excursion limits are updated for a short trade with no close",
-            "the minimum MFE is zero")]
-        public void T25()
-        {
-            // Arrange
-            var validator = new TradeDetailsValidator();
-            validator.UpdateExcursionLimits(Direction.Short, new Option.OptionSome<double>(50), 100, PipDivisor.One);
-
-            // Act 
-            validator.UpdateExcursionLimits(Direction.Short, Option.None<double>(), 100, PipDivisor.One);
-
-            // Assert
-            Assert.Equal(0, validator.MinimumMfe);
-        }
-
-        [Gwt("Given a trade details validator has validated an MAE",
-            "when the excursion limits are updated to invalidate the MAE",
-            "the MAE error property is true")]
-        public void T26()
-        {
-            // Arrange
-            var validator = new TradeDetailsValidator();
-            validator.ValidateMae(Option.Some(100.00));
-
-            // Act 
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(50), 100, PipDivisor.One);
-
-            // Assert
-            Assert.True(validator.MaeHasError);
-        }
-
-        [Gwt("Given a trade details validator has validated an MFE",
-            "when the excursion limits are updated to invalidate the MFE",
-            "the MFE error property is true")]
-        public void T27()
-        {
-            // Arrange
-            var validator = new TradeDetailsValidator();
-            validator.ValidateMfe(Option.Some(100.00));
-
-            // Act 
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(250), 100, PipDivisor.One);
-
-            // Assert
-            Assert.True(validator.MfeHasError);
-        }
-
-        // Tests the validator's mae field default is option none
-        [Gwt("Given a trade details validator has an MAE error",
-            "when the excursion limits are updated to a maximum MAE below positive infinity",
-            "the MAE error property is false")]
-        public void T28()
-        {
-            // Arrange
-            var validator = new TradeDetailsValidator();
-            validator.MaeHasError = true;
-
-            // Act 
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(50), 100, PipDivisor.One);
-
-            // Assert
-            Assert.False(validator.MaeHasError);
-        }
-
-        // Tests the validator's mfe field default is option none
-        [Gwt("Given a trade details validator has an MFE error",
-            "when the excursion limits are updated to a minimum MFE above zero",
-            "the MFE error property is false")]
-        public void T29()
-        {
-            // Arrange
-            var validator = new TradeDetailsValidator();
-            validator.MfeHasError = true;
-
-            // Act 
-            validator.UpdateExcursionLimits(Direction.Long, new Option.OptionSome<double>(150), 100, PipDivisor.One);
-
-            // Assert
-            Assert.False(validator.MfeHasError);
+            Assert.Equal(testOpen, validator.MaximumLow);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
             Assert.Throws<ArgumentNullException>("market",
                 () => new Trade(null!, new Strategy(string.Empty), new Levels(0, 0, 0),
                     new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
-                    (Option.None<double>(), Option.None<double>())));
+                    (Option.None<double>(), Option.None<double>()), EntryOrderType.Limit));
         }
 
         [Gwt("Given a null levels",
@@ -27,7 +27,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
             Assert.Throws<ArgumentNullException>("strategy",
                 () => new Trade(TestMarket, null!, new Levels(0, 0, 0),
                     new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
-                    (Option.None<double>(), Option.None<double>())));
+                    (Option.None<double>(), Option.None<double>()), EntryOrderType.Limit));
         }
 
         [Gwt("Given a null levels",
@@ -38,7 +38,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
             Assert.Throws<ArgumentNullException>("levels",
                 () => new Trade(TestMarket, new Strategy(string.Empty), null!,
                     new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
-                    (Option.None<double>(), Option.None<double>())));
+                    (Option.None<double>(), Option.None<double>()), EntryOrderType.Limit));
         }
 
         [Gwt("Given a null open",
@@ -48,29 +48,29 @@ namespace TradeJournalCore.MicroTests.TradeTests
         {
             Assert.Throws<ArgumentNullException>("open",
                 () => new Trade(TestMarket, new Strategy(string.Empty), new Levels(0, 0, 0), null!,
-                    Option.None<Execution>(), (Option.None<double>(), Option.None<double>())));
+                    Option.None<Execution>(), (Option.None<double>(), Option.None<double>()), EntryOrderType.Limit));
         }
 
-        [Gwt("Given a null maximum adverse excursion",
+        [Gwt("Given a null high",
             "when created",
             "an exception is thrown")]
         public void T4()
         {
-            Assert.Throws<ArgumentNullException>("adverse",
+            Assert.Throws<ArgumentNullException>("high",
                 () => new Trade(TestMarket, new Strategy(string.Empty), new Levels(0, 0, 0),
                     new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
-                    (null!, Option.None<double>())));
+                    (null!, Option.None<double>()), EntryOrderType.Limit));
         }
 
-        [Gwt("Given a null maximum favourable excursion",
+        [Gwt("Given a null low",
             "when created",
             "an exception is thrown")]
         public void T5()
         {
-            Assert.Throws<ArgumentNullException>("favourable",
+            Assert.Throws<ArgumentNullException>("low",
                 () => new Trade(TestMarket, new Strategy(string.Empty), new Levels(0, 0, 0),
                     new Execution(0, DateTime.MaxValue, 0), Option.None<Execution>(),
-                    (Option.None<double>(), null!)));
+                    (Option.None<double>(), null!), EntryOrderType.Limit));
         }
     }
 }

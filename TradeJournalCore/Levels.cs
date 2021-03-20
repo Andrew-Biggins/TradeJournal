@@ -20,7 +20,8 @@ namespace TradeJournalCore
             {
                 _entry = value;
                 VerifyLevels();
-            } 
+                PropertyChanged.Raise(this, nameof(Entry));
+            }
         }
 
         public double Stop

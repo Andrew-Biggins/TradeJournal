@@ -78,7 +78,7 @@ namespace TradeJournalCore.MicroTests.TradeFiltererViewModelTests
         public void T4()
         {
             // Arrange
-            var statuses = SelectableFactory.GetTradeStatuses();
+            var statuses = SelectableFactory.GetEnumList<TradeStatus>();
             var viewModel = new TradeFiltererViewModel();
 
             // Act
@@ -94,7 +94,7 @@ namespace TradeJournalCore.MicroTests.TradeFiltererViewModelTests
         public void T5()
         {
             // Arrange
-            var directions = SelectableFactory.GetTradeDirections();
+            var directions = SelectableFactory.GetEnumList<TradeDirection>();
             var viewModel = new TradeFiltererViewModel();
 
             // Act

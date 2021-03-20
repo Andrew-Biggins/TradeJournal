@@ -12,8 +12,8 @@
     [CloseLevel] FLOAT NULL, 
     [CloseDateTime] DATETIME NULL, 
     [CloseSize] FLOAT NULL, 
-    [MaxAdverseExcursion] FLOAT NULL, 
-    [MaxFavourableExcursion] FLOAT NULL, 
+    [High] FLOAT NULL, 
+    [Low] FLOAT NULL, 
     [EntryOrderType] NVARCHAR(50) NOT NULL, 
     CONSTRAINT [FK_Trades_Market] FOREIGN KEY ([MarketId]) REFERENCES [Market]([Id]), 
     CONSTRAINT [FK_Trades_Strategy] FOREIGN KEY ([StrategyId]) REFERENCES [Strategy]([Id])

@@ -15,7 +15,7 @@ namespace TradeJournalCore.ViewModels
 
         public SelectableCollection<IMarket> Markets { get; } = GetDefaultMarkets();
 
-        public SelectableCollection<ISelectable> Strategies { get; } = GetDefaultStrategies();
+        public SelectableCollection<ISelectableTradeField> Strategies { get; } = GetDefaultStrategies();
 
         public SelectableCollection<ISelectable> AssetTypes { get; } = GetAssetTypes();
 
@@ -93,7 +93,7 @@ namespace TradeJournalCore.ViewModels
             set => SetProperty(ref _selectedOrderType, value);
         }
 
-        public ICommand ClearTradeFiltersCommand => new BasicCommand(ClearFilters);
+        public ICommand ClearFiltersCommand => new BasicCommand(ClearFilters);
 
         public IFilters GetFilters()
         {

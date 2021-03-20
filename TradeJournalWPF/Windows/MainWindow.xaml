@@ -141,7 +141,7 @@
                         <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="1,0,0,3" Background="BurlyWood" Margin="0.5,0,2,-1">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                 <TextBlock Text="Account Start Size:" FontWeight="Bold" HorizontalAlignment="Right" Background="BurlyWood" Foreground="Black" FontSize="10" Margin="0,0,2,2"/>
-                                <TextBox Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}" Width="55" Height="18" Margin="0,0,0,0.5" >
+                                <TextBox Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}" Width="53" Height="18" Margin="0,0,0,0.5" >
                                     <TextBox.Text>
                                         <Binding Path="AccountStartSize"
                                          Mode="TwoWay"
@@ -195,7 +195,7 @@
                         <DataGrid.Columns>
 
                             <DataGridTextColumn Header="Market" x:Name="MarketColumn"
-                                    Binding="{Binding Market.Name}" Width="0.75*" />
+                                    Binding="{Binding Market.Name}" Width="0.85*" />
 
 
                             <DataGridTemplateColumn Header="Strategy" Width="2.4*" x:Name="StrategyColumn">
@@ -364,7 +364,7 @@
                                 </DataGridTextColumn.HeaderStyle>
                             </DataGridTextColumn>
 
-                            <DataGridTextColumn Header="MFA" x:Name="MfaColumn"
+                            <DataGridTextColumn Header="MFE" x:Name="MfaColumn"
                                             Binding="{Binding MaxFavourableExcursion, Converter={converters:OptionalDoubleToStringConverter}, StringFormat=N1}" Width="0.7*">
                                 <DataGridTextColumn.HeaderStyle>
                                     <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">

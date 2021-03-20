@@ -1,31 +1,9 @@
-﻿using System;
-using System.ComponentModel;
-using Common;
-using TradeJournalCore.Interfaces;
-
-namespace TradeJournalCore
+﻿namespace TradeJournalCore
 {
-    public class AssetType : ISelectable
+    public class AssetType : Selectable
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public string Name { get; }
-
-        public bool IsSelected
+        public AssetType(AssetClass assetClass) : base(assetClass.ToString())
         {
-            get => _isSelected;
-            set
-            {
-                _isSelected = value;
-                PropertyChanged.Raise(this, nameof(IsSelected));
-            }
         }
-
-        public AssetType(AssetClass assetClass)
-        {
-            Name = assetClass.ToString();
-        }
-
-        private bool _isSelected;
     }
 }

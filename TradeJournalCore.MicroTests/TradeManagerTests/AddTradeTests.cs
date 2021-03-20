@@ -132,14 +132,14 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
         }
 
         [Gwt("Given a trade manager",
-            "when a trade is added with an option some max adverse excursion",
-            "the trade is added to the trades collection with the correct option some max adverse excursion")]
+            "when a trade is added with an option some high",
+            "the trade is added to the trades collection with the correct option some high")]
         public void T7()
         {
             // Arrange
             var tradeDetails = TestTradeDetailsViewModel;
-            const double testMaxAdverseExcursion = 69.8;
-            tradeDetails.MaxAdverse = Option.Some(testMaxAdverseExcursion);
+            const double testHigh = 69.8;
+            tradeDetails.High = Option.Some(testHigh);
             var tradeManager = new TradeManager{ Filters = TestFilters };
             var outValue = 1.00;
 
@@ -147,19 +147,19 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             tradeManager.AddNewTrade(tradeDetails);
 
             // Assert
-            tradeManager.Trades[0].MaxAdverseExcursion.IfExistsThen(x => { outValue = x; } );
-            Assert.Equal(testMaxAdverseExcursion, outValue);
+            tradeManager.Trades[0].High.IfExistsThen(x => { outValue = x; } );
+            Assert.Equal(testHigh, outValue);
         }
 
         [Gwt("Given a trade manager",
-            "when a trade is added with an option some max favourable excursion",
-            "the trade is added to the trades collection with the correct option some max favourable excursion")]
+            "when a trade is added with an option some low",
+            "the trade is added to the trades collection with the correct option some low")]
         public void T8()
         {
             // Arrange
             var tradeDetails = TestTradeDetailsViewModel;
-            const double testMaxFavourableExcursion = 93.8;
-            tradeDetails.MaxFavourable = Option.Some(testMaxFavourableExcursion);
+            const double testLow = 93.8;
+            tradeDetails.Low = Option.Some(testLow);
             var tradeManager = new TradeManager{ Filters = TestFilters };
             var outValue = 1.00;
 
@@ -167,8 +167,8 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             tradeManager.AddNewTrade(tradeDetails);
 
             // Assert
-            tradeManager.Trades[0].MaxFavourableExcursion.IfExistsThen(x => { outValue = x; });
-            Assert.Equal(testMaxFavourableExcursion, outValue);
+            tradeManager.Trades[0].Low.IfExistsThen(x => { outValue = x; });
+            Assert.Equal(testLow, outValue);
         }
     }
 }

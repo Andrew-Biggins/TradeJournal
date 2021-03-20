@@ -35,7 +35,7 @@ namespace TradeJournalCore.ViewModels
 
         public TradeFiltererViewModel TradeFiltererViewModel { get; } = new TradeFiltererViewModel();
 
-        public TradeCollectionStatistics Statistics
+        public TradeStatistics Statistics
         {
             get => _statistics;
             private set => SetProperty(ref _statistics, value, nameof(Statistics));
@@ -45,36 +45,38 @@ namespace TradeJournalCore.ViewModels
 
         public RiskManager RiskManager { get; } = new RiskManager();
 
-        public MainWindowViewModel(IRunner runner, ITradeManager tradeManager, TradeDetailsViewModel tradeDetailsViewModel, ITradePlot plot)
+        public MainWindowViewModel(IRunner runner, ITradeManager tradeManager,
+            TradeDetailsViewModel tradeDetailsViewModel, ITradePlot plot)
         {
             _runner = runner ?? throw new ArgumentNullException(nameof(runner));
             TradeManager = tradeManager ?? throw new ArgumentNullException(nameof(tradeManager));
-            _tradeDetailsViewModel = tradeDetailsViewModel ?? throw new ArgumentNullException(nameof(tradeDetailsViewModel));
+            _tradeDetailsViewModel =
+                tradeDetailsViewModel ?? throw new ArgumentNullException(nameof(tradeDetailsViewModel));
             Plot = plot ?? throw new ArgumentNullException(nameof(plot));
 
             TradeManager.Filters = TradeFiltererViewModel.GetFilters();
             _tradeDetailsViewModel.AddSelectables(TradeFiltererViewModel.Markets, TradeFiltererViewModel.Strategies);
 
             _tradeDetailsViewModel.TradeAdded += ConfirmTrade;
-            TradeFiltererViewModel.FiltersChanged += SelectedChanged;
-            TradeFiltererViewModel.Markets.SelectedChanged += SelectedChanged;
-            TradeFiltererViewModel.Markets.CollectionChanged += SelectedChanged;
-            TradeFiltererViewModel.Strategies.SelectedChanged += SelectedChanged;
-            TradeFiltererViewModel.Strategies.CollectionChanged += SelectedChanged;
-            TradeFiltererViewModel.AssetTypes.SelectedChanged += SelectedChanged;
-            TradeFiltererViewModel.DaysOfWeek.SelectedChanged += SelectedChanged;
+            TradeFiltererViewModel.FiltersChanged += OnSelectedChanged;
+            TradeFiltererViewModel.Markets.SelectedChanged += OnSelectedChanged;
+            TradeFiltererViewModel.Markets.CollectionChanged += OnSelectedChanged;
+            TradeFiltererViewModel.Strategies.SelectedChanged += OnSelectedChanged;
+            TradeFiltererViewModel.Strategies.CollectionChanged += OnSelectedChanged;
+            TradeFiltererViewModel.AssetTypes.SelectedChanged += OnSelectedChanged;
+            TradeFiltererViewModel.DaysOfWeek.SelectedChanged += OnSelectedChanged;
 
-            TradeFiltererViewModel.PropertyChanged += FiltersChanged;
+            TradeFiltererViewModel.PropertyChanged += OnFiltersChanged;
 
-            TradeManager.DateRangeChanged += TradeManager_DateRangeChanged;
-            TradeManager.PropertyChanged += TradeManager_PropertyChanged;
+            TradeManager.DateRangeChanged += OnTradeManagerDateRangeChanged;
+            TradeManager.PropertyChanged += OnTradeManagerPropertyChanged;
 
             TradeManager.ReadInTrades();
             UpdateGraph();
             Statistics = GetStatistics(TradeManager.Trades, AccountStartSize);
         }
 
-        private void TradeManager_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void OnTradeManagerPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(TradeManager.Trades))
             {
@@ -83,12 +85,12 @@ namespace TradeJournalCore.ViewModels
             }
         }
 
-        private void TradeManager_DateRangeChanged(object sender, EventArgs e)
+        private void OnTradeManagerDateRangeChanged(object sender, EventArgs e)
         {
             TradeFiltererViewModel.UpdateDates(TradeManager.GetDateRange());
         }
 
-        private void FiltersChanged(object sender, PropertyChangedEventArgs e)
+        private void OnFiltersChanged(object sender, PropertyChangedEventArgs e)
         {
             if (!(e.PropertyName == nameof(TradeFiltererViewModel.TradesStartDate) ||
                   e.PropertyName == nameof(TradeFiltererViewModel.TradesEndDate)))
@@ -97,7 +99,7 @@ namespace TradeJournalCore.ViewModels
             }
         }
 
-        private void SelectedChanged(object sender, EventArgs e)
+        private void OnSelectedChanged(object sender, EventArgs e)
         {
             TradeManager.FilterTrades(TradeFiltererViewModel.GetFilters());
         }
@@ -158,6 +160,6 @@ namespace TradeJournalCore.ViewModels
         private readonly IRunner _runner;
         private readonly TradeDetailsViewModel _tradeDetailsViewModel;
         private double _accountStartSize = 10000;
-        private TradeCollectionStatistics _statistics;
+        private TradeStatistics _statistics;
     }
 }

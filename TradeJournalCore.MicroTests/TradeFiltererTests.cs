@@ -356,12 +356,12 @@ namespace TradeJournalCore.MicroTests
         }
 
         [Gwt("Given a trade filterer",
-            "when filtered for direction",
+            "when filtered for order type",
             "an observable collection is returned")]
         public void T15()
         {
             // Act 
-            var actual = RemoveUnselectedTradeDirections(new List<ITrade>(), TradeDirection.Both);
+            var actual = RemoveUnselectedOrderTypes(new List<ITrade>(), EntryOrderType.Both);
 
             // Assert
             Assert.IsType<ObservableCollection<ITrade>>(actual);

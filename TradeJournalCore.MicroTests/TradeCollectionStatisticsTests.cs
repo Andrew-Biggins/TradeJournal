@@ -11,7 +11,7 @@ namespace TradeJournalCore.MicroTests
         public void T0()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1);
+            var stats = new TradeStatistics(2, 3, 1, 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1);
 
             // Act 
             var actual = stats.TradeCount;
@@ -26,7 +26,7 @@ namespace TradeJournalCore.MicroTests
         public void T1()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1,1);
 
             // Act 
             var actual = stats.Wins;
@@ -41,7 +41,7 @@ namespace TradeJournalCore.MicroTests
         public void T2()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1, 1,1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1, 1,1);
 
             // Act 
             var actual = stats.Loses;
@@ -56,7 +56,7 @@ namespace TradeJournalCore.MicroTests
         public void T3()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 0.66, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            var stats = new TradeStatistics(2, 3, 0.66, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
             // Act 
             var actual = stats.WinProbability;
@@ -71,7 +71,7 @@ namespace TradeJournalCore.MicroTests
         public void T4()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 55, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1);
+            var stats = new TradeStatistics(2, 3, 1, 55, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1);
 
             // Act 
             var actual = stats.LongestWinningStreak;
@@ -86,7 +86,7 @@ namespace TradeJournalCore.MicroTests
         public void T5()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 66, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 66, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1);
 
             // Act 
             var actual = stats.LongestLosingStreak;
@@ -101,7 +101,7 @@ namespace TradeJournalCore.MicroTests
         public void T6()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 77, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1, 1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 77, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1, 1);
 
             // Act 
             var actual = stats.PointsTotal;
@@ -116,7 +116,7 @@ namespace TradeJournalCore.MicroTests
         public void T7()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 88, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 88, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
             // Act 
             var actual = stats.CashTotal;
@@ -131,7 +131,7 @@ namespace TradeJournalCore.MicroTests
         public void T8()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 99, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 99, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
             // Act 
             var actual = stats.BiggestPointsWin;
@@ -146,7 +146,7 @@ namespace TradeJournalCore.MicroTests
         public void T9()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 1, 321, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 1, 321, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1);
 
             // Act 
             var actual = stats.BiggestCashWin;
@@ -161,7 +161,7 @@ namespace TradeJournalCore.MicroTests
         public void T10()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 567, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 567, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
             // Act 
             var actual = stats.BiggestPointsLoss;
@@ -176,7 +176,7 @@ namespace TradeJournalCore.MicroTests
         public void T11()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 789, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 789, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
             // Act 
             var actual = stats.BiggestCashLoss;
@@ -191,7 +191,7 @@ namespace TradeJournalCore.MicroTests
         public void T12()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 367, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 367, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
             // Act 
             var actual = stats.AveragePointsWin;
@@ -206,7 +206,7 @@ namespace TradeJournalCore.MicroTests
         public void T13()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 987, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 987, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
             // Act 
             var actual = stats.AveragePointsLoss;
@@ -221,7 +221,7 @@ namespace TradeJournalCore.MicroTests
         public void T14()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 592, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 592, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
             // Act 
             var actual = stats.AverageCashWin;
@@ -236,7 +236,7 @@ namespace TradeJournalCore.MicroTests
         public void T15()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 786, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 786, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
             // Act 
             var actual = stats.AverageCashLoss;
@@ -251,7 +251,7 @@ namespace TradeJournalCore.MicroTests
         public void T16()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.77, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.77, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
             // Act 
             var actual = stats.AverageDrawdown;
@@ -266,7 +266,7 @@ namespace TradeJournalCore.MicroTests
         public void T17()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 45, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 45, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
             // Act 
             var actual = stats.AverageMaximumAdverseExcursion;
@@ -281,7 +281,7 @@ namespace TradeJournalCore.MicroTests
         public void T18()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 72, 1, 1, 1, 1, 1, 1, 1, 1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 72, 1, 1, 1, 1, 1, 1, 1, 1);
 
             // Act 
             var actual = stats.AverageMaximumFavourableExcursion;
@@ -296,7 +296,7 @@ namespace TradeJournalCore.MicroTests
         public void T19()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 7.45, 1, 1, 1, 1, 1, 1, 1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 7.45, 1, 1, 1, 1, 1, 1, 1);
 
             // Act 
             var actual = stats.AverageRiskRewardRatio;
@@ -311,7 +311,7 @@ namespace TradeJournalCore.MicroTests
         public void T20()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3.65, 1, 1, 1, 1, 1, 1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3.65, 1, 1, 1, 1, 1, 1);
 
             // Act 
             var actual = stats.AverageResultInR;
@@ -326,7 +326,7 @@ namespace TradeJournalCore.MicroTests
         public void T21()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.87, 1, 1, 1, 1, 1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.87, 1, 1, 1, 1, 1);
 
             // Act 
             var actual = stats.AverageRealisedProfitPercentage;
@@ -341,7 +341,7 @@ namespace TradeJournalCore.MicroTests
         public void T22()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.23, 1, 1, 1, 1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.23, 1, 1, 1, 1);
 
             // Act 
             var actual = stats.AverageUnrealisedProfitPoints;
@@ -356,7 +356,7 @@ namespace TradeJournalCore.MicroTests
         public void T24()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5.33, 1, 1, 1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5.33, 1, 1, 1);
 
             // Act 
             var actual = stats.AverageUnrealisedProfitCash;
@@ -371,7 +371,7 @@ namespace TradeJournalCore.MicroTests
         public void T25()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.23, 1, 1.76, 1, 1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.23, 1, 1.76, 1, 1);
 
             // Act 
             var actual = stats.Gain;
@@ -386,7 +386,7 @@ namespace TradeJournalCore.MicroTests
         public void T26()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.23, 1, 1, 23.65, 1);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.23, 1, 1, 23.65, 1);
 
             // Act 
             var actual = stats.CashExpectancy;
@@ -401,7 +401,7 @@ namespace TradeJournalCore.MicroTests
         public void T27()
         {
             // Arrange
-            var stats = new TradeCollectionStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.23, 1, 1, 1, 432.66);
+            var stats = new TradeStatistics(2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.23, 1, 1, 1, 432.66);
 
             // Act 
             var actual = stats.PointsExpectancy;

@@ -6,6 +6,26 @@ namespace TradeJournalCore
 {
     public sealed class TradeDetailsValidator : ViewModelBase
     {
+        public bool MarketsHaveError
+        {
+            get => _marketsHaveError;
+            set
+            {
+                SetProperty(ref _marketsHaveError, value, nameof(MarketsHaveError));
+                VerifyInputs();
+            }
+        }
+
+        public bool StrategiesHaveError
+        {
+            get => _strategiesHaveError;
+            set
+            {
+                SetProperty(ref _strategiesHaveError, value, nameof(StrategiesHaveError));
+                VerifyInputs();
+            }
+        }
+
         public bool EntryHasError
         {
             get => _entryHasError;
@@ -76,29 +96,29 @@ namespace TradeJournalCore
             }
         }
 
-        public bool MaeHasError
+        public bool HighHasError
         {
-            get => _maeHasError;
+            get => _highHasError;
             set
             {
-                SetProperty(ref _maeHasError, value, nameof(MaeHasError));
+                SetProperty(ref _highHasError, value, nameof(HighHasError));
                 VerifyInputs();
             }
         }
 
-        public bool MfeHasError
+        public bool LowHasError
         {
-            get => _mfeHasError;
+            get => _lowHasError;
             set
             {
-                SetProperty(ref _mfeHasError, value, nameof(MfeHasError));
+                SetProperty(ref _lowHasError, value, nameof(LowHasError));
                 VerifyInputs();
             }
         }
 
-        public double MaximumMae { get; private set; } = double.PositiveInfinity;
+        public double MaximumLow { get; private set; } = double.PositiveInfinity;
 
-        public double MinimumMfe { get; private set; }
+        public double MinimumHigh { get; private set; }
 
         public bool IsTradeValid
         {
@@ -113,105 +133,49 @@ namespace TradeJournalCore
             VerifyInputs();
         }
 
-        internal void UpdateExcursionLimits(Direction tradeDirection, Optional<double> close, double open,
-            PipDivisor pipDivisor)
+        internal void UpdateExcursionLimits(Direction tradeDirection, Optional<double> close, double open)
         {
             if (tradeDirection == Direction.Long)
             {
-                CalculateLongMaximumMae(close, open, pipDivisor);
-                CalculateLongMinimumMfe(close, open, pipDivisor);
+                CalculateLongMinimumHigh(close, open);
             }
             else
             {
-                CalculateShortMaximumMae(close, open, pipDivisor);
-                CalculateShortMinimumMfe(close, open, pipDivisor);
+                MinimumHigh = open;
             }
 
-            ValidateMae(_mae);
-            ValidateMfe(_mfe);
+            MaximumLow = open;
+
+            ValidateHigh(_high);
+            ValidateLow(_low);
         }
 
-        private void CalculateLongMaximumMae(Optional<double> close, double open, PipDivisor pipDivisor)
+        public void ValidateHigh(Optional<double> high)
         {
-            close.IfExistsThen(x =>
-            {
-                if (x >= open)
-                {
-                    MaximumMae = open * (int)pipDivisor;
-                }
-                else
-                {
-                    MaximumMae = (open - x) * (int)pipDivisor;
-                }
-
-            }).IfEmpty(() => { MaximumMae = open *(int)pipDivisor; });
+            _high = high;
+            _high.IfExistsThen(x => { HighHasError = x < MinimumHigh; })
+                 .IfEmpty(() => HighHasError = false);
         }
 
-        private void CalculateLongMinimumMfe(Optional<double> close, double open, PipDivisor pipDivisor)
+        public void ValidateLow(Optional<double> low)
         {
-            close.IfExistsThen(x =>
-            {
-                if (x >= open)
-                {
-                    MinimumMfe = (x - open) * (int)pipDivisor;
-                }
-                else
-                {
-                    MinimumMfe = 0;
-                }
-            }).IfEmpty(() => { MinimumMfe = 0; });
+            _low = low;
+            _low.IfExistsThen(x => { LowHasError = x > MaximumLow; })
+                .IfEmpty(() => LowHasError = false);
         }
 
-        private void CalculateShortMaximumMae(Optional<double> close, double open, PipDivisor pipDivisor)
+        private void CalculateLongMinimumHigh(Optional<double> close, double open)
         {
-            close.IfExistsThen(x =>
-            {
-                if (x <= open)
-                {
-                    MaximumMae = double.PositiveInfinity;
-                }
-                else
-                {
-                    MaximumMae = (x - open) * (int)pipDivisor;
-                }
-
-            }).IfEmpty(() => { MaximumMae = double.PositiveInfinity; });
-        }
-
-        private void CalculateShortMinimumMfe(Optional<double> close, double open, PipDivisor pipDivisor)
-        {
-            close.IfExistsThen(x =>
-            {
-                if (x <= open)
-                {
-                    MinimumMfe = (open - x) * (int)pipDivisor;
-                }
-                else
-                {
-                    MinimumMfe = 0;
-                }
-            }).IfEmpty(() => { MinimumMfe = 0; });
-        }
-
-        public void ValidateMae(Optional<double> mae)
-        {
-            _mae = mae;
-            _mae.IfExistsThen(x => { MaeHasError = x > MaximumMae; }) 
-                .IfEmpty(() => MaeHasError = false); 
-        }
-
-        public void ValidateMfe(Optional<double> mfe)
-        {
-            _mfe = mfe;
-            _mfe.IfExistsThen(x => { MfeHasError = x < MinimumMfe; })
-                .IfEmpty(() => MfeHasError = false);
+            close.IfExistsThen(x => MinimumHigh = x >= open ? x : open)
+                 .IfEmpty(() => MinimumHigh = 0);
         }
 
         private void VerifyInputs()
         {
-            if (EntryHasError || TargetHasError || StopHasError ||
-                OpenLevelHasError || CloseLevelHasError || SizeHasError
-                || DatesHaveError || MaeHasError || MfeHasError)
+            if (MarketsHaveError || StrategiesHaveError || EntryHasError || 
+                TargetHasError || StopHasError || OpenLevelHasError || 
+                CloseLevelHasError || SizeHasError || DatesHaveError || 
+                HighHasError || LowHasError)
             {
                 IsTradeValid = false;
             }
@@ -221,18 +185,20 @@ namespace TradeJournalCore
             }
         }
 
+        private bool _marketsHaveError;
+        private bool _strategiesHaveError;
         private bool _entryHasError;
         private bool _targetHasError;
         private bool _stopHasError;
         private bool _openLevelHasError;
         private bool _closeLevelHasError;
         private bool _sizeHasError;
-        private bool _mfeHasError;
-        private bool _maeHasError;
+        private bool _lowHasError;
+        private bool _highHasError;
         private bool _isTradeValid;
         private bool _datesHaveError;
 
-        private Optional<double> _mae = Option.None<double>();
-        private Optional<double> _mfe = Option.None<double>();
+        private Optional<double> _high = Option.None<double>();
+        private Optional<double> _low = Option.None<double>();
     }
 }

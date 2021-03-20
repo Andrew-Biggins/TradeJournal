@@ -22,8 +22,9 @@ namespace TradeJournalCore
         public ITrade SelectedTrade { get; set; }
 
         public IFilters Filters { get; set; } = new Filters(GetDefaultMarkets(), GetDefaultStrategies(),
-            GetAssetTypes(), GetDays(), DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue, DateTime.MaxValue, 0,
-            9999, TradeStatus.Both, TradeDirection.Both, EntryOrderType.Both);
+            GetAssetTypes(), GetDays(), DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue,
+            DateTime.MaxValue, 0, 9999, TradeStatus.Both, TradeDirection.Both,
+            EntryOrderType.Both);
 
         public void ReadInTrades()
         {
@@ -39,7 +40,7 @@ namespace TradeJournalCore
             var trade = new Trade(tradeDetails.SelectedMarket, tradeDetails.SelectedStrategy,
                 new Levels(tradeDetails.Levels.Entry, tradeDetails.Levels.Stop, tradeDetails.Levels.Target),
                 new Execution(tradeDetails.Open.Level, tradeDetails.Open.DateTime, tradeDetails.Open.Size), close,
-                (tradeDetails.MaxAdverse, tradeDetails.MaxFavourable), tradeDetails.SelectedEntryOrderType);
+                (tradeDetails.High, tradeDetails.Low), tradeDetails.SelectedEntryOrderType);
 
             _unfilteredTrades.Add(trade);
             DataConnection.AddTrade(trade);
@@ -136,9 +137,11 @@ namespace TradeJournalCore
             var close = new Execution(0, tradeDetails.CloseDateTime, 0);
             var fieldIsEmpty = false;
 
-            tradeDetails.CloseLevel.IfExistsThen(x => { close.Level = x; }).IfEmpty(() => fieldIsEmpty = true);
+            tradeDetails.CloseLevel.IfExistsThen(x => { close.Level = x; })
+                                   .IfEmpty(() => fieldIsEmpty = true);
 
-            return fieldIsEmpty ? Option.None<Execution>() : Option.Some(close);
+            return fieldIsEmpty ? Option.None<Execution>() 
+                                : Option.Some(close);
         }
 
         private IList<ITrade> _unfilteredTrades = new List<ITrade>();

@@ -15,7 +15,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
         {
             // Arrange
             var trade = new Trade(TestMarket, new Strategy(string.Empty), new Levels(1, 2, 3),
-                new Execution(0, DateTime.MinValue, 0), Option.None<Execution>(), (Option.None<double>(), Option.None<double>()));
+                new Execution(0, DateTime.MinValue, 0), Option.None<Execution>(), (Option.None<double>(), Option.None<double>()), EntryOrderType.Limit);
 
             // Act 
             var actual = trade.Direction;
@@ -31,7 +31,7 @@ namespace TradeJournalCore.MicroTests.TradeTests
         {
             // Arrange
             var trade = new Trade(TestMarket, new Strategy(string.Empty), new Levels(10, 15, 5),
-                new Execution(0, DateTime.MinValue, 0), Option.None<Execution>(), (Option.None<double>(), Option.None<double>()));
+                new Execution(0, DateTime.MinValue, 0), Option.None<Execution>(), (Option.None<double>(), Option.None<double>()), EntryOrderType.Limit);
 
             // Act 
             var actual = trade.Direction;

@@ -36,7 +36,8 @@ namespace TradeJournalCore
                         {
                             var assetClass = (AssetClass) Enum.Parse(typeof(AssetClass), reader.GetFieldValue<string>(2));
                             var pipDivisor = (PipDivisor) Enum.Parse(typeof(PipDivisor), reader.GetFieldValue<string>(3));
-                            collection.AddSelectable(new Market(reader.GetFieldValue<string>(1), assetClass, pipDivisor) { IsSelected = true });
+                            collection.AddSelectable(new Market(reader.GetFieldValue<string>(1), assetClass, pipDivisor)
+                                { Id = reader.GetFieldValue<int>(0), IsSelected = true });
                         }
                     }
                 }
@@ -51,9 +52,9 @@ namespace TradeJournalCore
             return collection;
         }
 
-        internal static SelectableCollection<ISelectable> GetDefaultStrategies()
+        internal static SelectableCollection<ISelectableTradeField> GetDefaultStrategies()
         {
-            var collection = new SelectableCollection<ISelectable>();
+            var collection = new SelectableCollection<ISelectableTradeField>();
 
             try
             {
@@ -70,7 +71,8 @@ namespace TradeJournalCore
                     {
                         while (reader.Read())
                         {
-                            collection.AddSelectable(new Strategy(reader.GetFieldValue<string>(1)) { IsSelected = true });
+                            collection.AddSelectable(new Strategy(reader.GetFieldValue<string>(1)) 
+                                { Id = reader.GetFieldValue<int>(0), IsSelected = true });
                         }
                     }
                 }
@@ -81,7 +83,6 @@ namespace TradeJournalCore
             {
                 Console.WriteLine(e.ToString());
             }
-
 
             return collection;
         }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
-using OxyPlot;
 using TradeJournalCore.Interfaces;
 using TradeJournalCore.ViewModelAdapters;
 

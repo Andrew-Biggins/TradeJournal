@@ -8,7 +8,7 @@ namespace TradeJournalCore.Interfaces
 
         IMarket Market { get; }
 
-        ISelectable Strategy { get; }
+        ISelectableTradeField Strategy { get; }
 
         Levels Levels { get; }
 
@@ -23,6 +23,10 @@ namespace TradeJournalCore.Interfaces
         Optional<double> MaxAdverseExcursion { get; }
 
         Optional<double> MaxFavourableExcursion { get; }
+
+        Optional<double> High { get; }
+
+        Optional<double> Low { get; }
 
         Optional<double> ResultInR { get; }
 
