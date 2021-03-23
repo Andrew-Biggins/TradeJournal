@@ -119,7 +119,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
 
         [Gwt("Given a trade details view model",
             "when a trade is edited",
-            "the close date time is the same as the editing trade")]
+            "the close date is the same as the editing trade")]
         public void T6()
         {
             // Arrange
@@ -129,7 +129,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
             viewModel.EditTrade(TestClosedTrade);
 
             // Assert
-            Assert.Equal(TestClose.DateTime, viewModel.CloseDateTime);
+            Assert.Equal(TestClose.Date, viewModel.CloseDate);
         }
 
         [Gwt("Given a trade details view model with a close level",

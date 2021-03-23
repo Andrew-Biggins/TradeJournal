@@ -276,7 +276,7 @@ namespace TradeJournalCore.MicroTests.TradePlotTests
             var actual = plot.Axes[1].StringFormat;
 
             // Assert
-            Assert.Equal("dd/MM HH:mm", actual);
+            Assert.Equal("dd/MM", actual);
         }
 
         [Gwt("Given a trade plot",
@@ -291,7 +291,7 @@ namespace TradeJournalCore.MicroTests.TradePlotTests
             var actual = plot.Axes[1].Title;
 
             // Assert
-            Assert.Equal("Date/Time", actual);
+            Assert.Equal("Date", actual);
         }
 
         [Gwt("Given a trade plot",

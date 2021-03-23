@@ -52,15 +52,21 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var tradeManager = new TradeManager {Filters = TestFilters};
 
             var testTradeOneDetails = TestTradeDetailsViewModel;
-            testTradeOneDetails.SelectedMarket = new Market("Gold", AssetClass.Commodities, PipDivisor.One);
+            var testMarket = new Market("Gold", AssetClass.Commodities, PipDivisor.One);
+            testTradeOneDetails.SelectedMarket = testMarket;
             tradeManager.AddNewTrade(testTradeOneDetails);
 
             var testTradeTwoDetails = TestTradeDetailsViewModel;
-            testTradeTwoDetails.SelectedMarket = new Market("USDJPY", AssetClass.Currencies, PipDivisor.One);
+            var testMarketTwo = new Market("USDJPY", AssetClass.Currencies, PipDivisor.One);
+            testTradeTwoDetails.SelectedMarket = testMarketTwo;
             tradeManager.AddNewTrade(testTradeTwoDetails);
 
+            var markets = GetDefaultMarkets();
+            markets.Add(testMarket);
+            markets.Add(testMarketTwo);
+
             var assetClasses = new List<ISelectable> { new AssetType(AssetClass.Commodities)};
-            var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), assetClasses, GetDays(),
+            var filters = new Filters(markets, GetDefaultStrategies(), assetClasses, GetDays(),
                 DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue, DateTime.MaxValue, 0, 999, TradeStatus.Both,
                 TradeDirection.Both, EntryOrderType.Both);
 
@@ -110,15 +116,19 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var tradeManager = new TradeManager { Filters = TestFilters };
 
             var testTradeOneDetails = TestTradeDetailsViewModel;
+            testTradeOneDetails.SelectedMarket = TestMarket;
             testTradeOneDetails.SelectedStrategy = new Strategy("Triangle");
             tradeManager.AddNewTrade(testTradeOneDetails);
 
             var testTradeTwoDetails = TestTradeDetailsViewModel;
+            testTradeTwoDetails.SelectedMarket = TestMarket;
             testTradeTwoDetails.SelectedStrategy = new Strategy("Gap fill"); 
             tradeManager.AddNewTrade(testTradeTwoDetails);
 
+            var markets = GetDefaultMarkets();
+            markets.Add(TestMarket);
             var strategies = new List<ISelectable> { new Strategy("Triangle") };
-            var filters = new Filters(GetDefaultMarkets(), strategies, GetAssetTypes(), GetDays(),
+            var filters = new Filters(markets, strategies, GetAssetTypes(), GetDays(),
                 DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue, DateTime.MaxValue, 0, 999, TradeStatus.Both,
                 TradeDirection.Both, EntryOrderType.Both);
 
@@ -139,17 +149,22 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var tradeManager = new TradeManager { Filters = TestFilters };
 
             var testTradeOneDetails = TestTradeDetailsViewModel;
+            testTradeOneDetails.SelectedMarket = TestMarket;
             testTradeOneDetails.SelectedStrategy = new Strategy("Triangle");
-            testTradeOneDetails.Open.DateTime = new DateTime(2021,1, 2);
+            testTradeOneDetails.Open.Date = new DateTime(2021,1, 2);
             tradeManager.AddNewTrade(testTradeOneDetails);
 
             var testTradeTwoDetails = TestTradeDetailsViewModel;
+            testTradeTwoDetails.SelectedMarket = TestMarket;
             testTradeTwoDetails.SelectedStrategy = new Strategy("Gap fill");
-            testTradeTwoDetails.Open.DateTime = new DateTime(2021, 1, 3);
+            testTradeTwoDetails.Open.Date = new DateTime(2021, 1, 3);
             tradeManager.AddNewTrade(testTradeTwoDetails);
 
+            var markets = GetDefaultMarkets();
+            markets.Add(TestMarket);
+
             var days = new List<ISelectable> { new Day(DayOfWeek.Saturday) };
-            var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(), days,
+            var filters = new Filters(markets, GetDefaultStrategies(), GetAssetTypes(), days,
                 DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue, DateTime.MaxValue, 0, 999, TradeStatus.Both,
                 TradeDirection.Both, EntryOrderType.Both);
 
@@ -170,17 +185,21 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var tradeManager = new TradeManager { Filters = TestFilters };
 
             var testTradeOneDetails = TestTradeDetailsViewModel;
+            testTradeOneDetails.SelectedMarket = TestMarket;
             testTradeOneDetails.SelectedStrategy = new Strategy("Triangle");
-            testTradeOneDetails.Open.DateTime = new DateTime(2021, 1, 2);
+            testTradeOneDetails.Open.Date = new DateTime(2021, 1, 2);
             tradeManager.AddNewTrade(testTradeOneDetails);
 
             var testTradeTwoDetails = TestTradeDetailsViewModel;
+            testTradeTwoDetails.SelectedMarket = TestMarket;
             testTradeTwoDetails.SelectedStrategy = new Strategy("Gap fill");
-            testTradeTwoDetails.Open.DateTime = new DateTime(2021, 1, 3);
+            testTradeTwoDetails.Open.Date = new DateTime(2021, 1, 3);
             tradeManager.AddNewTrade(testTradeTwoDetails);
 
-            var days = new List<ISelectable> { new Day(DayOfWeek.Saturday) };
-            var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(), days,
+            var markets = GetDefaultMarkets();
+            markets.Add(TestMarket);
+
+            var filters = new Filters(markets, GetDefaultStrategies(), GetAssetTypes(), GetDays(),
                 new DateTime(2021, 1, 2), new DateTime(2021, 1, 2), DateTime.MinValue, DateTime.MaxValue, 
                 0, 999, TradeStatus.Both, TradeDirection.Both, EntryOrderType.Both);
 
@@ -201,17 +220,23 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var tradeManager = new TradeManager { Filters = TestFilters };
 
             var testTradeOneDetails = TestTradeDetailsViewModel;
+            testTradeOneDetails.SelectedMarket = TestMarket;
             testTradeOneDetails.SelectedStrategy = new Strategy("Triangle");
-            testTradeOneDetails.Open.DateTime = new DateTime(2021, 1, 2, 11, 00, 00);
+            testTradeOneDetails.Open.Date = new DateTime(2021, 1, 2, 11, 00, 00);
+            testTradeOneDetails.Open.Time = new DateTime(2021, 1, 2, 11, 00, 00);
             tradeManager.AddNewTrade(testTradeOneDetails);
 
             var testTradeTwoDetails = TestTradeDetailsViewModel;
+            testTradeTwoDetails.SelectedMarket = TestMarket;
             testTradeTwoDetails.SelectedStrategy = new Strategy("Gap fill");
-            testTradeTwoDetails.Open.DateTime = new DateTime(2021, 1, 3, 12, 00,00);
+            testTradeTwoDetails.Open.Date = new DateTime(2021, 1, 3, 12, 00,00);
+            testTradeTwoDetails.Open.Time = new DateTime(2021, 1, 3, 12, 00,00);
             tradeManager.AddNewTrade(testTradeTwoDetails);
 
-            var days = new List<ISelectable> { new Day(DayOfWeek.Saturday) };
-            var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(), days,
+            var markets = GetDefaultMarkets();
+            markets.Add(TestMarket);
+
+            var filters = new Filters(markets, GetDefaultStrategies(), GetAssetTypes(), GetDays(),
                 DateTime.MinValue, DateTime.MaxValue, new DateTime(2021, 1, 2, 10, 00, 00),
                 new DateTime(2021, 1, 2, 11, 30, 00),
                 0, 999, TradeStatus.Both, TradeDirection.Both, EntryOrderType.Both);
@@ -233,6 +258,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var tradeManager = new TradeManager { Filters = TestFilters };
 
             var testTradeOneDetails = TestTradeDetailsViewModel;
+            testTradeOneDetails.SelectedMarket = TestMarket;
             testTradeOneDetails.SelectedStrategy = new Strategy("Triangle");
             testTradeOneDetails.Levels.Entry = 100;
             testTradeOneDetails.Levels.Stop = 50;
@@ -240,13 +266,17 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             tradeManager.AddNewTrade(testTradeOneDetails);
 
             var testTradeTwoDetails = TestTradeDetailsViewModel;
+            testTradeTwoDetails.SelectedMarket = TestMarket;
             testTradeTwoDetails.SelectedStrategy = new Strategy("Gap fill");
             testTradeTwoDetails.Levels.Entry = 100;
             testTradeTwoDetails.Levels.Stop = 50;
             testTradeTwoDetails.Levels.Target = 300;
             tradeManager.AddNewTrade(testTradeTwoDetails);
 
-            var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(), GetDays(),
+            var markets = GetDefaultMarkets();
+            markets.Add(TestMarket);
+
+            var filters = new Filters(markets, GetDefaultStrategies(), GetAssetTypes(), GetDays(),
                 DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue, 
                 DateTime.MaxValue, 2, 2, TradeStatus.Both, TradeDirection.Both, EntryOrderType.Both);
 
@@ -267,16 +297,21 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var tradeManager = new TradeManager { Filters = TestFilters };
 
             var testTradeOneDetails = TestTradeDetailsViewModel;
+            testTradeOneDetails.SelectedMarket = TestMarket;
             testTradeOneDetails.SelectedStrategy = new Strategy("Triangle");
             testTradeOneDetails.CloseLevel = Option.Some(100.0);
             tradeManager.AddNewTrade(testTradeOneDetails);
 
             var testTradeTwoDetails = TestTradeDetailsViewModel;
+            testTradeTwoDetails.SelectedMarket = TestMarket;
             testTradeTwoDetails.SelectedStrategy = new Strategy("Gap fill");
             testTradeTwoDetails.CloseLevel = Option.None<double>();
             tradeManager.AddNewTrade(testTradeTwoDetails);
 
-            var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(), GetDays(),
+            var markets = GetDefaultMarkets();
+            markets.Add(TestMarket);
+
+            var filters = new Filters(markets, GetDefaultStrategies(), GetAssetTypes(), GetDays(),
                 DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue,
                 DateTime.MaxValue, 0, 999, TradeStatus.Closed, TradeDirection.Both, EntryOrderType.Both);
 
@@ -297,6 +332,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var tradeManager = new TradeManager { Filters = TestFilters };
 
             var testTradeOneDetails = TestTradeDetailsViewModel;
+            testTradeOneDetails.SelectedMarket = TestMarket;
             testTradeOneDetails.SelectedStrategy = new Strategy("Triangle");
             testTradeOneDetails.Levels.Entry = 100;
             testTradeOneDetails.Levels.Stop = 50;
@@ -304,13 +340,17 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             tradeManager.AddNewTrade(testTradeOneDetails);
 
             var testTradeTwoDetails = TestTradeDetailsViewModel;
+            testTradeTwoDetails.SelectedMarket = TestMarket;
             testTradeTwoDetails.SelectedStrategy = new Strategy("Gap fill");
             testTradeTwoDetails.Levels.Entry = 100;
             testTradeTwoDetails.Levels.Stop = 530;
             testTradeTwoDetails.Levels.Target = 50;
             tradeManager.AddNewTrade(testTradeTwoDetails);
 
-            var filters = new Filters(GetDefaultMarkets(), GetDefaultStrategies(), GetAssetTypes(), GetDays(),
+            var markets = GetDefaultMarkets();
+            markets.Add(TestMarket);
+
+            var filters = new Filters(markets, GetDefaultStrategies(), GetAssetTypes(), GetDays(),
                 DateTime.MinValue, DateTime.MaxValue, DateTime.MinValue,
                 DateTime.MaxValue, 0, 999, TradeStatus.Both, TradeDirection.Long, EntryOrderType.Both);
 

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Common.Optional;
+using System;
 using System.Globalization;
-using System.Text;
 using System.Windows.Data;
-using Common.Optional;
 using TradeJournalCore;
+using static TradeJournalCore.DateTimeHelper;
 
 namespace TradeJournalWPF.Converters
 {
@@ -21,7 +20,7 @@ namespace TradeJournalWPF.Converters
 
             var d = (Optional<Execution>)value;
 
-            d.IfExistsThen(x => { y = x.DateTime; });
+            d.IfExistsThen(x => { y = CombineDateTime(x.Date, x.Time); });
 
             return y;
         }

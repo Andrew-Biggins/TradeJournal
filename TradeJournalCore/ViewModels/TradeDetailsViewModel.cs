@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using TradeJournalCore.Interfaces;
+using static TradeJournalCore.DateTimeHelper;
 
 namespace TradeJournalCore.ViewModels
 {
@@ -47,13 +48,23 @@ namespace TradeJournalCore.ViewModels
             }
         }
 
-        public DateTime CloseDateTime
+        public DateTime CloseDate
         {
             get => _closeDateTime;
             set
             {
                 _closeDateTime = value;
-                TradeDetailsValidator.VerifyDates(Open.DateTime, CloseDateTime);
+                VerifyDateTimes();
+            }
+        }
+
+        public DateTime CloseTime
+        {
+            get => _closeDateTime;
+            set
+            {
+                _closeDateTime = value;
+                VerifyDateTimes();
             }
         }
 
@@ -104,7 +115,7 @@ namespace TradeJournalCore.ViewModels
             Open.PropertyChanged += OnOpenChanged;
             Levels.PropertyChanged += OnLevelsChanged;
 
-            TradeDetailsValidator.VerifyDates(Open.DateTime, CloseDateTime);
+            VerifyDateTimes();
         }
 
         public void EditTrade(ITrade trade)
@@ -121,13 +132,15 @@ namespace TradeJournalCore.ViewModels
             trade.Close.IfExistsThen(x =>
             {
                 CloseLevel = Option.Some(x.Level);
-                CloseDateTime = x.DateTime;
+                CloseDate = x.Date;
+                CloseTime = x.Time;
             }).IfEmpty(() =>
             {
                 CloseLevel = Option.None<double>();
-                High = Option.None<double>();
-                Low = Option.None<double>();
             });
+
+            High = trade.High;
+            Low = trade.Low;
         }
 
         public void AddSelectables(SelectableCollection<IMarket> markets,
@@ -168,9 +181,9 @@ namespace TradeJournalCore.ViewModels
 
         private void OnOpenChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(Execution.DateTime))
+            if (e.PropertyName == nameof(Execution.Date) || e.PropertyName == nameof(Execution.Time))
             {
-                TradeDetailsValidator.VerifyDates(Open.DateTime, CloseDateTime);
+                VerifyDateTimes();
             }
 
             if (e.PropertyName == nameof(Execution.Level))
@@ -318,6 +331,9 @@ namespace TradeJournalCore.ViewModels
                 }
             }
         }
+
+        private void VerifyDateTimes() => TradeDetailsValidator.VerifyDates(CombineDateTime(Open.Date, Open.Time),
+            CombineDateTime(CloseDate, CloseTime));
 
         private readonly IRunner _runner;
         private readonly GetNameViewModel _getNameViewModel;

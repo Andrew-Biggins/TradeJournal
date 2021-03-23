@@ -201,22 +201,22 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
         //}
 
         // Also tests subscription to open date changed event
-        [Gwt("Given a trade details view model has details",
-            "when the open date time is updated to an invalid date",
-            "the trade details validator's has a dates error")]
-        public void T10()
-        {
-            // Arrange
-            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()) { SelectedMarket = TestMarket };
-            viewModel.Open.DateTime = new DateTime(2020, 11, 11, 12, 00, 00);
-            viewModel.CloseDateTime = new DateTime(2020, 11, 12, 12, 00, 00);
+        //[Gwt("Given a trade details view model has details",
+        //    "when the open date time is updated to an invalid date",
+        //    "the trade details validator's has a dates error")]
+        //public void T10()
+        //{
+        //    // Arrange
+        //    var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel()) { SelectedMarket = TestMarket };
+        //    viewModel.Open.DateTime = new DateTime(2020, 11, 11, 12, 00, 00);
+        //    viewModel.CloseDateTime = new DateTime(2020, 11, 12, 12, 00, 00);
 
-            // Act 
-            viewModel.Open.DateTime = new DateTime(2020, 11,13, 12,00,00);
+        //    // Act 
+        //    viewModel.Open.DateTime = new DateTime(2020, 11,13, 12,00,00);
 
-            // Assert
-            Assert.True(viewModel.TradeDetailsValidator.DatesHaveError);
-        }
+        //    // Assert
+        //    Assert.True(viewModel.TradeDetailsValidator.DatesHaveError);
+        //}
 
         // Tests subscription to levels changed event
         //[Gwt("Given a trade details view model has details",
@@ -238,22 +238,22 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
         //    Assert.Equal(150, viewModel.TradeDetailsValidator.MaximumMae);
         //}
 
-        [Gwt("Given a trade details view model has details",
-            "when the close date time is updated to an invalid date",
-            "the trade details validator's has a dates error")]
-        public void T12()
-        {
-            // Arrange
-            var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel());
-            viewModel.Open.DateTime = new DateTime(2020, 11, 11, 12, 00, 00);
-            viewModel.CloseDateTime = new DateTime(2020, 11, 12, 12, 00, 00);
+        //[Gwt("Given a trade details view model has details",
+        //    "when the close date time is updated to an invalid date",
+        //    "the trade details validator's has a dates error")]
+        //public void T12()
+        //{
+        //    // Arrange
+        //    var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel());
+        //    viewModel.Open.DateTime = new DateTime(2020, 11, 11, 12, 00, 00);
+        //    viewModel.CloseDateTime = new DateTime(2020, 11, 12, 12, 00, 00);
 
-            // Act 
-            viewModel.CloseDateTime = new DateTime(2020, 11, 10, 12, 00, 00);
+        //    // Act 
+        //    viewModel.CloseDateTime = new DateTime(2020, 11, 10, 12, 00, 00);
 
-            // Assert
-            Assert.True(viewModel.TradeDetailsValidator.DatesHaveError);
-        }
+        //    // Assert
+        //    Assert.True(viewModel.TradeDetailsValidator.DatesHaveError);
+        //}
 
         [Gwt("Given a trade details view model validator has a maximum MAE",
             "when MAE is updated to a value above the maximum",

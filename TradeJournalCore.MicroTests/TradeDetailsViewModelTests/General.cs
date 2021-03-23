@@ -66,7 +66,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
         }
 
         [Gwt("Given a trade details view model",
-            "when the open date time is read",
+            "when the open date is read",
             "the open date time is today by default")]
         public void T5()
         {
@@ -74,14 +74,14 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
             var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel());
 
             //
-            var actual = viewModel.Open.DateTime;
+            var actual = viewModel.Open.Date;
 
             // Assert
             Assert.Equal(DateTime.Today, actual);
         }
 
         [Gwt("Given a trade details view model",
-            "when the close date time is read",
+            "when the close date is read",
             "the open date time is today plus one minute by default")]
         public void T6()
         {
@@ -89,7 +89,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
             var viewModel = new TradeDetailsViewModel(SubRunner, new GetNameViewModel(), new AddMarketViewModel());
 
             //
-            var actual = viewModel.CloseDateTime;
+            var actual = viewModel.CloseDate;
 
             // Assert
             Assert.Equal(DateTime.Today.AddMinutes(1), actual);

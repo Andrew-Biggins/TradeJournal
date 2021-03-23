@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using Common.Optional;
 using TradeJournalCore.Interfaces;
+using static TradeJournalCore.DateTimeHelper;
 
 namespace TradeJournalCore
 {
@@ -111,6 +112,8 @@ namespace TradeJournalCore
                     "OUTPUT INSERTED.Id VALUES (@marketId, @strategyId, @entry, @stop, @target, @openLevel," +
                     "@openDateTime, @openSize, @closeLevel, @closeDateTime, @closeSize, @high, @low, @entryOrderType)";
 
+                var openDateTime = CombineDateTime(trade.Open.Date, trade.Open.Time);
+
                 using (var cmd = new SqlCommand(sql, connection))
                 {
                     cmd.Parameters.AddWithValue("@marketId", marketId);
@@ -119,7 +122,7 @@ namespace TradeJournalCore
                     cmd.Parameters.AddWithValue("@stop", trade.Levels.Stop);
                     cmd.Parameters.AddWithValue("@target", trade.Levels.Target);
                     cmd.Parameters.AddWithValue("@openLevel", trade.Open.Level);
-                    cmd.Parameters.AddWithValue("@openDateTime", trade.Open.DateTime);
+                    cmd.Parameters.AddWithValue("@openDateTime", openDateTime);
                     cmd.Parameters.AddWithValue("@openSize", trade.Open.Size);
 
                     object closeLevel = DBNull.Value;
@@ -128,7 +131,7 @@ namespace TradeJournalCore
                     trade.Close.IfExistsThen(x =>
                     {
                         closeLevel = x.Level;
-                        closeDateTime = x.DateTime;
+                        closeDateTime = CombineDateTime(x.Date, x.Time);
                         closeSize = x.Size;
                     });
 
@@ -247,7 +250,7 @@ namespace TradeJournalCore
                 var builder = new SqlConnectionStringBuilder
                 {
                     DataSource = "(localdb)\\MSSQLLocalDB",
-                    InitialCatalog = "TradeJournalDatabase",
+                    InitialCatalog = "TradeJournalDatabaseP",
                     IntegratedSecurity = true,
                     PersistSecurityInfo = true
                 };

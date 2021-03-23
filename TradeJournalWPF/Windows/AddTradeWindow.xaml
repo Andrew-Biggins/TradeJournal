@@ -266,9 +266,9 @@
 
 
                     <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
-                        <DatePicker SelectedDate="{Binding Open.DateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        <DatePicker SelectedDate="{Binding Open.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <xctk:TimePicker Width="75" Height="20" Margin="5,2,5,2" Value="{Binding Open.DateTime}"/>
+                        <xctk:TimePicker Width="75" Height="20" Margin="5,2,5,2" Value="{Binding Open.Time}"/>
                         <DockPanel Visibility="{Binding TradeDetailsValidator.DatesHaveError, Converter={converters:BoolToHiddenVisibilityConverter}}">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="2">
                                 <Grid Width="12" Height="12">
@@ -318,9 +318,9 @@
                     </TextBox>
 
                     <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
-                        <DatePicker SelectedDate="{Binding CloseDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        <DatePicker SelectedDate="{Binding CloseDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <xctk:TimePicker Width="75" Height="20" Margin="5,2,5,2" Value="{Binding CloseDateTime}"/>
+                        <xctk:TimePicker Width="75" Height="20" Margin="5,2,5,2" Value="{Binding CloseTime}"/>
 
                         <DockPanel Visibility="{Binding TradeDetailsValidator.DatesHaveError, Converter={converters:BoolToHiddenVisibilityConverter}}">
                             <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Center" Margin="2">

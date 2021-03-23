@@ -245,7 +245,7 @@
 
 
                             <DataGridTextColumn Header="Open Date/Time" x:Name="OpenTimeColumn"
-                                        Binding="{Binding Open.DateTime, StringFormat=dd-MM-yy HH:mm}" Width="1.5*" >
+                                        Binding="{Binding Open, Converter={converters:ExecutionToDateTimeConverter}, StringFormat=dd-MM-yy HH:mm}" Width="1.5*" >
                                 <DataGridTextColumn.HeaderStyle>
                                     <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                         <Setter  Property="BorderThickness" Value="2,0,1,0"/>
@@ -260,7 +260,6 @@
                                                 <Setter Property="BorderThickness" Value="2,0,0,0"/>
                                                 <Setter Property="BorderBrush" Value="Black"/>
                                             </Trigger>
-
                                         </Style.Triggers>
                                     </Style>
                                 </DataGridTextColumn.CellStyle>

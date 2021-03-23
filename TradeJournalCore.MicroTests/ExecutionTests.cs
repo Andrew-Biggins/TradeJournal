@@ -24,7 +24,7 @@ namespace TradeJournalCore.MicroTests
 
         [Gwt("Given an execution",
             "when the date time is read",
-            "the date time is the same as the one given at construction")]
+            "the date is the same as the one given at construction")]
         public void T1()
         {
             // Arrange
@@ -32,7 +32,7 @@ namespace TradeJournalCore.MicroTests
             var execution = new Execution(666, testDateTime, 453);
 
             // Act 
-            var actual = execution.DateTime;
+            var actual = execution.Date;
 
             // Assert
             Assert.Equal(testDateTime, actual);
@@ -56,7 +56,7 @@ namespace TradeJournalCore.MicroTests
 
         [Gwt("Given an execution",
             "when the date time is set",
-            "the property changed changed event is raised for date time")]
+            "the property changed changed event is raised for date")]
         public void T3()
         {
             // Arrange
@@ -65,10 +65,10 @@ namespace TradeJournalCore.MicroTests
             execution.PropertyChanged += catcher.Catch;
 
             // Act 
-            execution.DateTime = DateTime.MinValue;
+            execution.Date = DateTime.MinValue;
 
             // Assert
-            catcher.CaughtPropertyChanged(execution, nameof(execution.DateTime));
+            catcher.CaughtPropertyChanged(execution, nameof(execution.Date));
         }
 
         [Gwt("Given an execution",
@@ -105,8 +105,8 @@ namespace TradeJournalCore.MicroTests
         }
 
         [Gwt("Given an execution has a new date time set",
-            "when the date time is read",
-            "the date time is the new level")]
+            "when the date is read",
+            "the date is the new level")]
         public void T6()
         {
             // Arrange
@@ -114,14 +114,14 @@ namespace TradeJournalCore.MicroTests
             var testDate = DateTime.Today;
 
             // Act 
-            execution.DateTime = testDate;
+            execution.Date = testDate;
 
             // Assert
-            Assert.Equal(testDate, execution.DateTime);
+            Assert.Equal(testDate, execution.Date);
         }
 
         [Gwt("Given an execution",
-            "when the date time is set with the same date time",
+            "when the date time is set with the same date",
             "the property changed changed event is not raised")]
         public void T7()
         {
@@ -131,10 +131,10 @@ namespace TradeJournalCore.MicroTests
             execution.PropertyChanged += catcher.Catch;
 
             // Act 
-            execution.DateTime = DateTime.MaxValue;
+            execution.Date = DateTime.MaxValue;
 
             // Assert
-            catcher.DidNotCatchPropertyChanged(execution, nameof(execution.DateTime));
+            catcher.DidNotCatchPropertyChanged(execution, nameof(execution.Date));
         }
 
         [Gwt("Given an execution",

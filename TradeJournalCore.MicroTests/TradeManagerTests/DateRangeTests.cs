@@ -31,10 +31,10 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             // Arrange
             var tradeManager = new TradeManager { Filters = TestFilters };
             var tradeDetails = TestTradeDetailsViewModel;
-            tradeDetails.Open.DateTime = new DateTime(2021, 1, 2);
+            tradeDetails.Open.Date = new DateTime(2021, 1, 2);
             tradeManager.AddNewTrade(tradeDetails);
             var testDate = new DateTime(2021, 1, 1);
-            tradeDetails.Open.DateTime = testDate;
+            tradeDetails.Open.Date = testDate;
 
             // Act
             tradeManager.AddNewTrade(tradeDetails);
@@ -52,9 +52,9 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var tradeManager = new TradeManager { Filters = TestFilters };
             var tradeDetails = TestTradeDetailsViewModel;
             var testDate = new DateTime(2021, 1, 2);
-            tradeDetails.Open.DateTime = testDate;
+            tradeDetails.Open.Date = testDate;
             tradeManager.AddNewTrade(tradeDetails);
-            tradeDetails.Open.DateTime = new DateTime(2021, 1, 3);
+            tradeDetails.Open.Date= new DateTime(2021, 1, 3);
 
             // Act
             tradeManager.AddNewTrade(tradeDetails);
@@ -71,10 +71,10 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             // Arrange
             var tradeManager = new TradeManager { Filters = TestFilters };
             var tradeDetails = TestTradeDetailsViewModel;
-            tradeDetails.Open.DateTime = new DateTime(2021, 1, 2);
+            tradeDetails.Open.Date = new DateTime(2021, 1, 2);
             tradeManager.AddNewTrade(tradeDetails);
             var testDate = new DateTime(2021, 1, 3);
-            tradeDetails.Open.DateTime = testDate;
+            tradeDetails.Open.Date = testDate;
 
             // Act
             tradeManager.AddNewTrade(tradeDetails);
@@ -92,9 +92,9 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var tradeManager = new TradeManager { Filters = TestFilters };
             var tradeDetails = TestTradeDetailsViewModel;
             var testDate = new DateTime(2021, 1, 2);
-            tradeDetails.Open.DateTime = testDate;
+            tradeDetails.Open.Date = testDate;
             tradeManager.AddNewTrade(tradeDetails);
-            tradeDetails.Open.DateTime = new DateTime(2021, 1, 1);
+            tradeDetails.Open.Date = new DateTime(2021, 1, 1);
 
             // Act
             tradeManager.AddNewTrade(tradeDetails);
@@ -111,7 +111,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             // Arrange
             var tradeManager = new TradeManager { Filters = TestFilters };
             var tradeDetails = TestTradeDetailsViewModel;
-            tradeDetails.Open.DateTime = new DateTime(2021, 1, 2);
+            tradeDetails.Open.Date = new DateTime(2021, 1, 2);
             var catcher = Catcher.Simple;
             tradeManager.DateRangeChanged += catcher.Catch;
             
@@ -130,7 +130,7 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             // Arrange
             var tradeManager = new TradeManager { Filters = TestFilters };
             var tradeDetails = TestTradeDetailsViewModel;
-            tradeDetails.Open.DateTime = new DateTime(2021, 1, 2);
+            tradeDetails.Open.Date = new DateTime(2021, 1, 2);
             tradeManager.AddNewTrade(tradeDetails);
             var catcher = Catcher.Simple;
             tradeManager.DateRangeChanged += catcher.Catch;
@@ -169,11 +169,11 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var tradeManager = new TradeManager { Filters = TestFilters };
             var tradeDetails = TestTradeDetailsViewModel;
             var testDate = new DateTime(2021, 1, 3);
-            tradeDetails.Open.DateTime = testDate;
+            tradeDetails.Open.Date = testDate;
             tradeManager.AddNewTrade(tradeDetails);
-            tradeDetails.Open.DateTime = new DateTime(2021, 1, 2);
+            tradeDetails.Open.Date = new DateTime(2021, 1, 2);
             tradeManager.AddNewTrade(tradeDetails);
-            tradeDetails.Open.DateTime = new DateTime(2021, 1, 4);
+            tradeDetails.Open.Date = new DateTime(2021, 1, 4);
             tradeManager.AddNewTrade(tradeDetails);
             tradeManager.SelectedTrade = tradeManager.Trades[1];
 
@@ -193,11 +193,11 @@ namespace TradeJournalCore.MicroTests.TradeManagerTests
             var tradeManager = new TradeManager { Filters = TestFilters };
             var tradeDetails = TestTradeDetailsViewModel;
             var testDate = new DateTime(2021, 1, 3);
-            tradeDetails.Open.DateTime = testDate;
+            tradeDetails.Open.Date = testDate;
             tradeManager.AddNewTrade(tradeDetails);
-            tradeDetails.Open.DateTime = new DateTime(2021, 1, 4);
+            tradeDetails.Open.Date = new DateTime(2021, 1, 4);
             tradeManager.AddNewTrade(tradeDetails);
-            tradeDetails.Open.DateTime = new DateTime(2021, 1, 2);
+            tradeDetails.Open.Date = new DateTime(2021, 1, 2);
             tradeManager.AddNewTrade(tradeDetails);
             tradeManager.SelectedTrade = tradeManager.Trades[1];
 

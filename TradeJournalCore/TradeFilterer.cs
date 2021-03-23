@@ -67,7 +67,7 @@ namespace TradeJournalCore
             foreach (var trade in trades)
             {
                 newList.AddRange(from day in selectedDays
-                    where day.Name == trade.Open.DateTime.DayOfWeek.ToString()
+                    where day.Name == trade.Open.Date.DayOfWeek.ToString()
                     select trade);
             }
 
@@ -81,7 +81,7 @@ namespace TradeJournalCore
 
             foreach (var trade in trades)
             {
-                if (trade.Open.DateTime.Date >= startDate && trade.Open.DateTime.Date <= endDate)
+                if (trade.Open.Date.Date >= startDate && trade.Open.Date.Date <= endDate)
                 {
                     newList.Add(trade);
                 }
@@ -97,8 +97,8 @@ namespace TradeJournalCore
 
             foreach (var trade in trades)
             {
-                if (trade.Open.DateTime.TimeOfDay >= startTime.TimeOfDay &&
-                    trade.Open.DateTime.TimeOfDay <= endTime.TimeOfDay)
+                if (trade.Open.Time.TimeOfDay >= startTime.TimeOfDay &&
+                    trade.Open.Time.TimeOfDay <= endTime.TimeOfDay)
                 {
                     newList.Add(trade);
                 }

@@ -37,14 +37,18 @@ namespace TradeJournalCore
         {
             var close = GetCloseExecution(tradeDetails);
 
+            var openDateTime = new DateTime(tradeDetails.Open.Date.Year, tradeDetails.Open.Date.Month,
+                tradeDetails.Open.Date.Day, tradeDetails.Open.Time.Hour, tradeDetails.Open.Time.Minute,
+                tradeDetails.Open.Time.Second);
+
             var trade = new Trade(tradeDetails.SelectedMarket, tradeDetails.SelectedStrategy,
                 new Levels(tradeDetails.Levels.Entry, tradeDetails.Levels.Stop, tradeDetails.Levels.Target),
-                new Execution(tradeDetails.Open.Level, tradeDetails.Open.DateTime, tradeDetails.Open.Size), close,
+                new Execution(tradeDetails.Open.Level, openDateTime, tradeDetails.Open.Size), close,
                 (tradeDetails.High, tradeDetails.Low), tradeDetails.SelectedEntryOrderType);
 
             _unfilteredTrades.Add(trade);
             DataConnection.AddTrade(trade);
-            UpdateDateRange(tradeDetails.Open.DateTime);
+            UpdateDateRange(tradeDetails.Open.Date);
             FilterTrades(Filters);
         }
 
@@ -118,14 +122,14 @@ namespace TradeJournalCore
 
             foreach (var trade in _unfilteredTrades)
             {
-                if (trade.Open.DateTime < _startDate)
+                if (trade.Open.Date < _startDate)
                 {
-                    _startDate = trade.Open.DateTime.Date;
+                    _startDate = trade.Open.Date.Date;
                 }
 
-                if (trade.Open.DateTime > _endDate)
+                if (trade.Open.Date > _endDate)
                 {
-                    _endDate = trade.Open.DateTime.Date;
+                    _endDate = trade.Open.Date.Date;
                 }
             }
 
@@ -134,7 +138,11 @@ namespace TradeJournalCore
 
         private static Optional<Execution> GetCloseExecution(TradeDetailsViewModel tradeDetails)
         {
-            var close = new Execution(0, tradeDetails.CloseDateTime, 0);
+            var closeDateTime = new DateTime(tradeDetails.CloseDate.Year, tradeDetails.CloseDate.Month,
+                tradeDetails.CloseDate.Day, tradeDetails.CloseTime.Hour, tradeDetails.CloseTime.Minute,
+                tradeDetails.CloseTime.Second);
+
+            var close = new Execution(0, closeDateTime, 0);
             var fieldIsEmpty = false;
 
             tradeDetails.CloseLevel.IfExistsThen(x => { close.Level = x; })

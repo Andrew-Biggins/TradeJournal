@@ -4,6 +4,7 @@ using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using TradeJournalCore.Interfaces;
+using static TradeJournalCore.DateTimeHelper;
 
 namespace TradeJournalCore.ViewModelAdapters
 {
@@ -63,7 +64,7 @@ namespace TradeJournalCore.ViewModelAdapters
                 {
                     trade.CashResult.IfExistsThen(y =>
                     {
-                        tradeList.Add(new SortableTradeResultDataPoint(x.DateTime, y));
+                        tradeList.Add(new SortableTradeResultDataPoint(CombineDateTime(x.Date, x.Time), y));
                     });
                 });
             }

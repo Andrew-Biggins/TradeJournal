@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.ComponentModel;
-using System.Text;
-using Common.Optional;
-using TradeJournalCore;
 using TradeJournalCore.Interfaces;
+using static TradeJournalCore.DateTimeHelper;
 
 namespace TradeJournalWPF.CustomSorters
 {
@@ -46,12 +42,15 @@ namespace TradeJournalWPF.CustomSorters
                         }
                         case TradeListColumn.CloseTime:
                         {
-                            if (xClose.DateTime.CompareTo(yClose.DateTime) < 0)
+                            var xDateTime = CombineDateTime(xClose.Date, xClose.Time);
+                            var yDateTime = CombineDateTime(yClose.Date, yClose.Time);
+
+                            if (xDateTime.CompareTo(yDateTime) < 0)
                             {
                                 result = -1;
                             }
 
-                            if (xClose.DateTime.CompareTo(yClose.DateTime) > 0)
+                            if (xDateTime.CompareTo(yDateTime) > 0)
                             {
                                 result = 1;
                             }

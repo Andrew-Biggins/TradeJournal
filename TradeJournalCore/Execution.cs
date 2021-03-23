@@ -21,7 +21,7 @@ namespace TradeJournalCore
             }
         }
 
-        public DateTime DateTime
+        public DateTime Time
         {
             get => _dateTime;
             set
@@ -29,7 +29,20 @@ namespace TradeJournalCore
                 if (value != _dateTime)
                 {
                     _dateTime = value;
-                    PropertyChanged.Raise(this, nameof(DateTime));
+                    PropertyChanged.Raise(this, nameof(Time));
+                }
+            }
+        }
+
+        public DateTime Date
+        {
+            get => _dateTime;
+            set
+            {
+                if (value != _dateTime)
+                {
+                    _dateTime = value;
+                    PropertyChanged.Raise(this, nameof(Date));
                 }
             }
         }
@@ -39,7 +52,8 @@ namespace TradeJournalCore
         public Execution(double level, DateTime dateTime, double size)
         {
             Level = level;
-            DateTime = dateTime;
+            Date = dateTime;
+            Time = dateTime;
             Size = size;
         }
 

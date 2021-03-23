@@ -52,8 +52,9 @@ namespace TradeJournalCore.MicroTests
             SelectedMarket = TestMarket,
             SelectedStrategy = TestStrategy,
             CloseLevel = Option.Some(TestsCloseLevel),
-            CloseDateTime = DateTime.MaxValue,
-            Open = { DateTime = DateTime.MaxValue, Level = TestsOpenLevel, Size = TestSize}
+            CloseDate = DateTime.MaxValue,
+            CloseTime = DateTime.MaxValue,
+            Open = { Date = DateTime.MaxValue, Time = DateTime.MaxValue, Level = TestsOpenLevel, Size = TestSize}
         };
 
         private static IReadOnlyList<ISelectable> TestMarkets

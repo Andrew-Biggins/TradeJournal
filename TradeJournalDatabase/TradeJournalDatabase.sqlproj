@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishLocations\TradeJournalDatabase.publish.xml" />
+    <None Include="PublishLocations\TradeJournalDatabaseP.publish.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="TradeJournalDatabase.refactorlog" />
