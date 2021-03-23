@@ -2,6 +2,8 @@
 using System;
 using System.Windows;
 using Common;
+using Common.Optional;
+using Microsoft.Win32;
 using TradeJournalCore.Interfaces;
 using TradeJournalWPF.Windows;
 
@@ -72,6 +74,28 @@ namespace TradeJournalWPF
                 var window = new StatisticsWindow { DataContext = sender};
                 window.ShowDialog();
             });
+        }
+
+        public Optional<string> OpenSaveDialog(object sender, string fileName, string filter)
+        {
+            var result = Option.None<string>();
+
+            _context.Send(_ =>
+            {
+                var saveFileDialog = new SaveFileDialog
+                {
+                    Filter = filter,
+                    Title = "Save Data",
+                    FileName = fileName
+                };
+
+                if (saveFileDialog.ShowDialog() != false)
+                {
+                    result = Option.Some(saveFileDialog.FileName);
+                }
+            });
+
+            return result;
         }
 
         private readonly IContext _context;

@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Common.Optional;
 using TradeJournalCore.Interfaces;
 using static TradeJournalCore.StatisticsGenerator;
+using static TradeJournalCore.DataExporter;
 
 namespace TradeJournalCore.ViewModels
 {
@@ -21,6 +22,8 @@ namespace TradeJournalCore.ViewModels
         public ICommand ClearCommand => new BasicCommand(ClearAllTrades);
 
         public ICommand PopOutGraphCommand => new BasicCommand(PopOutGraph);
+
+        public ICommand ExportDataCommand => new BasicCommand(ExportData);
 
         public ICommand MoreDetailsCommand => new BasicCommand(() => _runner.ShowStatsWindow(Statistics));
 
@@ -176,6 +179,14 @@ namespace TradeJournalCore.ViewModels
                 TradeManager.ClearAll();
                 RiskManager.UpdateRisks();
             }
+        }
+
+        private void ExportData()
+        {
+            var path = _runner.OpenSaveDialog(this, $"JournalTrades-{DateTime.Now:yyyy-MM-dd HH.mm.ss}",
+                "CSV File|*.csv");
+
+            path.IfExistsThen(p => { WriteTradeDataCsv(TradeManager.Trades, p); });
         }
 
         private readonly IRunner _runner;

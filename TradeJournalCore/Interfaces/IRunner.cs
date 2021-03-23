@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Optional;
 
 namespace TradeJournalCore.Interfaces
 {
@@ -16,5 +17,6 @@ namespace TradeJournalCore.Interfaces
 
         void ShowStatsWindow(object sender);
 
+        Optional<string> OpenSaveDialog(object sender, string fileName, string filter);
     }
 }
