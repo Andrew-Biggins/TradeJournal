@@ -50,20 +50,20 @@ namespace TradeJournalCore.ViewModels
 
         public DateTime CloseDate
         {
-            get => _closeDateTime;
+            get => _closeDate;
             set
             {
-                _closeDateTime = value;
+                _closeDate = value;
                 VerifyDateTimes();
             }
         }
 
         public DateTime CloseTime
         {
-            get => _closeDateTime;
+            get => _closeTime;
             set
             {
-                _closeDateTime = value;
+                _closeTime = value;
                 VerifyDateTimes();
             }
         }
@@ -127,6 +127,7 @@ namespace TradeJournalCore.ViewModels
             Levels = trade.Levels;
             Open = trade.Open;
 
+            Open.PropertyChanged += OnOpenChanged;
             Levels.PropertyChanged += OnLevelsChanged;
 
             trade.Close.IfExistsThen(x =>
@@ -339,7 +340,8 @@ namespace TradeJournalCore.ViewModels
         private readonly GetNameViewModel _getNameViewModel;
         private readonly AddMarketViewModel _addMarketViewModel;
 
-        private DateTime _closeDateTime = DateTime.Today.AddMinutes(1);
+        private DateTime _closeDate = DateTime.Today;
+        private DateTime _closeTime = DateTime.Today.AddMinutes(1);
         private Optional<double> _high = Option.None<double>();
         private Optional<double> _low = Option.None<double>();
         private Optional<double> _closeLevel = Option.None<double>();
