@@ -13,7 +13,6 @@ namespace TradeJournalWPF.Converters
             var execution = (Execution) value;
 
             return CombineDateTime(execution.Date, execution.Time);
-
         }
     }
 }

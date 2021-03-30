@@ -79,7 +79,7 @@ namespace TradeJournalCore.ViewModels
             UpdateGraph();
             Statistics = GetStatistics(TradeManager.Trades, AccountStartSize);
 
-            //for (var i = 0; i < 16000; i++)
+            //for (var i = 0; i < 16; i++)
             //{
             //    if (i % 3 == 0)
             //    {

@@ -31,7 +31,8 @@ namespace TradeJournalWPF.Windows
             if (e.Column == CloseTimeColumn || e.Column == CloseLevelColumn || e.Column == ResultInRColumn ||
                 e.Column == TotalPointsColumn || e.Column == ProfitColumn || e.Column == MaeColumn ||
                 e.Column == MfaColumn || e.Column == DrawdownColumn || e.Column == RealisedProfitColumn ||
-                e.Column == UnrealisedProfitPointsColumn || e.Column == UnrealisedProfitCashColumn)
+                e.Column == UnrealisedProfitPointsColumn || e.Column == UnrealisedProfitCashColumn ||
+                e.Column == OpenTimeColumn)
             {
                 e.Handled = true;
 
@@ -42,6 +43,11 @@ namespace TradeJournalWPF.Windows
                 e.Column.SortDirection = direction;
 
                 var lcv = (ListCollectionView)CollectionViewSource.GetDefaultView(JDataGrid.ItemsSource);
+
+                if (e.Column == OpenTimeColumn)
+                {
+                    lcv.CustomSort = new DateTimeSorter(direction);
+                }
 
                 if (e.Column == CloseTimeColumn)
                 {
