@@ -3,6 +3,7 @@ using OxyPlot.Axes;
 using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TradeJournalCore.Interfaces;
 using static TradeJournalCore.DateTimeHelper;
 
@@ -72,6 +73,8 @@ namespace TradeJournalCore.ViewModelAdapters
             tradeList.Sort((x, y) => DateTime.Compare(x.CloseTime, y.CloseTime));
 
             Points.Clear();
+
+            Points.Add(new DataPoint(DateTimeAxis.ToDouble(tradeList[0].CloseTime), balance));
 
             foreach (var trade in tradeList)
             {
