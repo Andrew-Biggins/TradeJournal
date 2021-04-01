@@ -74,7 +74,10 @@ namespace TradeJournalCore.ViewModelAdapters
 
             Points.Clear();
 
-            Points.Add(new DataPoint(DateTimeAxis.ToDouble(tradeList[0].CloseTime), balance));
+            if (tradeList.Count != 0)
+            {
+                Points.Add(new DataPoint(DateTimeAxis.ToDouble(tradeList[0].CloseTime), balance));
+            }
 
             foreach (var trade in tradeList)
             {
