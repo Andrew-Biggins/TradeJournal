@@ -48,29 +48,5 @@ namespace TradeJournalCore.MicroTests.MainWindowViewModelTests
             // Assert
             Assert.Equal(testEntry, addTradeViewModel.Levels.Entry);
         }
-
-        // Tests the old version of the trade is removed from the collection
-        [Gwt("Given a main window view model's trade manager has trade and the trade is edited",
-            "when the edit is confirmed",
-            "the trade manager's trades collection only contains one trade")]
-        public void T2()
-        {
-            // Arrange
-            var runner = SubRunner;
-            var addTradeViewModel = new TradeDetailsViewModel(runner, new GetNameViewModel(), new AddMarketViewModel());
-            var viewModel = new MainWindowViewModel(runner, new TradeManager(), addTradeViewModel, SubPlot);
-            runner.RunForResult(viewModel, Arg.Is<Message>(m => m.Is(Messages.ConfirmClearAllTrades))).Returns(true);
-            viewModel.ClearCommand.Execute(null!);
-            var testTrade = TestOpenTrade;
-            viewModel.TradeManager.Trades.Add(testTrade);
-            viewModel.TradeManager.SelectedTrade = testTrade;
-            viewModel.EditTradeCommand.Execute(null!);
-
-            // Act 
-            addTradeViewModel.TradeAdded.Raise(addTradeViewModel);
-
-            // Assert
-            Assert.Single(viewModel.TradeManager.Trades);
-        }
     }
 }

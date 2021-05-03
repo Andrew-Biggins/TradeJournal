@@ -250,7 +250,7 @@ namespace TradeJournalCore
                 var builder = new SqlConnectionStringBuilder
                 {
                     DataSource = "(localdb)\\MSSQLLocalDB",
-                    InitialCatalog = "TradeJournalDatabaseP",
+                    InitialCatalog = "TradeJournalDatabase",
                     IntegratedSecurity = true,
                     PersistSecurityInfo = true
                 };

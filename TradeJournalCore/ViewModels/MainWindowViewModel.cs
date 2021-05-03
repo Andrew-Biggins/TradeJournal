@@ -2,7 +2,6 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Input;
-using Common.Optional;
 using TradeJournalCore.Interfaces;
 using static TradeJournalCore.StatisticsGenerator;
 using static TradeJournalCore.DataExporter;
@@ -78,26 +77,6 @@ namespace TradeJournalCore.ViewModels
             TradeManager.ReadInTrades();
             UpdateGraph();
             Statistics = GetStatistics(TradeManager.Trades, AccountStartSize);
-
-            //for (var i = 0; i < 16; i++)
-            //{
-            //    if (i % 3 == 0)
-            //    {
-            //        _tradeDetailsViewModel.CloseLevel = Option.Some(5900.00);
-            //        _tradeDetailsViewModel.High = Option.Some(6100.00);
-            //        _tradeDetailsViewModel.Low = Option.Some(5900.00);
-            //    }
-            //    else
-            //    {
-            //        _tradeDetailsViewModel.CloseLevel = Option.Some(6500.00);
-            //        _tradeDetailsViewModel.High = Option.Some(6750.00);
-            //        _tradeDetailsViewModel.Low = Option.Some(5950.00);
-            //    }
-
-            //    TradeManager.AddNewTrade(_tradeDetailsViewModel);
-
-            //    _tradeDetailsViewModel.CloseDate = _tradeDetailsViewModel.CloseDate.AddDays(1);
-            //}
         }
 
         private void OnTradeManagerPropertyChanged(object sender, PropertyChangedEventArgs e)

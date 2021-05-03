@@ -82,7 +82,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
 
         [Gwt("Given a trade details view model",
             "when the close date is read",
-            "the open date time is today plus one minute by default")]
+            "the close date is today by default")]
         public void T6()
         {
             // Arrange
@@ -92,7 +92,7 @@ namespace TradeJournalCore.MicroTests.TradeDetailsViewModelTests
             var actual = viewModel.CloseDate;
 
             // Assert
-            Assert.Equal(DateTime.Today.AddMinutes(1), actual);
+            Assert.Equal(DateTime.Today, actual);
         }
 
         [Gwt("Given a trade details view model",

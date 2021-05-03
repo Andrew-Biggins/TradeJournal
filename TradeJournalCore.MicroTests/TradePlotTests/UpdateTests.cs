@@ -27,34 +27,6 @@ namespace TradeJournalCore.MicroTests.TradePlotTests
             Assert.Empty(plot.Points);
         }
 
-        [Gwt("Given a trade plot",
-            "when closed trades are added",
-            "they are added to the points series in the correct order with the correct data points")]
-        public void T1()
-        {
-            // Arrange
-            var plot = new TradePlot();
-            var dtOne = new DateTime(2021, 1, 3);
-            var testTradeOne = new Trade(TestMarket, TestStrategy, TestLevels, new Execution(100, dtOne, 1), Option.Some(new Execution(150, dtOne, 1)), TestEmptyExcursions, EntryOrderType.Limit);
-
-            var dtTwo = new DateTime(2021, 1, 1);
-            var testTradeTwo = new Trade(TestMarket, TestStrategy, TestLevels, new Execution(100, dtTwo, 1), Option.Some(new Execution(110, dtTwo, 1)), TestEmptyExcursions, EntryOrderType.Limit);
-
-            var dtThree = new DateTime(2021, 1, 2);
-            var testTradeThree = new Trade(TestMarket, TestStrategy, TestLevels, new Execution(100, dtThree, 1), Option.Some(new Execution(120, dtThree, 1)), TestEmptyExcursions, EntryOrderType.Limit);
-
-            // Act 
-            plot.UpdateData(1, new List<ITrade> { testTradeOne, testTradeTwo, testTradeThree });
-
-            // Assert
-            Assert.Equal(11, plot.Points[0].Y);
-            Assert.Equal(DateTimeAxis.ToDouble(dtTwo), plot.Points[0].X);
-            Assert.Equal(31, plot.Points[1].Y);
-            Assert.Equal(DateTimeAxis.ToDouble(dtThree), plot.Points[1].X);
-            Assert.Equal(81, plot.Points[2].Y);
-            Assert.Equal(DateTimeAxis.ToDouble(dtOne), plot.Points[2].X);
-        }
-
         // Tests the points from the previous update are cleared 
         [Gwt("Given a trade plot has points",
             "when updated with no trades",

@@ -9,38 +9,6 @@ namespace TradeJournalCore.MicroTests.TradeFiltererViewModelTests
     public sealed class SelectableTests
     {
         [Gwt("Given a trade filterer view model",
-            "when the markets are read",
-            "the markets are the default markets")]
-        public void T0()
-        {
-            // Arrange
-            var defaultMarkets = SelectableFactory.GetDefaultMarkets();
-            var viewModel = new TradeFiltererViewModel();
-
-            // Act
-            var actual = viewModel.Markets;
-
-            // Assert
-            Assert.True(AreSelectableCollectionsEqual(defaultMarkets, actual));
-        }
-
-        [Gwt("Given a trade filterer view model",
-            "when the strategies are read",
-            "the strategies are the default strategies")]
-        public void T1()
-        {
-            // Arrange
-            var defaultStrategies = SelectableFactory.GetDefaultStrategies();
-            var viewModel = new TradeFiltererViewModel();
-
-            // Act
-            var actual = viewModel.Strategies;
-
-            // Assert
-            Assert.True(AreSelectableCollectionsEqual(defaultStrategies, actual));
-        }
-
-        [Gwt("Given a trade filterer view model",
             "when the asset types are read",
             "the asset types are correct")]
         public void T2()
