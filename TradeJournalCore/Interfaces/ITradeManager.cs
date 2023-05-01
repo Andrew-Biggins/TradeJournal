@@ -26,6 +26,8 @@ namespace TradeJournalCore.Interfaces
 
         void ReadInTrades();
 
+        void ReadInCsvTrades();
+
         void ClearAll();
     }
 }

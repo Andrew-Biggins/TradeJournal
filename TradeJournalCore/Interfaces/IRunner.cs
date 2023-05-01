@@ -17,6 +17,8 @@ namespace TradeJournalCore.Interfaces
 
         void ShowStatsWindow(object sender);
 
+        void ShowUploadTradesWindow(object sender);
+
         Optional<string> OpenSaveDialog(object sender, string fileName, string filter);
     }
 }

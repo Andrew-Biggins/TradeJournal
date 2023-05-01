@@ -28,9 +28,14 @@ namespace TradeJournalCore
 
         public void ReadInTrades()
         {
-            _unfilteredTrades = DataConnection.GetAllTrades();
+            //_unfilteredTrades = DataConnection.GetAllTrades();
             UpdateDateRange();
             FilterTrades(Filters);
+        }
+
+        public void ReadInCsvTrades()
+        {
+            throw new NotImplementedException();
         }
 
         public void AddNewTrade(TradeDetailsViewModel tradeDetails)

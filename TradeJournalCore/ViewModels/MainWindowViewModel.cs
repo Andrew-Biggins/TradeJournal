@@ -14,6 +14,14 @@ namespace TradeJournalCore.ViewModels
 
         public ICommand AddNewTradeCommand => new BasicCommand(AddTrade);
 
+        public ICommand StartTradeUploadCommand => new BasicCommand(UploadTrades);
+
+        private void UploadTrades()
+        {
+        }
+
+        public ICommand UploadTradesCommand => new BasicCommand(()=>_runner.ShowUploadTradesWindow(this));
+
         public ICommand RemoveTradeCommand => new BasicCommand(RemoveTrade);
 
         public ICommand EditTradeCommand => new BasicCommand(EditTrade);

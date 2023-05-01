@@ -90,8 +90,15 @@
                                 Height="60" Width="67" Command="{Binding AddNewTradeCommand}">
                                 <TextBlock Foreground="Black" TextAlignment="Center" TextWrapping="Wrap">Add New Trade</TextBlock>
                             </Button>
+
                         </Border>
-                    </StackPanel>
+                        <Border BorderBrush="White" BorderThickness="1" Margin="0,5,0,5" VerticalAlignment="Stretch">
+                            <Button HorizontalAlignment="Center" Margin="5,5" VerticalAlignment="Top"
+                                    Height="60" Width="67" Command="{Binding UploadTradesCommand}">
+                            <TextBlock Foreground="Black" TextAlignment="Center" TextWrapping="Wrap">Upload Trades</TextBlock>
+                            </Button>
+                        </Border>
+                </StackPanel>
 
                     <Grid Grid.Row="1" HorizontalAlignment="Stretch" Margin="0,0" x:Name="Grid">
                         <Grid.RowDefinitions>

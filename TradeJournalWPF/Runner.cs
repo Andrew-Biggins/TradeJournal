@@ -76,6 +76,15 @@ namespace TradeJournalWPF
             });
         }
 
+        public void ShowUploadTradesWindow(object sender)
+        {
+            _context.Send(_ =>
+            {
+                var window = new UploadTradesWindow { DataContext = sender };
+                window.ShowDialog();
+            });
+        }
+
         public Optional<string> OpenSaveDialog(object sender, string fileName, string filter)
         {
             var result = Option.None<string>();
